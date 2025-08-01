@@ -79,7 +79,7 @@ namespace DynamicMeshCutter
         [Tooltip("Automatically destroy the original object that is cut, when cut")]
         public bool DestroyTargets = true;
         [Tooltip("Use multiple threads to cut. Drastically reduces lag. Recommend ON")]
-        public bool UseAsync = true;
+        public bool UseAsync = false;
         [Tooltip("Cut objects whose vertices are LESS than this will NOT be created")]
         public int VertexCreationThreshold = 0;
         public Material DefaultMaterial;
