@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: ed71a67a7e4471c44a8829a7ae7606af
+  - enabled: 1
     path: Assets/DifferentAssets/DynamicMeshCutter/ExampleScene/ExampleScene.unity
     guid: 9aa991a08b01aca4d8ba028fa0513d59
   m_configObjects: {}

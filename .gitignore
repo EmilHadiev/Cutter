@@ -11,6 +11,8 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 PluginYourGames/
+Plugins/
+DifferentAssets/
 *.log
 
 # MemoryCaptures can get excessive in size.
