@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 namespace DynamicMeshCutter
 {
     public class PlaneBehaviour : CutterBehaviour

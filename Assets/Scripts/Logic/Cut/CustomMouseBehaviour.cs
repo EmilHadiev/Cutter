@@ -1,11 +1,11 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace DynamicMeshCutter
 {
-    public class CustomMouseBehaviour : CutterBehaviour
+    public class CustomMouseBehaviour : CutterBehaviour, ICutMouseBehaviour
     {
         private LineRenderer _lineRenderer;
         private Vector3 _from;
@@ -13,7 +13,9 @@ namespace DynamicMeshCutter
         private bool _isDragging;
         private Camera _mainCamera;
         private ICutPartContainer _cutPartContainer;
-        private static readonly Plane[] _tempPlane = new Plane[1];
+
+        public event Action CutStarted;
+        public event Action CutEnded;
 
         protected override void Awake()
         {
@@ -29,6 +31,7 @@ namespace DynamicMeshCutter
             if (Input.GetMouseButtonDown(0))
             {
                 _isDragging = true;
+                CutStarted?.Invoke();
                 _from = GetMouseWorldPosition();
             }
 
@@ -46,6 +49,7 @@ namespace DynamicMeshCutter
             {
                 Cut();
                 _isDragging = false;
+                CutEnded?.Invoke();
             }
         }
 
@@ -61,10 +65,11 @@ namespace DynamicMeshCutter
             mousePos.z = _mainCamera.nearClipPlane + 0.05f;
             return _mainCamera.ScreenToWorldPoint(mousePos);
         }
+
         private void Cut()
         {
-            _tempPlane[0] = new Plane(_from, _to, _mainCamera.transform.position);
-            Vector3 planeNormal = _tempPlane[0].normal;
+            Plane plane = new Plane(_from, _to, _mainCamera.transform.position);
+            Vector3 planeNormal = plane.normal;
 
             // Оптимизация: кэшируем корневые объекты
             GameObject[] roots = SceneManager.GetActiveScene().GetRootGameObjects();
@@ -74,7 +79,7 @@ namespace DynamicMeshCutter
             {
                 GameObject root = roots[i];
 
-                if (root.activeInHierarchy == false) 
+                if (root.activeInHierarchy == false)
                     continue;
 
                 // Используем GetComponentsInChildren с параметром для избежания аллокаций
@@ -85,6 +90,7 @@ namespace DynamicMeshCutter
                 }
             }
         }
+
         private void OnCreated(Info info, MeshCreationData cData)
         {
             foreach (var createdObject in cData.CreatedObjects)

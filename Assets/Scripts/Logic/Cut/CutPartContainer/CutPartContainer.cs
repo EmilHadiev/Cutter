@@ -6,12 +6,15 @@ using UnityEngine;
 
 public class CutPartContainer : ICutPartContainer, IDisposable
 {
-    private const int HideDelay = 2000; // 2 секунда
-    private const int DestroyObjectInterval = 3000; // Проверка каждые 3 сек
-    private const int MaxInactiveObjects = 20; // Максимум скрытых объектов
+    private const int HideDelay = 2500;
+    private const int DestroyObjectInterval = 3000;
+    private const int MaxInactiveObjects = 20;
 
     private readonly Queue<GameObject> _inactiveObjects = new Queue<GameObject>();
+
     private CancellationTokenSource _cts;
+
+    public event Action<GameObject> Added;
 
     public CutPartContainer()
     {
@@ -24,6 +27,7 @@ public class CutPartContainer : ICutPartContainer, IDisposable
         if (cutPart == null || !cutPart.activeSelf)
             return;
 
+        Added?.Invoke(cutPart);
         ProcessCutPart(cutPart).Forget();
     }
 

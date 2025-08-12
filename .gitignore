@@ -13,6 +13,8 @@
 PluginYourGames/
 Plugins/
 DifferentAssets/
+TextMesh Pro/
+AddressableAssetsData/
 *.log
 
 # MemoryCaptures can get excessive in size.
