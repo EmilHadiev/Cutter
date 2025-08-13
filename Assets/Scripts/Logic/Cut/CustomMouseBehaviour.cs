@@ -114,5 +114,11 @@ namespace DynamicMeshCutter
                 _lineRenderer.SetPosition(1, _to);
             }
         }
+
+        public void SetLineColor(Color color)
+        {
+            _lineRenderer.endColor = color;
+            _lineRenderer.startColor = new Color(1.0f - color.r, 1.0f - color.g, 1.0f - color.b);
+        }
     }
 }

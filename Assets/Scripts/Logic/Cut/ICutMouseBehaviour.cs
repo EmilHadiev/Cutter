@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace DynamicMeshCutter
 {
@@ -6,5 +7,7 @@ namespace DynamicMeshCutter
     {
         event Action CutEnded;
         event Action CutStarted;
+
+        public void SetLineColor(Color color);
     }
 }

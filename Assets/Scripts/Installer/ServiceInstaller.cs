@@ -1,11 +1,18 @@
+using System;
 using Zenject;
 
 public class ServiceInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
+        BindSceneLoader();
         BindAddressablesLoader();
         BindFactory();
+    }
+
+    private void BindSceneLoader()
+    {
+        Container.BindInterfacesTo<SceneLoader>().AsSingle();
     }
 
     private void BindFactory()

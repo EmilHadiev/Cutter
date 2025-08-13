@@ -27,6 +27,7 @@ public class CutView : IInitializable, IDisposable, ITickable
 
     public void Initialize()
     {
+        _mouseBehavior.SetLineColor(Color.red);
         _mouseBehavior.CutStarted += OnCutStarted;
         _mouseBehavior.CutEnded += OnCutEnded;
         CreateParticle().Forget();

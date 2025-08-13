@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Zenject;
 
 public class Factory : IFactory
@@ -20,11 +21,17 @@ public class Factory : IFactory
         return _instantiator.InstantiatePrefab(prefab, position, rotation, parent);
     }
 
+    public async UniTask<GameObject> Create(string assetName)
+    {
+        GameObject prefab = await _addressablesLoaderService.LoadAssetAsync(assetName);
+        return _instantiator.InstantiatePrefab(prefab);
+    }
+
     /// <summary>
     /// Release the asset
     /// </summary>
     public void ReleaseAsset(string assetName)
     {
         _addressablesLoaderService.Release(assetName);
-    }
+    } 
 }
