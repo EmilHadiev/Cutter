@@ -4,11 +4,17 @@ public class ServiceInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        BindAddresablesLoader();
+        BindAddressablesLoader();
+        BindFactory();
     }
 
-    private void BindAddresablesLoader()
+    private void BindFactory()
     {
-        Container.BindInterfacesTo<AddressablesLoaderService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<Factory>().AsSingle();
+    }
+
+    private void BindAddressablesLoader()
+    {
+        Container.BindInterfacesTo<AddressablesLoader>().AsSingle();
     }
 }

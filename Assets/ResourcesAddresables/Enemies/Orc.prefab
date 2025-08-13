@@ -1900,7 +1900,6 @@ GameObject:
   - component: {fileID: 7495946219571473363}
   - component: {fileID: 4747590623637340765}
   - component: {fileID: 7755906186824834753}
-  - component: {fileID: 5720556345366441972}
   - component: {fileID: 931651590646343589}
   - component: {fileID: 6209811125319379119}
   m_Layer: 6
@@ -1919,7 +1918,7 @@ Transform:
   m_GameObject: {fileID: 7392634817444335709}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1961,20 +1960,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterCut: {fileID: 6209811125319379119}
---- !u!114 &5720556345366441972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7392634817444335709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c8cb1435a306d04fbe9272ae00e288c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _target: {fileID: 0}
-  _speed: 1
 --- !u!135 &931651590646343589
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -95,7 +95,6 @@ namespace DynamicMeshCutter
         {
             foreach (var createdObject in cData.CreatedObjects)
             {
-                Debug.Log($"Created new part: {createdObject.name}");
                 _cutPartContainer.Add(createdObject);
             }
 

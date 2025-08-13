@@ -6,13 +6,14 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class AddressablesLoaderService : IAddressablesLoaderService, IDisposable 
+public class AddressablesLoader : IAddressablesLoader, IDisposable 
 {
     private readonly CancellationTokenSource _cts;
     private readonly ConcurrentDictionary<string, AsyncOperationHandle<GameObject>> _assets;
 
-    public AddressablesLoaderService()
+    public AddressablesLoader()
     {
+        Addressables.InitializeAsync().ToUniTask().Forget();
         _cts = new CancellationTokenSource();
         _assets = new ConcurrentDictionary<string, AsyncOperationHandle<GameObject>>();
     }
@@ -32,7 +33,10 @@ public class AddressablesLoaderService : IAddressablesLoaderService, IDisposable
                 throw new ArgumentException(nameof(assetPath));
 
             if (_assets.TryGetValue(assetPath, out var existingHandle))
+            {
+                Debug.Log("¬Œ«¬–¿Ÿ¿ﬁ ”∆≈ »Ã≈ﬁŸ»…—ﬂ ¿——≈“!");
                 return await existingHandle.ToUniTask(cancellationToken: _cts.Token);
+            }
 
             var handle = Addressables.LoadAssetAsync<GameObject>(assetPath);
             _assets.TryAdd(assetPath, handle);
