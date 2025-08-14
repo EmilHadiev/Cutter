@@ -12,6 +12,7 @@ public class CharacterCutLogic : IInitializable, IDisposable, ITickable
     private readonly Camera _camera;
     private readonly RaycastHit[] _targets;
     private readonly LayerMask _enemyMask;
+    private readonly Action[] _deactivateTargets;
 
     private int _countTargets;
 
@@ -22,6 +23,7 @@ public class CharacterCutLogic : IInitializable, IDisposable, ITickable
         _mouseBehaviour = mouseBehaviour;
         _camera = Camera.main;
         _targets = new RaycastHit[MaxTargets];
+        _deactivateTargets = new Action[MaxTargets];
         _enemyMask = LayerMask.GetMask(CustomMasks.Enemy);
     }
 
@@ -54,6 +56,7 @@ public class CharacterCutLogic : IInitializable, IDisposable, ITickable
     private void StopCutting()
     {
         _isWorking = false;
+        DeactivateTargets();
         ClearTargets();
     }
 
@@ -64,7 +67,10 @@ public class CharacterCutLogic : IInitializable, IDisposable, ITickable
         for (int i = 0; i < _countTargets; i++)
         {            
             if (_targets[i].collider.TryGetComponent(out IEnemy enemy))
+            {
                 enemy.CharacterCut.ActivateCut();
+                _deactivateTargets[i] = enemy.CharacterCut.DeactivateCut;
+            }
 
             Debug.Log(_targets[i].collider.name);
         }
@@ -76,9 +82,17 @@ public class CharacterCutLogic : IInitializable, IDisposable, ITickable
         return Physics.RaycastNonAlloc(ray, _targets, AttackDistance, _enemyMask);
     }
 
+    private void DeactivateTargets()
+    {
+        foreach (var deactivator in _deactivateTargets)
+            deactivator?.Invoke();
+    }
+
     private void ClearTargets()
     {
         Array.Clear(_targets, 0, _targets.Length);
+        Array.Clear(_deactivateTargets, 0, _deactivateTargets.Length);
+
         _countTargets = 0;
     }
 }

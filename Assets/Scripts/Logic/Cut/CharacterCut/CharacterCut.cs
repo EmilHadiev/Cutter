@@ -1,16 +1,43 @@
 using DynamicMeshCutter;
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class CharacterCut : MonoBehaviour, ICharacterCut
 {
     [SerializeField] private MeshTarget _target;
 
-    private void OnValidate() => _target ??= GetComponentInChildren<MeshTarget>();
+    private IHealth _health;
+    private bool _isActivated;
 
-    private void Awake() => DeactivateCut();
+    private void OnValidate()
+    {
+        _target ??= GetComponentInChildren<MeshTarget>();
+    }
 
-    public void ActivateCut() => _target.enabled = true;
+    private void Awake()
+    {
+        _health = GetComponent<Health>();
+        DeactivateCut();
+    }
 
-    public void DeactivateCut() => _target.enabled = false;
+    public void ActivateCut()
+    {
+        _target.enabled = true;
+        _isActivated = true;
+    }
+
+    public void DeactivateCut()
+    {
+        _target.enabled = false;
+        TryToKill();
+    }
+
+    private void TryToKill()
+    {
+        if (_isActivated)
+        {
+            _health.Kill();
+            _isActivated = false;
+        }
+    }
 }

@@ -23,14 +23,14 @@ public class CutView : IInitializable, IDisposable, ITickable
         _factoryService = factory;
         _mouseBehavior = cutMouseBehaviour;
         _camera = Camera.main;
+        CreateParticles().Forget();
     }
 
     public void Initialize()
     {
         _mouseBehavior.SetLineColor(Color.red);
         _mouseBehavior.CutStarted += OnCutStarted;
-        _mouseBehavior.CutEnded += OnCutEnded;
-        CreateParticle().Forget();
+        _mouseBehavior.CutEnded += OnCutEnded; 
     }
 
     public void Dispose()
@@ -72,19 +72,24 @@ public class CutView : IInitializable, IDisposable, ITickable
         WorkToggle(false);
     }
 
-    private async UniTaskVoid CreateParticle()
-    {
-        _startParticle = await _factoryService.Create(AssetProvider.FireParticle);
-        _endParticle = await _factoryService.Create(AssetProvider.FireParticle);
-        _startParticle.SetActive(false);
-        _endParticle.SetActive(false);
-        Debug.Log(_startParticle.gameObject.name + " !");
-    }
-
     private void WorkToggle(bool isOn)
     {
         _isWorking = isOn;
         _endParticle.gameObject.SetActive(isOn);
         _startParticle.gameObject.SetActive(isOn);
+    }
+
+    private async UniTaskVoid CreateParticles()
+    {
+        _startParticle = await CreateParticle(AssetProvider.FireParticle);
+        _endParticle = await CreateParticle(AssetProvider.FireParticle);
+    }
+
+    private async UniTask<GameObject> CreateParticle( string assetName)
+    {
+        var particle = await _factoryService.Create(AssetProvider.FireParticle);
+        particle.gameObject.SetActive(false);
+
+        return particle;
     }
 }

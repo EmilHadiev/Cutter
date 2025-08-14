@@ -1590,9 +1590,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8343381690312181364}
   - component: {fileID: 8343381690304473480}
-  - component: {fileID: 6718822904834181483}
   - component: {fileID: 4947776037140284468}
   - component: {fileID: 5481511288402745473}
+  - component: {fileID: 8500572282663510595}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Untagged
@@ -1638,27 +1638,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!135 &6718822904834181483
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8343381690311891540}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &4947776037140284468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1685,6 +1664,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterCut: {fileID: 4947776037140284468}
+--- !u!136 &8500572282663510595
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8343381690311891540}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.75
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!1 &8343381690311891542
 GameObject:
   m_ObjectHideFlags: 0
