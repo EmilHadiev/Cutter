@@ -30,9 +30,7 @@ namespace DynamicMeshCutter
 
             if (Input.GetMouseButtonDown(0))
             {
-                _isDragging = true;
-                CutStarted?.Invoke();
-                _from = GetMouseWorldPosition();
+                StartCut();
             }
 
             if (_isDragging)
@@ -47,10 +45,22 @@ namespace DynamicMeshCutter
 
             if (Input.GetMouseButtonUp(0) && _isDragging)
             {
-                Cut();
-                _isDragging = false;
-                CutEnded?.Invoke();
+                EndCut();
             }
+        }
+
+        private void StartCut()
+        {
+            _isDragging = true;
+            CutStarted?.Invoke();
+            _from = GetMouseWorldPosition();
+        }
+
+        private void EndCut()
+        {
+            Cut();
+            _isDragging = false;
+            CutEnded?.Invoke();
         }
 
         [Inject]
@@ -84,6 +94,7 @@ namespace DynamicMeshCutter
 
                 // »спользуем GetComponentsInChildren с параметром дл€ избежани€ аллокаций
                 MeshTarget[] targets = root.GetComponentsInChildren<MeshTarget>(false);
+
                 for (int j = 0; j < targets.Length; j++)
                 {
                     Cut(targets[j], _to, planeNormal, null, OnCreated);

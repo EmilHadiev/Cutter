@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class CharacterCutLogic : IInitializable, IDisposable, ITickable
+public class CharacterCutLogic : IInitializable, IDisposable, ITickable, ICharacterCutLogic
 {
     private const int MaxTargets = 1;
     private const int AttackDistance = 100;
@@ -15,8 +15,11 @@ public class CharacterCutLogic : IInitializable, IDisposable, ITickable
     private readonly Action[] _deactivateTargets;
 
     private int _countTargets;
+    private int _cutTarget;
 
     private bool _isWorking = false;
+
+    public event Action<int> CutTargets;
 
     public CharacterCutLogic(ICutMouseBehaviour mouseBehaviour)
     {
@@ -55,6 +58,9 @@ public class CharacterCutLogic : IInitializable, IDisposable, ITickable
 
     private void StopCutting()
     {
+        CutTargets?.Invoke(_cutTarget);
+        _cutTarget = 0;
+
         _isWorking = false;
         DeactivateTargets();
         ClearTargets();
@@ -63,13 +69,14 @@ public class CharacterCutLogic : IInitializable, IDisposable, ITickable
     private void SetTargets()
     {
         _countTargets = GetCountTargets();
-        
+
         for (int i = 0; i < _countTargets; i++)
-        {            
+        {
             if (_targets[i].collider.TryGetComponent(out IEnemy enemy))
             {
                 enemy.CharacterCut.ActivateCut();
                 _deactivateTargets[i] = enemy.CharacterCut.DeactivateCut;
+                ++_cutTarget;
             }
 
             Debug.Log(_targets[i].collider.name);
