@@ -6,16 +6,16 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class AddressablesLoader : IAddressablesLoader, IDisposable 
+public class AddressablesLoader : IAddressablesLoader, IDisposable
 {
     private readonly CancellationTokenSource _cts;
-    private readonly ConcurrentDictionary<string, AsyncOperationHandle<GameObject>> _assets;
+    private readonly ConcurrentDictionary<string, AsyncOperationHandle<UnityEngine.Object>> _assets;
 
     public AddressablesLoader()
     {
         Addressables.InitializeAsync().ToUniTask().Forget();
         _cts = new CancellationTokenSource();
-        _assets = new ConcurrentDictionary<string, AsyncOperationHandle<GameObject>>();
+        _assets = new ConcurrentDictionary<string, AsyncOperationHandle<UnityEngine.Object>>();
     }
 
     public void Dispose()
@@ -25,23 +25,23 @@ public class AddressablesLoader : IAddressablesLoader, IDisposable
         _cts?.Dispose();
     }
 
-    public async UniTask<GameObject> LoadAssetAsync(string assetPath)
+    public async UniTask<T> LoadAssetAsync<T>(string assetPath) where T : UnityEngine.Object
     {
+        if (string.IsNullOrEmpty(assetPath))
+            throw new ArgumentException(nameof(assetPath));
+
         try
         {
-            if (string.IsNullOrEmpty(assetPath))
-                throw new ArgumentException(nameof(assetPath));
-
             if (_assets.TryGetValue(assetPath, out var existingHandle))
             {
                 Debug.Log("¬Œ«¬–¿Ÿ¿ﬁ ”∆≈ »Ã≈ﬁŸ»…—ﬂ ¿——≈“!");
-                return await existingHandle.ToUniTask(cancellationToken: _cts.Token);
+                return await existingHandle.ToUniTask(cancellationToken: _cts.Token) as T;
             }
 
-            var handle = Addressables.LoadAssetAsync<GameObject>(assetPath);
+            var handle = Addressables.LoadAssetAsync<UnityEngine.Object>(assetPath);
             _assets.TryAdd(assetPath, handle);
 
-            return await handle.ToUniTask(cancellationToken: _cts.Token);
+            return await handle.ToUniTask(cancellationToken: _cts.Token) as T;
         }
         catch (OperationCanceledException)
         {
@@ -64,6 +64,7 @@ public class AddressablesLoader : IAddressablesLoader, IDisposable
         if (_assets.TryRemove(assetPath, out var handle))
         {
             Addressables.Release(handle);
+
         }
         else
         {

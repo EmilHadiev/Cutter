@@ -13,5 +13,10 @@ public class Spawner : MonoBehaviour
         await UniTask.NextFrame();
         var skeleton = await _factoryService.Create(AssetProvider.Skeleton);
         await UniTask.NextFrame();
+        var orc2 = await _factoryService.Create(AssetProvider.Orc);
+        await UniTask.NextFrame();
+        var orc3 = await _factoryService.Create(AssetProvider.Orc);
+        await UniTask.NextFrame();
+        _factoryService.ReleaseAsset(AssetProvider.Orc);
     }
 }

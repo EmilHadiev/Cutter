@@ -17,13 +17,13 @@ public class Factory : IFactory
 
     public async UniTask<GameObject> Create(string assetName, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
     {
-        GameObject prefab = await _addressablesLoaderService.LoadAssetAsync(assetName);
+        var prefab = await _addressablesLoaderService.LoadAssetAsync<GameObject>(assetName);
         return _instantiator.InstantiatePrefab(prefab, position, rotation, parent);
     }
 
     public async UniTask<GameObject> Create(string assetName)
     {
-        GameObject prefab = await _addressablesLoaderService.LoadAssetAsync(assetName);
+        var prefab = await _addressablesLoaderService.LoadAssetAsync<GameObject>(assetName);
         return _instantiator.InstantiatePrefab(prefab);
     }
 

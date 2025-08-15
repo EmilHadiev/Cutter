@@ -24,9 +24,9 @@ public class CutImpact : IInitializable, IDisposable
 
     private void TryPlaySound(int countTargets)
     {
-        if (countTargets <= 0)
-            return;
-
-        _soundContainer.Play(SoundsName.AttackFleshImpact);
+        if (countTargets > 0)
+            _soundContainer.Play(SoundsName.AttackFleshImpact);
+        else
+            _soundContainer.Play(SoundsName.MissImpact);
     }
 }

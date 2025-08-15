@@ -1,9 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 public interface IAddressablesLoader
 {
-    UniTask<GameObject> LoadAssetAsync(string assetPath);
+    UniTask<T> LoadAssetAsync<T>(string assetPath) where T : UnityEngine.Object;
     void Release(string assetPath);
     void ReleaseAll();
 }
