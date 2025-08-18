@@ -5,7 +5,12 @@
     #endregion
 
     #region Enemies
-    public const string Orc = "Orc";
-    public const string Skeleton = "Skeleton";
+    public const string Orc = "Enemies/Orc.prefab";
+    public const string Skeleton = "Enemies/Skeleton.prefab";
+    #endregion
+
+    #region SO
+    public const string EnemiesDataFolder = "EnemiesData";
+    public const string SkeletonData = "EnemiesData/Skeleton.asset";
     #endregion
 }
