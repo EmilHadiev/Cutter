@@ -14,6 +14,12 @@ public class CutInstaller : MonoInstaller
         BindCustomMouseBehavior();
         BindCutInstaller();
         BindCutPartExplosionInstaller();
+        BindMousePosition();
+    }
+
+    private void BindMousePosition()
+    {
+        Container.BindInterfacesTo<MousePosition>().AsSingle();
     }
 
     private void BindCutImpact()

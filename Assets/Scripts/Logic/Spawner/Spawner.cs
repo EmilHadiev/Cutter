@@ -27,42 +27,18 @@ public class Spawner : MonoBehaviour
     {
         try
         {
-            await LoadAssetsByLabel("Enemy");
+            var enemies = await _factory.CreateByLabel(AssetProvider.EnemyLabel);
+            Debug.Log(enemies.Count);
 
             await UniTask.NextFrame();
-            var skeleton = await _factory.Create(AssetProvider.Skeleton);
+            var skeleton = await _factory.Create(AssetProvider.SkeletonPrefab);
             await UniTask.NextFrame();
-            var orc2 = await _factory.Create(AssetProvider.Orc);
+            var orc2 = await _factory.Create(AssetProvider.OrcPrefab);
             await UniTask.NextFrame();
         }
         catch (Exception ex)
         {
             Debug.LogError(ex.Message);
         }        
-    }
-
-    private async UniTask LoadAssetsByLabel(string label)
-    {
-        await Addressables.LoadAssetsAsync<GameObject>(
-            label,
-            loadedAsset =>
-            {
-                // Этот коллбэк вызывается для каждого загруженного ассета
-                Debug.Log($"Загружен ассет: {loadedAsset.name}");
-                loadedAssets.Add(loadedAsset);
-
-                // Например, создаём объект на сцене
-                Instantiate(loadedAsset, transform);
-            }
-        ).ToUniTask();
-    }
-
-    private void OnDestroy()
-    {
-        // Освобождаем ресурсы (если нужно)
-        foreach (var asset in loadedAssets)
-        {
-            Addressables.Release(asset);
-        }
     }
 }

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -29,5 +30,18 @@ public class Factory : IFactory
     public void ReleaseAsset(string assetName)
     {
         _addressablesLoaderService.Release(assetName);
+    }
+
+    public async UniTask<IList<GameObject>> CreateByLabel(string label)
+    {
+        IList<GameObject> prefabs = await _addressablesLoaderService.LoadAssetsByLabelAsync<GameObject>(label);
+        IList<GameObject> results = new List<GameObject>(prefabs.Count);
+        
+        foreach (var prefab in prefabs)
+        {
+            results.Add(_instantiator.InstantiatePrefab(prefab));
+        }
+
+        return results;
     }
 }

@@ -6,23 +6,22 @@ using Zenject;
 
 public class CutView : IInitializable, IDisposable, ITickable
 {
-    private const int DistanceToCamera = 10;
     private const int ParticleSpeed = 15;
 
     private readonly ICutMouseBehaviour _mouseBehavior;
     private readonly IFactory _factoryService;
-    private readonly Camera _camera;
+    private readonly IMousePosition _mousePosition;
 
     private GameObject _startParticle;
     private GameObject _endParticle;
 
     private bool _isWorking = false;
 
-    public CutView(IFactory factory, ICutMouseBehaviour cutMouseBehaviour)
+    public CutView(IFactory factory, ICutMouseBehaviour cutMouseBehaviour, IMousePosition mousePosition)
     {
         _factoryService = factory;
         _mouseBehavior = cutMouseBehaviour;
-        _camera = Camera.main;
+        _mousePosition = mousePosition;
         CreateParticles().Forget();
     }
 
@@ -30,7 +29,7 @@ public class CutView : IInitializable, IDisposable, ITickable
     {
         _mouseBehavior.SetLineColor(Color.red);
         _mouseBehavior.CutStarted += OnCutStarted;
-        _mouseBehavior.CutEnded += OnCutEnded; 
+        _mouseBehavior.CutEnded += OnCutEnded;
     }
 
     public void Dispose()
@@ -44,27 +43,18 @@ public class CutView : IInitializable, IDisposable, ITickable
         if (_isWorking == false)
             return;
 
-        Vector3 targetPos = GetMoisePosition();
 
         _startParticle.transform.position = Vector3.Lerp(
             _startParticle.transform.position,
-            targetPos,
+            _mousePosition.GetMousePosition(),
             ParticleSpeed * Time.deltaTime
         );
     }
 
-    private static Vector3 GetMoisePosition()
-    {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = DistanceToCamera; // Расстояние от камеры до объекта
-        Vector3 targetPos = Camera.main.ScreenToWorldPoint(mousePos);
-        return targetPos;
-    }
-
     private void OnCutStarted()
     {
+        _endParticle.transform.position = _mousePosition.GetMousePosition();
         WorkToggle(true);
-        _endParticle.transform.position = GetMoisePosition();
     }
 
     private void OnCutEnded()
@@ -85,7 +75,7 @@ public class CutView : IInitializable, IDisposable, ITickable
         _endParticle = await CreateParticle(AssetProvider.FireParticle);
     }
 
-    private async UniTask<GameObject> CreateParticle( string assetName)
+    private async UniTask<GameObject> CreateParticle(string assetName)
     {
         var particle = await _factoryService.Create(AssetProvider.FireParticle);
         particle.gameObject.SetActive(false);
