@@ -5,32 +5,34 @@ using Zenject;
 
 public class Sword : MonoBehaviour
 {
-    [SerializeField] private ParticlePosition _particlePosition;
     [SerializeField] private SwordBladeRotator _bladeRotator;
-    [SerializeField] private float _cutAnimationDuration = 0.25f;
+    [SerializeField] private ParticlePosition _particlePosition;
+
+    private const float CutDuration = 0.5f;
 
     private IMousePosition _mousePosition;
     private SwordView _swordView;
     private ICutMouseBehaviour _cutMouseBehaviour;
 
-    private Vector3 _startCutPosition;
-    private Vector3 _endCutPosition;
-
+    private Vector3 _defaultPosition;
+    private Vector3 _startPosition;
+    private Vector3 _endPosition;
     private bool _isCutting;
-    private bool _isAnimating;
+    private Tweener _cutAnimation;
 
     private void OnValidate()
     {
         _particlePosition ??= GetComponentInChildren<ParticlePosition>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
         _cutMouseBehaviour.CutStarted += OnCutStarted;
         _cutMouseBehaviour.CutEnded += OnCutEnded;
+        _defaultPosition = transform.position;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _cutMouseBehaviour.CutStarted -= OnCutStarted;
         _cutMouseBehaviour.CutEnded -= OnCutEnded;
@@ -38,11 +40,10 @@ public class Sword : MonoBehaviour
 
     private void Update()
     {
-        if (_isAnimating)
+        if (_isCutting)
             return;
 
-        if (!_isCutting)
-            FollowToMouse();
+        transform.LookAt(_mousePosition.GetMousePosition());
     }
 
     [Inject]
@@ -55,61 +56,48 @@ public class Sword : MonoBehaviour
 
     private void OnCutStarted()
     {
-        _isCutting = true;
-        _startCutPosition = _mousePosition.GetMousePosition();
+        _startPosition = _mousePosition.GetMousePosition();
         _swordView.Show();
     }
 
     private void OnCutEnded()
     {
-        _isCutting = false;
-        _endCutPosition = _mousePosition.GetMousePosition();
-
-        // Запускаем анимацию разрезания
+        _endPosition = _mousePosition.GetMousePosition();
+        transform.position = _startPosition;
         StartCutAnimation();
     }
 
     private void StartCutAnimation()
     {
-        _isAnimating = true;
-        _swordView.Deactivate();
+        _isCutting = true;
 
-        // Сохраняем текущую позицию для анимации
+        // Создаем последовательность анимаций
+        Sequence cutSequence = DOTween.Sequence();
+
+        // 1. Сохраняем текущую позицию и вращение
         Vector3 currentPosition = transform.position;
         Quaternion currentRotation = transform.rotation;
 
-        // Вычисляем направление разреза
-        Vector3 cutDirection = (_endCutPosition - _startCutPosition).normalized;
+        // 2. Телепортируем меч в начальную позицию резания
+        transform.position = _startPosition;
+        transform.LookAt(_endPosition);
 
-        // Анимация движения меча по траектории разреза
-        Sequence cutSequence = DOTween.Sequence();
+        // 3. Движение от startPosition до endPosition (разрез)
+        cutSequence.Append(transform.DOMove(_endPosition, CutDuration)
+            .SetEase(Ease.OutCubic));
 
-        // Поворачиваем меч в направлении разреза
-        cutSequence.Append(transform.DOLookAt(_endCutPosition, _cutAnimationDuration * 0.3f, AxisConstraint.None))
-                  .AppendCallback(() => {
-                      Rotate();
-                  })
-                  .OnComplete(() => {
-                      _isAnimating = false;
-                      OnCutAnimationComplete();
-                  });
+        // 4. Немедленное возвращение в defaultPosition
+        cutSequence.Append(transform.DOMove(_defaultPosition, CutDuration)
+            .SetEase(Ease.InBack));
+
+        // 5. Завершение анимации
+        cutSequence.OnComplete(() => EndCut());
     }
 
-    private void OnCutAnimationComplete()
+    private void EndCut()
     {
-        // Возвращаем управление после завершения анимации
-        _isAnimating = false;
-    }
-
-    private void Rotate()
-    {
-        if (!_isAnimating)
-            transform.rotation = _bladeRotator.GetRotateTowardsMouse(_mousePosition.GetMousePosition());
-    }
-
-    private void FollowToMouse()
-    {
-        if (!_isAnimating)
-            transform.LookAt(_mousePosition.GetMousePosition());
+        _swordView.Deactivate();
+        transform.rotation = Quaternion.LookRotation(Vector3.forward);
+        _isCutting = false;
     }
 }

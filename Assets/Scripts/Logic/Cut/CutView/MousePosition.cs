@@ -15,11 +15,10 @@ public class MousePosition : IMousePosition
     {
         Vector3 mousePos = Input.mousePosition;
 
-        // Проверяем границы экрана
         if (mousePos.x < 0 || mousePos.x > Screen.width ||
             mousePos.y < 0 || mousePos.y > Screen.height)
         {
-            return Vector3.zero; // или предыдущая валидная позиция
+            return Vector3.zero;
         }
 
         mousePos.z = DistanceToCamera;

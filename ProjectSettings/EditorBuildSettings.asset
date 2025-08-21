@@ -6,10 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenuScene.unity
-    guid: ed71a67a7e4471c44a8829a7ae7606af
-  - enabled: 0
-    path: Assets/DifferentAssets/DynamicMeshCutter/ExampleScene/ExampleScene.unity
-    guid: 9aa991a08b01aca4d8ba028fa0513d59
+    path: Assets/Scenes/Arena1.unity
+    guid: acae23241b60f454c95dc7591fda26b3
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 1da51fe8d5f78af48bc23ca8270d8534, type: 2}

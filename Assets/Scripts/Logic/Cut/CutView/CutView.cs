@@ -12,7 +12,6 @@ public class CutView : IInitializable, IDisposable, ITickable
     private readonly IFactory _factoryService;
     private readonly IMousePosition _mousePosition;
 
-    private GameObject _startParticle;
     private GameObject _endParticle;
 
     private bool _isWorking = false;
@@ -42,13 +41,6 @@ public class CutView : IInitializable, IDisposable, ITickable
     {
         if (_isWorking == false)
             return;
-
-
-        _startParticle.transform.position = Vector3.Lerp(
-            _startParticle.transform.position,
-            _mousePosition.GetMousePosition(),
-            ParticleSpeed * Time.deltaTime
-        );
     }
 
     private void OnCutStarted()
@@ -66,12 +58,10 @@ public class CutView : IInitializable, IDisposable, ITickable
     {
         _isWorking = isOn;
         _endParticle.gameObject.SetActive(isOn);
-        _startParticle.gameObject.SetActive(isOn);
     }
 
     private async UniTaskVoid CreateParticles()
     {
-        _startParticle = await CreateParticle(AssetProvider.FireParticle);
         _endParticle = await CreateParticle(AssetProvider.FireParticle);
     }
 
