@@ -1,9 +1,9 @@
-using DynamicMeshCutter;
+﻿using DynamicMeshCutter;
 using System;
 using UnityEngine;
 using Zenject;
 
-public class CharacterCutLogic : IInitializable, IDisposable, ITickable, ICharacterCutLogic
+public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable, ICutLogic
 {
     private const int MaxTargets = 1;
     private const int AttackDistance = 100;
@@ -11,8 +11,8 @@ public class CharacterCutLogic : IInitializable, IDisposable, ITickable, ICharac
     private readonly ICutMouseBehaviour _mouseBehaviour;
     private readonly Camera _camera;
     private readonly RaycastHit[] _targets;
-    private readonly LayerMask _enemyMask;
     private readonly Action[] _deactivateTargets;
+    private readonly LayerMask _enemyMask;
 
     private int _countTargets;
     private int _cutTarget;
@@ -21,14 +21,16 @@ public class CharacterCutLogic : IInitializable, IDisposable, ITickable, ICharac
 
     public event Action<int> CutTargets;
 
-    public CharacterCutLogic(ICutMouseBehaviour mouseBehaviour)
+    public BaseCutLogic(ICutMouseBehaviour mouseBehaviour)
     {
         _mouseBehaviour = mouseBehaviour;
         _camera = Camera.main;
         _targets = new RaycastHit[MaxTargets];
         _deactivateTargets = new Action[MaxTargets];
-        _enemyMask = LayerMask.GetMask(CustomMasks.Enemy);
+        _enemyMask = GetLayerMask();
     }
+
+    protected abstract LayerMask GetLayerMask();
 
     public void Initialize()
     {
@@ -72,14 +74,12 @@ public class CharacterCutLogic : IInitializable, IDisposable, ITickable, ICharac
 
         for (int i = 0; i < _countTargets; i++)
         {
-            if (_targets[i].collider.TryGetComponent(out IEnemy enemy))
+            if (_targets[i].collider.TryGetComponent(out ICuttable cuttable))
             {
-                enemy.CharacterCut.ActivateCut();
-                _deactivateTargets[i] = enemy.CharacterCut.DeactivateCut;
+                cuttable.ActivateCut();
+                _deactivateTargets[i] = cuttable.ActivateCut;
                 ++_cutTarget;
             }
-
-            Debug.Log(_targets[i].collider.name);
         }
     }
 

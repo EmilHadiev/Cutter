@@ -1,4 +1,4 @@
-﻿public interface ICharacterCut
+﻿public interface ICuttable
 {
     void ActivateCut();
     void DeactivateCut();

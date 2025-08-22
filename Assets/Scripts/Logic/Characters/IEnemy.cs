@@ -1,5 +1,5 @@
 public interface IEnemy
 {
-    public ICharacterCut CharacterCut { get; }
+    public ICuttable CharacterCut { get; }
     public IHealth Health { get; }
 }

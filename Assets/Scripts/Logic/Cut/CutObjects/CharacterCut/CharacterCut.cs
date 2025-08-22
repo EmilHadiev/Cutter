@@ -2,7 +2,7 @@ using DynamicMeshCutter;
 using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider))]
-public class CharacterCut : MonoBehaviour, ICharacterCut
+public class CharacterCut : MonoBehaviour, ICuttable
 {
     [SerializeField] private MeshTarget _target;
 

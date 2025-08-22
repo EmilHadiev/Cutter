@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour, IEnemy
         _health ??= GetComponent<Health>();
     }
 
-    public ICharacterCut CharacterCut => _characterCut;
+    public ICuttable CharacterCut => _characterCut;
 
     public IHealth Health => _health;
 }

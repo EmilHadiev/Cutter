@@ -1,6 +1,6 @@
 ﻿using System;
 
-public interface ICharacterCutLogic
+public interface ICutLogic
 {
     event Action<int> CutTargets;
 }

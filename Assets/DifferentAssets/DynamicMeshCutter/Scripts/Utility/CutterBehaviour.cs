@@ -249,7 +249,14 @@ namespace DynamicMeshCutter
 
         protected virtual void CreateGameObjects(Info info)
         {
+            if (info == null)
+            {
+                Debug.Log("Обьект уже уничтожен, ничего не делаю!");
+                return;
+            }
+
             MeshCreationData creationInfo = MeshCreation.CreateObjects(info, DefaultMaterial, VertexCreationThreshold);
+            
 
             if (DestroyTargets)
             {
