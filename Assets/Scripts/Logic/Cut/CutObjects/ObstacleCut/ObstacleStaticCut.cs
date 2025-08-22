@@ -7,5 +7,6 @@ public class ObstacleStaticCut : ObstacleCut
     private void Start()
     {
         CreateClone(_nonStaticPrefab);
+        SetScale(gameObject.transform.localScale);
     }
 }

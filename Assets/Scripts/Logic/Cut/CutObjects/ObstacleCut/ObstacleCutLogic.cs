@@ -1,14 +1,9 @@
 ﻿using DynamicMeshCutter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class ObstacleCutLogic : BaseCutLogic
 {
-    public ObstacleCutLogic(ICutMouseBehaviour mouseBehaviour) : base(mouseBehaviour)
+    public ObstacleCutLogic(ICutMouseBehaviour mouseBehaviour, ICutTargetsCounter cutTargetsCounter) : base(mouseBehaviour, cutTargetsCounter)
     {
     }
 

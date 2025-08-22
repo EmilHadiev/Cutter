@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable, ICutLogic
+public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
 {
     private const int MaxTargets = 1;
     private const int AttackDistance = 100;
@@ -13,21 +13,21 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable, ICu
     private readonly RaycastHit[] _targets;
     private readonly Action[] _deactivateTargets;
     private readonly LayerMask _enemyMask;
+    private readonly ICutTargetsCounter _counter;
 
     private int _countTargets;
     private int _cutTarget;
 
     private bool _isWorking = false;
 
-    public event Action<int> CutTargets;
-
-    public BaseCutLogic(ICutMouseBehaviour mouseBehaviour)
+    public BaseCutLogic(ICutMouseBehaviour mouseBehaviour, ICutTargetsCounter cutTargetsCounter)
     {
         _mouseBehaviour = mouseBehaviour;
         _camera = Camera.main;
         _targets = new RaycastHit[MaxTargets];
         _deactivateTargets = new Action[MaxTargets];
         _enemyMask = GetLayerMask();
+        _counter = cutTargetsCounter;
     }
 
     protected abstract LayerMask GetLayerMask();
@@ -60,7 +60,7 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable, ICu
 
     private void StopCutting()
     {
-        CutTargets?.Invoke(_cutTarget);
+        _counter.AddCountTargets(_cutTarget);
         _cutTarget = 0;
 
         _isWorking = false;

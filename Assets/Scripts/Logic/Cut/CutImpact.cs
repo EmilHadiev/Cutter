@@ -4,9 +4,9 @@ using Zenject;
 public class CutImpact : IInitializable, IDisposable
 {
     private readonly ISoundContainer _soundContainer;
-    private readonly ICutLogic _cutLogic;
+    private readonly ICutTargetsCounter _cutLogic;
 
-    public CutImpact(ISoundContainer soundContainer, ICutLogic cutLogic)
+    public CutImpact(ISoundContainer soundContainer, ICutTargetsCounter cutLogic)
     {
         _soundContainer = soundContainer;
         _cutLogic = cutLogic;

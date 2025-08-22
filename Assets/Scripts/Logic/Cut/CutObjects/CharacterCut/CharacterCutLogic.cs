@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterCutLogic : BaseCutLogic
 {
-    public CharacterCutLogic(ICutMouseBehaviour mouseBehaviour) : base(mouseBehaviour)
+    public CharacterCutLogic(ICutMouseBehaviour mouseBehaviour, ICutTargetsCounter cutTargetsCounter) : base(mouseBehaviour, cutTargetsCounter)
     {
     }
 

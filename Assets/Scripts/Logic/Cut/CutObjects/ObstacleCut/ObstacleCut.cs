@@ -4,11 +4,18 @@ using Zenject;
 
 public class ObstacleCut : MonoBehaviour, ICuttable
 {
+    [SerializeField] private Collider _collider;
+
     [Inject]
     private readonly IInstantiator _instantiator;
 
     private MeshTarget _meshTarget;
     private GameObject _clone;
+
+    private void OnValidate()
+    {
+        _collider ??= GetComponent<Collider>();
+    }
 
     private void Start()
     {
@@ -18,6 +25,10 @@ public class ObstacleCut : MonoBehaviour, ICuttable
     public void ActivateCut()
     {
         gameObject.SetActive(false);
+
+        if (_collider != null)
+            _collider.enabled = false;
+
         _meshTarget.enabled = true;
         _clone.gameObject.SetActive(true);
     }
@@ -31,7 +42,7 @@ public class ObstacleCut : MonoBehaviour, ICuttable
     {
         _clone = _instantiator.InstantiatePrefab(prefab, transform.position, transform.rotation, null);
         _clone.gameObject.SetActive(false);
-        _clone.transform.localScale = prefab.transform.localScale;
+        SetScale(prefab.transform.localScale);
         AddMeshTarget();
     }
 
@@ -42,4 +53,6 @@ public class ObstacleCut : MonoBehaviour, ICuttable
         _meshTarget.GameobjectRoot = _clone;
         _meshTarget.enabled = false;
     }
+
+    protected void SetScale(Vector3 scale) => _clone.transform.localScale = scale;
 }
