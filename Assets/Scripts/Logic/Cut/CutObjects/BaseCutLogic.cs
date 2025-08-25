@@ -5,8 +5,8 @@ using Zenject;
 
 public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
 {
-    private const int MaxTargets = 1;
     private const int AttackDistance = 100;
+    private readonly int _maxTargets;
 
     private readonly ICutMouseBehaviour _mouseBehaviour;
     private readonly Camera _camera;
@@ -20,17 +20,20 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
 
     private bool _isWorking = false;
 
-    public BaseCutLogic(ICutMouseBehaviour mouseBehaviour, ICutTargetsCounter cutTargetsCounter)
+    public BaseCutLogic(ICutMouseBehaviour mouseBehaviour, ICutTargetsCounter cutTargetsCounter, PlayerData playerData)
     {
         _mouseBehaviour = mouseBehaviour;
-        _camera = Camera.main;
-        _targets = new RaycastHit[MaxTargets];
-        _deactivateTargets = new Action[MaxTargets];
-        _enemyMask = GetLayerMask();
+        _camera = Camera.main;       
         _counter = cutTargetsCounter;
+        _enemyMask = GetLayerMask();
+
+        _maxTargets = GetMaxTargets(playerData);
+        _targets = new RaycastHit[_maxTargets];
+        _deactivateTargets = new Action[_maxTargets]; 
     }
 
     protected abstract LayerMask GetLayerMask();
+    protected abstract int GetMaxTargets(PlayerData playerData);
 
     public void Initialize()
     {
@@ -46,7 +49,7 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
 
     public void Tick()
     {
-        if (_isWorking == false || _countTargets >= MaxTargets)
+        if (_isWorking == false || _countTargets >= _maxTargets)
             return;
 
         SetTargets();

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterCutLogic : BaseCutLogic
 {
-    public CharacterCutLogic(ICutMouseBehaviour mouseBehaviour, ICutTargetsCounter cutTargetsCounter) : base(mouseBehaviour, cutTargetsCounter)
+    public CharacterCutLogic(ICutMouseBehaviour mouseBehaviour, ICutTargetsCounter cutTargetsCounter, PlayerData playerData) : base(mouseBehaviour, cutTargetsCounter, playerData)
     {
     }
 
@@ -11,4 +11,6 @@ public class CharacterCutLogic : BaseCutLogic
     {
         return LayerMask.GetMask(CustomMasks.Enemy);
     }
+
+    protected override int GetMaxTargets(PlayerData playerData) => playerData.NumberEnemiesCut;
 }
