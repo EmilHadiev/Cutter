@@ -34,6 +34,7 @@ public class AssetsLabelLoader
         // Проверяем кеш
         if (_cache.TryGetValue(label, out var cached))
         {
+            Debug.Log($"Returning existing assets {label}");
             return FilterAssets<T>(cached.Item1);
         }
 

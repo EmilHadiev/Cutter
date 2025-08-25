@@ -100,6 +100,11 @@ public class AddressablesLoader : IAddressablesLoader, IDisposable
         throw new ArgumentException($"Asset '{assetPath}' is not loaded.", nameof(assetPath));
     }
 
+    public void Release(AssetReference reference)
+    {
+        Release(reference.RuntimeKey.ToString());
+    }
+
     public void ReleaseAll()
     {
         foreach (var asset in _assets.Values)
