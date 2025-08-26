@@ -6,14 +6,14 @@ public class Health : MonoBehaviour, IHealth
     public event Action<float, float> HealthChanged;
     public event Action Died;
 
-    public void TakeDamage()
+    public void AddHealth(int health)
     {
-
+        throw new NotImplementedException();
     }
 
-    public void AddHealth()
+    public void TakeDamage(int damage)
     {
-
+        throw new NotImplementedException();
     }
 
     public void Kill()

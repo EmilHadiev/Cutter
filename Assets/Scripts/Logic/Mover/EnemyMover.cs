@@ -7,14 +7,9 @@ public class EnemyMover : MonoBehaviour, IMovable
 {
     [SerializeField] private NavMeshAgent _agent;
 
-    private const float UpdateInterval = 0.1f;
-
     private IMover _mover;
     private FloatProperty _moveSpeed;
-    private EnemyData _data;
     private IPlayer _player;
-    
-    private float _timer;
 
     public Transform Transform => transform;
     public FloatProperty MoveSpeed => _moveSpeed;
@@ -24,13 +19,27 @@ public class EnemyMover : MonoBehaviour, IMovable
         _agent ??= GetComponent<NavMeshAgent>();
     }
 
-    private void Start()
+    private void Awake()
     {
-        _data = GetComponent<IEnemy>().Data;
+        IEnemy enemy = GetComponent<Enemy>();
 
-        _moveSpeed = new FloatProperty(_data.Speed);
-        SetMove(new EnemyMoveToPlayerPattern(_agent, _moveSpeed, _player.Movable.Transform, transform));
-        Debug.Log("?");
+        var data = enemy.Data;
+        var animator = enemy.Animator;
+
+        data = enemy.Data;
+        animator = enemy.Animator;
+
+        if (data == null)
+        {
+            Debug.Log($"{nameof(data)} is NULL! Set default value 5");
+            _moveSpeed = new FloatProperty(5);
+        }
+        else
+        {
+            _moveSpeed = new FloatProperty(data.Speed);
+        }
+        
+        SetMove(new EnemyMoveToPlayerPattern(_agent, _moveSpeed, _player.Movable.Transform, transform, animator));
     }
 
     [Inject]
@@ -48,22 +57,20 @@ public class EnemyMover : MonoBehaviour, IMovable
 
     public void StartMove()
     {
+        enabled = true;
+        
         _mover.StartMove();
     }
 
     public void StopMove()
     {
+        enabled = false;
+
         _mover.StopMove();
     }
 
     private void Update()
     {
-        _timer += Time.deltaTime;
-_mover.Update();
-        if (_timer >= UpdateInterval)
-        {
-            
-            _timer = 0f;
-        }
+        _mover.Update();
     }
 }

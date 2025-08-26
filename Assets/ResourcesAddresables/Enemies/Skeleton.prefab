@@ -291,7 +291,7 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: b944050466ca43dc83648f27a6defdb9, type: 2}
+      objectReference: {fileID: 9100000, guid: c29b479868dc7424a914a3ec7ffb63ae, type: 2}
     - target: {fileID: 9500000, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
@@ -433,6 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8cb1435a306d04fbe9272ae00e288c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _agent: {fileID: 2982217110724640004}
 --- !u!1 &7789223060418323768 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
