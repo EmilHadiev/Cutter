@@ -8,6 +8,8 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
     private IEnemyAnimator _animator;
     private IEnemyStateMachine _stateMachine;
 
+    private EnemyAttackLogic _attackLogic;
+
     private Action[] _startAttackAnimations;
     private Action[] _stopAttackAnimations;
 
@@ -18,8 +20,13 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
 
     private void Start()
     {
-        _animator = GetComponent<IEnemy>().Animator;
-        _stateMachine = GetComponent<IEnemy>().StateMachine;
+        IEnemy enemy = GetComponent<IEnemy>();
+
+        _animator = enemy.Animator;
+        _stateMachine = enemy.StateMachine;
+
+        _attackLogic = new EnemyAttackLogic(enemy.Data, transform);
+
         _startAttackAnimations = new Action[] { _animator.PlayAttacking1, _animator.PlayAttacking2 };
         _stopAttackAnimations = new Action[] { _animator.StopAttacking1, _animator.StopAttacking2 };
     }
@@ -43,6 +50,11 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
 
     public void StopAttack()
     {
+        StopAnimations();
+    }
+
+    private void StopAnimations()
+    {
         foreach (var animation in _stopAttackAnimations)
             animation?.Invoke();
     }
@@ -63,5 +75,21 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
     {
         int index = UnityEngine.Random.Range(0, _startAttackAnimations.Length);
         _startAttackAnimations[index]?.Invoke();
+    }
+
+    private void AttackStarted()
+    {
+        _attackLogic.Attack();
+    }
+
+    private void AttackEnded()
+    {
+        ResetAttackAnimation();
+    }
+
+    private void ResetAttackAnimation()
+    {
+        StopAnimations();
+        StartAttack();
     }
 }

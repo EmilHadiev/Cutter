@@ -23,13 +23,7 @@ public class Spawner : MonoBehaviour
     {
         try
         {
-            foreach (var data in _data)
-            {
-                var prefab = await _factory.Create(data.AssetReference);
-
-                if (prefab.TryGetComponent(out IEnemy enemy))
-                    enemy.SetData(data);
-            }
+            var skeleton = await _factory.Create(AssetProvider.SkeletonPrefab);
         }
         catch (Exception ex)
         {

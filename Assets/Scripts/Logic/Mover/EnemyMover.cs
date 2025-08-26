@@ -26,19 +26,8 @@ public class EnemyMover : MonoBehaviour, IMovable
         var data = enemy.Data;
         var animator = enemy.Animator;
 
-        data = enemy.Data;
-        animator = enemy.Animator;
+        _moveSpeed = new FloatProperty(data.Speed);
 
-        if (data == null)
-        {
-            Debug.Log($"{nameof(data)} is NULL! Set default value 5");
-            _moveSpeed = new FloatProperty(5);
-        }
-        else
-        {
-            _moveSpeed = new FloatProperty(data.Speed);
-        }
-        
         SetMove(new EnemyMoveToPlayerPattern(_agent, _moveSpeed, _player.Movable.Transform, transform, animator));
     }
 

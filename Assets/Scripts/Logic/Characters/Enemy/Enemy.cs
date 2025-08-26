@@ -12,8 +12,8 @@ public class Enemy : MonoBehaviour, IEnemy
     [SerializeField] private EnemyMover _mover;
     [SerializeField] private EnemyAnimator _animator;
     [SerializeField] private EnemyAttacker _attacker;
+    [SerializeField] private EnemyData _data;
 
-    private EnemyData _data;
     private EnemyStateMachine _stateMachine;
 
     public ICuttable CharacterCut => _characterCut;
