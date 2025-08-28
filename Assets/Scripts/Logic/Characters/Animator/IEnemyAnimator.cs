@@ -6,4 +6,7 @@
     void StopAttacking1();
     void StopAttacking2();
     void StopRunning();
+
+    void StartDefenseTrigger();
+    void ResetDefenseTrigger();
 }

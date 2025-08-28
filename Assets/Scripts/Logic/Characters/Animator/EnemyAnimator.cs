@@ -8,6 +8,7 @@ public class EnemyAnimator : MonoBehaviour, IEnemyAnimator
     private const string IsRunning = "IsRunning";
     private const string IsAttacking1 = "IsAttacking1";
     private const string IsAttacking2 = "IsAttacking2";
+    private const string DefenseTrigger = "DefenseTrigger";
 
     private void OnValidate()
     {
@@ -23,4 +24,6 @@ public class EnemyAnimator : MonoBehaviour, IEnemyAnimator
     public void PlayAttacking2() => _animator.SetBool(IsAttacking2, true);
     public void StopAttacking2() => _animator.SetBool(IsAttacking2, false);
 
+    public void StartDefenseTrigger() => _animator.SetTrigger(DefenseTrigger);
+    public void ResetDefenseTrigger() => _animator.ResetTrigger(DefenseTrigger);
 }

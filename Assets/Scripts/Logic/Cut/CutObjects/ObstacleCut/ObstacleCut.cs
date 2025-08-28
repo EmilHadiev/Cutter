@@ -22,7 +22,7 @@ public class ObstacleCut : MonoBehaviour, ICuttable
         CreateClone(gameObject);
     }
 
-    public void ActivateCut()
+    public void TryActivateCut()
     {
         gameObject.SetActive(false);
 

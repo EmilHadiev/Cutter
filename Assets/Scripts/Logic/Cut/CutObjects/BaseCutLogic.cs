@@ -79,8 +79,8 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
         {
             if (_targets[i].collider.TryGetComponent(out ICuttable cuttable))
             {
-                cuttable.ActivateCut();
-                _deactivateTargets[i] = cuttable.ActivateCut;
+                cuttable.TryActivateCut();
+                _deactivateTargets[i] = cuttable.TryActivateCut;
                 ++_cutTarget;
             }
         }

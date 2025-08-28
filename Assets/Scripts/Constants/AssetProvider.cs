@@ -2,6 +2,7 @@
 {
     #region Particles
     public const string FireParticle = "FireParticle";
+    public const string ShieldHitImpactParticle = "ShieldHitImpactParticle";
     #endregion
 
     #region Label

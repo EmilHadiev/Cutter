@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class EnemyWalkingState : IEnemyState
 {
     private readonly IMovable _mover;
@@ -11,13 +9,11 @@ public class EnemyWalkingState : IEnemyState
 
     public void Enter()
     {
-        Debug.Log($"Exit {nameof(EnemyWalkingState)}");
         _mover.StartMove();
     }
 
     public void Exit()
     {
-        Debug.Log($"Exit {nameof(EnemyWalkingState)}");
         _mover.StopMove();
     }
 }

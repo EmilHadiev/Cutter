@@ -67,8 +67,8 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
 
     private void OnExited(Collider collider)
     {
-        enabled = false;
         _stateMachine.SwitchState<EnemyWalkingState>();
+        enabled = false;
     }
 
     private void PlayAttackAnimation()

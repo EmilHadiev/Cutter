@@ -1,5 +1,5 @@
 ﻿public interface ICuttable
 {
-    void ActivateCut();
+    void TryActivateCut();
     void DeactivateCut();
 }

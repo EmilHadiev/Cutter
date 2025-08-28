@@ -6,13 +6,12 @@ using Zenject;
 
 public class CutView : IInitializable, IDisposable, ITickable
 {
-    private const int ParticleSpeed = 15;
-
     private readonly ICutMouseBehaviour _mouseBehavior;
     private readonly IFactory _factoryService;
     private readonly IMousePosition _mousePosition;
 
-    private GameObject _endParticle;
+    private ParticleView _followerParticle;
+    private ParticleView _startParticle;
 
     private bool _isWorking = false;
 
@@ -41,11 +40,13 @@ public class CutView : IInitializable, IDisposable, ITickable
     {
         if (_isWorking == false)
             return;
+
+        _followerParticle.transform.position = _mousePosition.GetMousePosition();
     }
 
     private void OnCutStarted()
     {
-        _endParticle.transform.position = _mousePosition.GetMousePosition();
+        _startParticle.transform.position = _mousePosition.GetMousePosition();
         WorkToggle(true);
     }
 
@@ -57,19 +58,31 @@ public class CutView : IInitializable, IDisposable, ITickable
     private void WorkToggle(bool isOn)
     {
         _isWorking = isOn;
-        _endParticle.gameObject.SetActive(isOn);
+
+        if (isOn)
+        {
+            _followerParticle.Play();
+            _startParticle.Play();
+        }
+        else
+        {
+            _followerParticle.Stop();
+            _startParticle.Stop();
+        }
     }
 
     private async UniTaskVoid CreateParticles()
     {
-        _endParticle = await CreateParticle(AssetProvider.FireParticle);
+        _followerParticle = await CreateParticle(AssetProvider.FireParticle);
+        _startParticle = await CreateParticle(AssetProvider.FireParticle);
     }
-
-    private async UniTask<GameObject> CreateParticle(string assetName)
+    
+    private async UniTask<ParticleView> CreateParticle(string assetName)
     {
         var particle = await _factoryService.Create(AssetProvider.FireParticle);
-        particle.gameObject.SetActive(false);
+        var result = particle.GetComponent<ParticleView>();
+        result.Stop();
 
-        return particle;
+        return result;
     }
 }

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class EnemyAttackingState : IEnemyState
+﻿public class EnemyAttackingState : IEnemyState
 {
     private readonly IAttackable _attackable;
 
@@ -11,13 +9,11 @@ public class EnemyAttackingState : IEnemyState
 
     public void Enter()
     {
-        Debug.Log($"Enter {nameof(EnemyWalkingState)}");
         _attackable.StartAttack();
     }
 
     public void Exit()
     {
-        Debug.Log($"Exit {nameof(EnemyWalkingState)}");
         _attackable.StopAttack();
     }
 }

@@ -6,6 +6,7 @@ public class EnemyStateMachine : IEnemyStateMachine
     private readonly Dictionary<Type, IEnemyState> _states = new Dictionary<Type, IEnemyState>();
 
     private IEnemyState _currentState;
+    private IEnemyState _previousState;
 
     public EnemyStateMachine(IMovable movable, IAttackable attackable)
     {
@@ -19,9 +20,7 @@ public class EnemyStateMachine : IEnemyStateMachine
     {
         if (_states.TryGetValue(typeof(T), out var value))
         {
-            _currentState?.Exit();
-            _currentState = value;
-            _currentState.Enter();
+            SetState(value);
         }
         else
         {
@@ -33,5 +32,23 @@ public class EnemyStateMachine : IEnemyStateMachine
     {
         foreach (var state in _states)
             state.Value.Exit();
+    }
+
+    public void SaveCurrentState()
+    {
+        if (_previousState != _currentState)
+            _previousState = _currentState;
+    }
+
+    public void LoadSavedState()
+    {
+        SetState(_previousState);
+    }
+
+    private void SetState(IEnemyState value)
+    {
+        _currentState?.Exit();
+        _currentState = value;
+        _currentState.Enter();
     }
 }

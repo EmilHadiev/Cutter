@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyMover))]
 [RequireComponent(typeof(EnemyAnimator))]
 [RequireComponent(typeof(EnemyAttacker))]
+[RequireComponent(typeof(EnemyDefender))]
 public class Enemy : MonoBehaviour, IEnemy
 {
     [SerializeField] private CharacterCut _characterCut;
@@ -13,16 +14,18 @@ public class Enemy : MonoBehaviour, IEnemy
     [SerializeField] private EnemyAnimator _animator;
     [SerializeField] private EnemyAttacker _attacker;
     [SerializeField] private EnemyData _data;
+    [SerializeField] private EnemyDefender _defender;
 
     private EnemyStateMachine _stateMachine;
 
     public ICuttable CharacterCut => _characterCut;
     public IHealth Health => _health;
-    public IMovable Movable => _mover;
+    public IMovable Mover => _mover;
     public EnemyData Data => _data;
     public IEnemyStateMachine StateMachine => _stateMachine;
     public IEnemyAnimator Animator => _animator;
-    public IAttackable Attackable => _attacker;
+    public IAttackable Attacker => _attacker;
+    public IDefensible Defender => _defender;
 
     private void OnValidate()
     {
@@ -31,11 +34,12 @@ public class Enemy : MonoBehaviour, IEnemy
         _mover ??= GetComponent<EnemyMover>();
         _animator ??= GetComponent<EnemyAnimator>();
         _attacker ??= GetComponent<EnemyAttacker>();
+        _defender ??= GetComponent<EnemyDefender>();
     }
 
     private void Awake()
     {
-        _stateMachine = new EnemyStateMachine(Movable, Attackable);
+        _stateMachine = new EnemyStateMachine(Mover, Attacker);
     }
 
     private void Start()

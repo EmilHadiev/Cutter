@@ -7,6 +7,7 @@ public class CharacterCut : MonoBehaviour, ICuttable
     [SerializeField] private MeshTarget _target;
 
     private IHealth _health;
+    private IDefensible _defenser;
     private bool _isActivated;
 
     private void OnValidate()
@@ -14,14 +15,21 @@ public class CharacterCut : MonoBehaviour, ICuttable
         _target ??= GetComponentInChildren<MeshTarget>();
     }
 
-    private void Awake()
+    private void Start()
     {
-        _health = GetComponent<Health>();
+        IEnemy enemy = GetComponent<IEnemy>();
+
+        _health = enemy.Health;
+        _defenser = enemy.Defender;
+
         DeactivateCut();
     }
 
-    public void ActivateCut()
+    public void TryActivateCut()
     {
+        if (IsAllowedCut() == false)
+            return;
+
         _target.enabled = true;
         _isActivated = true;
     }
@@ -39,5 +47,13 @@ public class CharacterCut : MonoBehaviour, ICuttable
             _health.Kill();
             _isActivated = false;
         }
+    }
+
+    private bool IsAllowedCut()
+    {
+        if (_defenser.TryDefend())
+            return false;
+
+        return true;
     }
 }
