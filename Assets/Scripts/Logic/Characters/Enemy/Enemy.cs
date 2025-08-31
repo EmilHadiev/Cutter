@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour, IEnemy
     public IEnemyAnimator Animator => _animator;
     public IAttackable Attacker => _attacker;
     public IDefensible Defender => _defender;
+    public IParryable Parryer => _parryer;
+
 
     private void OnValidate()
     {

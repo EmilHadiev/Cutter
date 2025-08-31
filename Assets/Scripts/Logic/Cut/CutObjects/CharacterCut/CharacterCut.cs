@@ -9,6 +9,7 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable
 
     private IHealth _health;
     private IDefensible _defenser;
+
     private bool _isActivated;
 
     [Inject]
@@ -31,7 +32,7 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable
 
     public void TryActivateCut()
     {
-        if (IsAllowedCut() == false)
+         if (_defenser.TryDefend())
             return;
 
         _target.enabled = true;
@@ -58,13 +59,5 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable
             _health.Kill();
             _isActivated = false;
         }
-    }
-
-    private bool IsAllowedCut()
-    {
-        if (_defenser.TryDefend())
-            return false;
-
-        return true;
     }
 }

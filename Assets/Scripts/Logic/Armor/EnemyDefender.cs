@@ -11,6 +11,7 @@ public class EnemyDefender : MonoBehaviour, IDefensible
     private EnemyData _data;
     private DefenderView _view;
     private ICutMouseBehaviour _mouseBehaviour;
+    private IParryable _parryer;
 
     public event Action ShieldBroke;
 
@@ -29,13 +30,6 @@ public class EnemyDefender : MonoBehaviour, IDefensible
             enabled = false;
     }
 
-    [Inject]
-    private void Constructor(ICutMouseBehaviour mouseBehaviour, IFactory factory, ISoundContainer soundContainer)
-    {
-        _mouseBehaviour = mouseBehaviour;
-        _view = new DefenderView(factory, _shield);
-    }
-
     private void OnEnable()
     {
         _mouseBehaviour.CutEnded += OnCutEnded;
@@ -52,7 +46,16 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
         _animator = enemy.Animator;
         _data = enemy.Data;
+        _parryer = enemy.Parryer;
+
         _shield.SetHealth(_data.ShieldHealth);
+    }
+
+    [Inject]
+    private void Constructor(ICutMouseBehaviour mouseBehaviour, IFactory factory, ISoundContainer soundContainer)
+    {
+        _mouseBehaviour = mouseBehaviour;
+        _view = new DefenderView(factory, _shield);
     }
 
     public bool TryDefend()
@@ -70,7 +73,7 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
         _shield.TakeDamage();
         StartDefend();
-        return true;
+        return true && _parryer.TryActivate();
     }
 
     public void Deactivate()

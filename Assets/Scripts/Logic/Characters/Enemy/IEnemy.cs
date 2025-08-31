@@ -7,6 +7,7 @@ public interface IEnemy
     public IEnemyAnimator Animator { get; }
     public IAttackable Attacker { get; }
     public IDefensible Defender { get; }
+    public IParryable Parryer { get; }
 
     void SetData(EnemyData data);
 }
