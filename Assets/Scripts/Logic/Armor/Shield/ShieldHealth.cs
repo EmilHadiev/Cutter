@@ -32,7 +32,7 @@ public class ShieldHealth : MonoBehaviour, IHealth
 
         HealthChanged?.Invoke(_health);
 
-        if (_health <= 0)
+        if (_health <= 1)
             Kill();
     }
 }

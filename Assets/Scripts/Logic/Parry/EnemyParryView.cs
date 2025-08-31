@@ -17,10 +17,24 @@ public class EnemyParryView
 
         CreateParryParticle(factory, parryPosition, AssetProvider.ParryParticle).Forget();
         CreateStunParticle(factory, stunPosition, AssetProvider.StunParticle).Forget();
-        //CreateParryWindowParticle(factory, parryPosition, AssetProvider.ParryWindowParticle).Forget();
+        CreateParryWindowParticle(factory, parryPosition, AssetProvider.ParryWindowParticle).Forget();
     }
 
-    public void Show()
+    public void ShowParryWindow()
+    {
+        Debug.Log("Временно отключено!");
+        return;
+        _parryWindowView.Play();
+    }
+
+    public void CloseParryWindow()
+    {
+        Debug.Log("Временно отключено!");
+        return;
+        _parryWindowView.Stop();
+    }
+
+    public void ShowParryImpact()
     {
         _soundContainer.Play(SoundsName.ParryImpact);
         _animator.SetStunTrigger();
@@ -28,7 +42,7 @@ public class EnemyParryView
         _stunView.Play();
     }
 
-    public void Stop()
+    public void CloseParryImpact()
     {
         _animator.ResetStunTrigger();
         _parryView.Stop();

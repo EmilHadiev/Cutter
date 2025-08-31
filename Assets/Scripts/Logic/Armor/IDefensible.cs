@@ -2,8 +2,6 @@
 
 public interface IDefensible
 {
-    event Action ShieldBroke;
-
     bool IsShieldExisting { get; }
     bool IsDefending { get; }
 

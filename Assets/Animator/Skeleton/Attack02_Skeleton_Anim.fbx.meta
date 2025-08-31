@@ -430,7 +430,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.36805278
+      - time: 0.34852153
         functionName: ParryTimeStarted
         data: 
         objectReferenceParameter: {instanceID: 0}

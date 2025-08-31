@@ -14,6 +14,6 @@
 
     public void Exit()
     {
-        _defender.Deactivate();
+        _defender.Activate();
     }
 }

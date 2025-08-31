@@ -1,5 +1,4 @@
 ﻿using DynamicMeshCutter;
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -12,8 +11,6 @@ public class EnemyDefender : MonoBehaviour, IDefensible
     private DefenderView _view;
     private ICutMouseBehaviour _mouseBehaviour;
     private IParryable _parryer;
-
-    public event Action ShieldBroke;
 
     public bool IsDefending { get; private set; }
 
@@ -60,20 +57,29 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
     public bool TryDefend()
     {
-        if (IsShieldExisting == false)
-        {
-            ShieldBroke?.Invoke();
-            return false;
-        }
-
         if (enabled == false)
         {
             return false;
         }
 
+        if (IsShieldExisting == false)
+        {
+            _parryer.Deactivate();
+            return false;
+        }
+        else
+        {
+            _parryer.Activate();
+        }
+
+        if (_parryer.IsParryTime)
+        {
+            return true;
+        }
+
         _shield.TakeDamage();
         StartDefend();
-        return true && _parryer.TryActivate();
+        return true;
     }
 
     public void Deactivate()

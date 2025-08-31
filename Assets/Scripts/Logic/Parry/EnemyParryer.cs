@@ -11,7 +11,6 @@ public class EnemyParryer : MonoBehaviour, IParryable
     private EnemyParryView _parryView;
 
     private IEnemy _enemy;
-    private IDefensible _defender;
     private IEnemyStateMachine _stateMachine;
     private IEnemyAnimator _animator;
     private IFactory _factory;
@@ -20,11 +19,10 @@ public class EnemyParryer : MonoBehaviour, IParryable
 
     private bool IsActivated => enabled == true;
 
-    private bool _isParried;
+    private bool _isParryWindowOpen;
     private bool _wasParried;
 
-    public event Action ParryStarted;
-    public event Action ParryStopped;
+    public bool IsParryTime => enabled == true && _isParryWindowOpen;
 
     private void OnEnable()
     {
@@ -36,20 +34,12 @@ public class EnemyParryer : MonoBehaviour, IParryable
         _mouseBehaviour.CutEnded -= TryParry;
     }
 
-    private void Start()
+    private void Awake()
     {
         _enemy = GetComponent<Enemy>();
-        _defender = _enemy.Defender;
         _stateMachine = _enemy.StateMachine;
         _animator = _enemy.Animator;
         _parryView = new EnemyParryView(_soundContainer, _factory, _animator, _parryParticlePosition, _stunParticlePosition);
-        _defender.ShieldBroke += OnShieldBroke;
-        Deactivate();
-    }
-
-    private void OnDestroy()
-    {
-        _defender.ShieldBroke -= OnShieldBroke;
     }
 
     [Inject]
@@ -60,34 +50,20 @@ public class EnemyParryer : MonoBehaviour, IParryable
         _soundContainer = soundContainer;
     }
 
+    public void Activate() => enabled = true;
+    public void Deactivate() => enabled = false;
+
     private void TryParry()
     {
-        if (_isParried == false)
+        if (_isParryWindowOpen == false)
         {
             return;
         }
 
-        ParryStarted?.Invoke();
-
-        _parryView.Show();
-        _defender.Deactivate();
+        _parryView.ShowParryImpact();
         _wasParried = true;
 
         SwitchState();
-    }
-
-    public bool TryActivate()
-    {
-        if (_defender.IsShieldExisting)
-        {
-            Activate();
-            return true;
-        }
-        else
-        {
-            Deactivate();
-            return false;
-        }
     }
 
     private void SwitchState()
@@ -101,13 +77,14 @@ public class EnemyParryer : MonoBehaviour, IParryable
         if (IsActivated == false)
             return;
 
-        _isParried = true;
+        _parryView.ShowParryWindow();
+        _isParryWindowOpen = true;
     }
 
     private void ParryTimeEnded()
     {
-        _isParried = false;
-        Deactivate();
+        _parryView.CloseParryWindow();
+        _isParryWindowOpen = false;
     }
 
     private void StunEnded()
@@ -117,16 +94,7 @@ public class EnemyParryer : MonoBehaviour, IParryable
 
         _wasParried = false;
         _stateMachine.LoadSavedState();
-        _parryView.Stop();
-        _defender.Activate();
-    }
-
-    private void OnShieldBroke()
-    {
-        _parryView.Stop();
+        _parryView.CloseParryImpact();
         Deactivate();
     }
-
-    private void Activate() => enabled = true;
-    private void Deactivate() => enabled = false;
 }

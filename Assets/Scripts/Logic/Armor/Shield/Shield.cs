@@ -53,7 +53,7 @@ public class Shield : MonoBehaviour, ICutSoundable
 
     private void OnDied()
     {
-        _soundContainer.Play(SoundsName.ShieldBreak);
         _target.enabled = true;
+        _soundContainer.Play(SoundsName.ShieldBreak);
     }
 }

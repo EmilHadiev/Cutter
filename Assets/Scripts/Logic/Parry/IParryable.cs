@@ -2,8 +2,8 @@
 
 public interface IParryable
 {
-    event Action ParryStarted;
-    event Action ParryStopped;
+    bool IsParryTime { get; }
 
-    bool TryActivate();
+    void Activate();
+    void Deactivate();
 }
