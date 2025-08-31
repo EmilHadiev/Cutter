@@ -2,12 +2,12 @@ using DynamicMeshCutter;
 using UnityEngine;
 using Zenject;
 
-public class ObstacleCut : MonoBehaviour, ICuttable
+public class ObstacleCut : MonoBehaviour, ICuttable, ICutSoundable
 {
     [SerializeField] private Collider _collider;
 
-    [Inject]
-    private readonly IInstantiator _instantiator;
+    private ISoundContainer _soundContainer;
+    private IFactory _factory;
 
     private MeshTarget _meshTarget;
     private GameObject _clone;
@@ -20,6 +20,18 @@ public class ObstacleCut : MonoBehaviour, ICuttable
     private void Start()
     {
         CreateClone(gameObject);
+    }
+
+    [Inject] 
+    private void Constructor(IFactory factory, ISoundContainer soundContainer)
+    {
+        _factory = factory;
+        _soundContainer = soundContainer;
+    }
+
+    public void PlaySound()
+    {
+        _soundContainer.PlayWhenFree(SoundsName.AttackObstacleImpact);
     }
 
     public void TryActivateCut()
@@ -35,12 +47,13 @@ public class ObstacleCut : MonoBehaviour, ICuttable
 
     public void DeactivateCut()
     {
+        PlaySound();
         _meshTarget.enabled = false;
     }
 
     protected void CreateClone(GameObject prefab)
     {
-        _clone = _instantiator.InstantiatePrefab(prefab, transform.position, transform.rotation, null);
+        _clone = _factory.Create(prefab, transform.position, transform.rotation, null);
         _clone.gameObject.SetActive(false);
         SetScale(prefab.transform.localScale);
         AddMeshTarget();

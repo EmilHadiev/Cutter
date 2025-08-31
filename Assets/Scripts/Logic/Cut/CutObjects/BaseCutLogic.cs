@@ -6,12 +6,13 @@ using Zenject;
 public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
 {
     private const int AttackDistance = 100;
+
     private readonly int _maxTargets;
 
     private readonly ICutMouseBehaviour _mouseBehaviour;
     private readonly Camera _camera;
     private readonly RaycastHit[] _targets;
-    private readonly Action[] _deactivateTargets;
+    private readonly ICuttable[] _deactivateTargets;
     private readonly LayerMask _enemyMask;
     private readonly ICutTargetsCounter _counter;
 
@@ -29,7 +30,7 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
 
         _maxTargets = GetMaxTargets(playerData);
         _targets = new RaycastHit[_maxTargets];
-        _deactivateTargets = new Action[_maxTargets]; 
+        _deactivateTargets = new ICuttable[_maxTargets]; 
     }
 
     protected abstract LayerMask GetLayerMask();
@@ -80,7 +81,7 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
             if (_targets[i].collider.TryGetComponent(out ICuttable cuttable))
             {
                 cuttable.TryActivateCut();
-                _deactivateTargets[i] = cuttable.TryActivateCut;
+                _deactivateTargets[i] = cuttable;
                 ++_cutTarget;
             }
         }
@@ -94,8 +95,10 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
 
     private void DeactivateTargets()
     {
-        foreach (var deactivator in _deactivateTargets)
-            deactivator?.Invoke();
+        for (int i = 0; i < _deactivateTargets.Length; i++)
+        {
+            _deactivateTargets[i]?.DeactivateCut();
+        }
     }
 
     private void ClearTargets()

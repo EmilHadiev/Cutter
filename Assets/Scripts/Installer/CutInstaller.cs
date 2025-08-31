@@ -1,5 +1,4 @@
 using DynamicMeshCutter;
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +9,6 @@ public class CutInstaller : MonoInstaller
     public override void InstallBindings()
     {
         BindCutCounter();
-        BindCutImpact();
         BindCutView();
         BindCharacterCutLogic();
         BindCustomMouseBehavior();
@@ -27,11 +25,6 @@ public class CutInstaller : MonoInstaller
     private void BindMousePosition()
     {
         Container.BindInterfacesTo<MousePosition>().AsSingle();
-    }
-
-    private void BindCutImpact()
-    {
-        Container.BindInterfacesTo<CutImpact>().AsSingle().NonLazy();
     }
 
     private void BindCutView()

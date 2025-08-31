@@ -19,7 +19,12 @@ public class Spawner : MonoBehaviour
         _data = new List<EnemyData>(data);
     }
 
-    private async UniTask Start()
+    private void Start()
+    {
+        Spawn().Forget();
+    }
+
+    public async UniTask Spawn()
     {
         try
         {
@@ -28,6 +33,6 @@ public class Spawner : MonoBehaviour
         catch (Exception ex)
         {
             Debug.LogError(ex.Message);
-        }        
+        }
     }
 }

@@ -57,8 +57,19 @@ public class Factory : IFactory
         return _instantiator.InstantiatePrefab(prefab);
     }
 
-    public UniTask<GameObject> Create(AssetReference reference, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
+    public async UniTask<GameObject> Create(AssetReference reference, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
     {
-        throw new System.NotImplementedException();
+        var prefab = await _addressablesLoaderService.LoadAssetAsync<GameObject>(reference);
+        return _instantiator.InstantiatePrefab(prefab, position, rotation, parent);
+    }
+
+    public GameObject Create(GameObject prefab)
+    {
+        return _instantiator.InstantiatePrefab(prefab);
+    }
+
+    public GameObject Create(GameObject prefab, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
+    {
+        return _instantiator.InstantiatePrefab(prefab, position, rotation, parent);
     }
 }

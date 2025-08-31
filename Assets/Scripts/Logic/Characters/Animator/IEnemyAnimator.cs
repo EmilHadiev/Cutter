@@ -7,6 +7,11 @@
     void StopAttacking2();
     void StopRunning();
 
-    void StartDefenseTrigger();
+    void SetDefenseTrigger();
     void ResetDefenseTrigger();
+
+    void SetStunTrigger();
+    void ResetStunTrigger();
+
+    void SetVictoryTrigger();
 }

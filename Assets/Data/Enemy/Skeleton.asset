@@ -15,7 +15,7 @@ MonoBehaviour:
   <Speed>k__BackingField: 5
   <Damage>k__BackingField: 10
   <Radius>k__BackingField: 3
-  <DefenseChance>k__BackingField: 30
+  <DefenseChance>k__BackingField: 50
   <AssetReference>k__BackingField:
     m_AssetGUID: fae01ecabe7b11441a404a83ec1b446b
     m_SubObjectName: 

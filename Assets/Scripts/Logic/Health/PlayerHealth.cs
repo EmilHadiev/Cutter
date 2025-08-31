@@ -4,17 +4,20 @@ using Zenject;
 
 public class PlayerHealth : MonoBehaviour, IHealth
 {
+    private IGameOverService _gameOverService;
+
     private int _currentHealth;
     private int _maxHealth;
 
     public event Action Died;
-    public event Action<float, float> HealthChanged;
+    public event Action<int> HealthChanged;
 
     [Inject]
-    private void Constructor(PlayerData data)
+    private void Constructor(PlayerData data, IGameOverService gameOverService)
     {
         _maxHealth = data.Health;
         _currentHealth = data.Health;
+        _gameOverService = gameOverService;
     }
 
     public void AddHealth(int health)
@@ -34,6 +37,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
             return;
 
         _currentHealth -= damage;
+        HealthChanged?.Invoke(_currentHealth);
 
         if (_currentHealth <= 0)
             Kill();
@@ -42,6 +46,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public void Kill()
     {
         Died?.Invoke();
+        _gameOverService.Lose();
         gameObject.SetActive(false);
     }
 }

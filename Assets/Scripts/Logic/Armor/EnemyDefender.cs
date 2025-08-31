@@ -1,4 +1,5 @@
 ﻿using DynamicMeshCutter;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -7,12 +8,15 @@ public class EnemyDefender : MonoBehaviour, IDefensible
     [SerializeField] private Shield _shield;
 
     private IEnemyAnimator _animator;
-    private IEnemyStateMachine _stateMachine;
     private EnemyData _data;
+    private DefenderView _view;
+    private ICutMouseBehaviour _mouseBehaviour;
+
+    public event Action ShieldBroke;
 
     public bool IsDefending { get; private set; }
 
-    public bool IsShieldExisting => _shield != null;
+    public bool IsShieldExisting => _shield != null && _shield.gameObject.activeInHierarchy;
 
     private void OnValidate()
     {
@@ -26,16 +30,20 @@ public class EnemyDefender : MonoBehaviour, IDefensible
     }
 
     [Inject]
-    private ICutMouseBehaviour _mouseBehaviour;
+    private void Constructor(ICutMouseBehaviour mouseBehaviour, IFactory factory, ISoundContainer soundContainer)
+    {
+        _mouseBehaviour = mouseBehaviour;
+        _view = new DefenderView(factory, _shield);
+    }
 
     private void OnEnable()
     {
-        _mouseBehaviour.CutEnded += Defended;
+        _mouseBehaviour.CutEnded += OnCutEnded;
     }
 
     private void OnDisable()
     {
-        _mouseBehaviour.CutEnded -= Defended;
+        _mouseBehaviour.CutEnded -= OnCutEnded;
     }
 
     private void Start()
@@ -43,40 +51,63 @@ public class EnemyDefender : MonoBehaviour, IDefensible
         IEnemy enemy = GetComponent<IEnemy>();
 
         _animator = enemy.Animator;
-        _stateMachine = enemy.StateMachine;
         _data = enemy.Data;
+        _shield.SetHealth(_data.ShieldHealth);
     }
 
     public bool TryDefend()
     {
-        if (enabled == false || IsShieldExisting == false)
+        if (IsShieldExisting == false)
+        {
+            ShieldBroke?.Invoke();
             return false;
-
-        if (IsDefending)
-            return true;
-
-        if (Random.Range(0, 100) <= _data.DefenseChance)
-        {            
-            StartDefend();
-            return true;
         }
 
-        return false;
+        if (enabled == false)
+        {
+            return false;
+        }
+
+        _shield.TakeDamage();
+        StartDefend();
+        return true;
+    }
+
+    public void Deactivate()
+    {
+        enabled = false;
+    }
+
+    public void Activate()
+    {
+        enabled = true;
     }
 
     private void StartDefend()
     {
-        IsDefending = true;
+        IsDefending = true;        
     }
 
+    /// <summary>
+    /// From animation
+    /// </summary>
     private void DefenseEnded()
     {
-        _animator.ResetDefenseTrigger();
-        IsDefending = false;
+        _animator.ResetDefenseTrigger(); 
     }
 
-    private void Defended()
+    private void OnCutEnded()
     {
-        _animator.StartDefenseTrigger();
+        if (IsDefending)
+        {
+            PlayView();
+            _animator.SetDefenseTrigger();
+            IsDefending = false;
+        }
+    }
+
+    private void PlayView()
+    {
+        _view.Play();
     }
 }

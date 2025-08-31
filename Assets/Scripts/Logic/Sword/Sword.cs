@@ -18,7 +18,6 @@ public class Sword : MonoBehaviour
     private Vector3 _startPosition;
     private Vector3 _endPosition;
     private bool _isCutting;
-    private Tweener _cutAnimation;
 
     private void OnValidate()
     {

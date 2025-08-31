@@ -1,14 +1,18 @@
 using DynamicMeshCutter;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(CapsuleCollider))]
-public class CharacterCut : MonoBehaviour, ICuttable
+public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable
 {
     [SerializeField] private MeshTarget _target;
 
     private IHealth _health;
     private IDefensible _defenser;
     private bool _isActivated;
+
+    [Inject]
+    private ISoundContainer _soundContainer;
 
     private void OnValidate()
     {
@@ -40,10 +44,17 @@ public class CharacterCut : MonoBehaviour, ICuttable
         TryToKill();
     }
 
+    public void PlaySound()
+    {
+        _soundContainer.Stop();
+        _soundContainer.Play(SoundsName.AttackFleshImpact);
+    }
+
     private void TryToKill()
     {
         if (_isActivated)
         {
+            PlaySound();
             _health.Kill();
             _isActivated = false;
         }

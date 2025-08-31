@@ -11,11 +11,17 @@ public class ServiceInstaller : MonoInstaller
         BindSceneLoader();
         BindAddressablesLoader();
         BindFactory();
+        BindGameOverService();
+    }
+
+    private void BindGameOverService()
+    {
+        Container.BindInterfacesTo<GameOverService>().AsSingle();
     }
 
     private void BindSoundContainer()
     {
-        Container.BindInterfacesTo<SoundContainer>().FromInstance(_soundContainer).AsSingle();
+        Container.BindInterfacesTo<SoundContainer>().FromComponentInNewPrefab(_soundContainer).AsSingle();
     }
 
     private void BindSceneLoader()

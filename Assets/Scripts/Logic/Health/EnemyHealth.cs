@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour, IHealth
+public class EnemyHealth : MonoBehaviour, IHealth
 {
-    public event Action<float, float> HealthChanged;
     public event Action Died;
+    public event Action<int> HealthChanged;
 
     public void AddHealth(int health)
     {

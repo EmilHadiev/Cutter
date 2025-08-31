@@ -37,7 +37,10 @@ public class SoundContainer : MonoBehaviour, ISoundContainer
         }
     }
 
-    public void Stop() => _source.Stop();
+    public void Stop()
+    {
+        _source.Stop();
+    }
 
     private void PlayInternal()
     {
@@ -48,5 +51,13 @@ public class SoundContainer : MonoBehaviour, ISoundContainer
         }
 
         _source.PlayOneShot(_currentClip, VolumeScale);
+    }
+
+    public void PlayWhenFree(string soundName)
+    {
+        if (_source.isPlaying)
+            return;
+
+        Play(soundName);
     }
 }

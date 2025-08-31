@@ -3,7 +3,7 @@
 public interface IHealth
 {
     event Action Died;
-    event Action<float, float> HealthChanged;
+    event Action<int> HealthChanged;
 
     void AddHealth(int health);
     void TakeDamage(int damage);
