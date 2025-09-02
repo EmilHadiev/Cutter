@@ -33,7 +33,10 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable
     public void TryActivateCut()
     {
          if (_defenser.TryDefend())
+        {
+            Debug.Log("ЗАЩИТА! активроана!");
             return;
+        }
 
         _target.enabled = true;
         _isActivated = true;

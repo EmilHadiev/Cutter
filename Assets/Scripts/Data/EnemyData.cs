@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 [CreateAssetMenu(menuName = ScriptableObjectPath.CharacterBaseDataPath + "/" + ScriptableObjectPath.Enemy)]
 public class EnemyData : ScriptableObject
@@ -8,5 +7,4 @@ public class EnemyData : ScriptableObject
     [field: SerializeField] public int Damage { get; private set; } = 10;
     [field: SerializeField] public int Radius { get; private set; } = 3;
     [field: SerializeField] public int ShieldHealth { get; private set; } = 3;
-    [field: SerializeField] public AssetReference AssetReference { get; private set; }
 }

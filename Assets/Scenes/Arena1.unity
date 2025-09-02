@@ -96,7 +96,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: b1f843fb7eed15c4bba9b78676ba14b0, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -7813,7 +7813,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 1
   m_VoxelSize: 0.4
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 8122ae8a28ed7e44fad356e2b8179267, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 1a394a26c0e8d2b4889391a341e3142e, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &1628863383
 PrefabInstance:

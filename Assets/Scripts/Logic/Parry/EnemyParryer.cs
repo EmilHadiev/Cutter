@@ -60,7 +60,7 @@ public class EnemyParryer : MonoBehaviour, IParryable
         _parryView.ShowParryImpact();
         _wasParried = true;
 
-        SwitchState();
+        //SwitchState();
     }
 
     private void SwitchState()
@@ -91,7 +91,7 @@ public class EnemyParryer : MonoBehaviour, IParryable
 
         _wasParried = false;
         _isParryWindowOpen = false;
-        _stateMachine.LoadSavedState();
+        //_stateMachine.LoadSavedState();
         _parryView.CloseParryImpact();
         Deactivate();
     }
