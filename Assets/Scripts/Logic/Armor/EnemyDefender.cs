@@ -61,7 +61,7 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
     public bool TryDefend()
     {
-        if (IsCanDefend == false && _isWorking)
+        if (IsCanDefend == false)
         {
             Debug.Log("Больше не могу дефать!");
             Debug.Log($"is working {_isWorking}. is defending {_isDefending}");
@@ -74,14 +74,12 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
     public void Deactivate()
     {
-        Debug.Log("Деактивирую защиту!!!");
         _isWorking = false;
     }
+
     public void Activate()
     {
-        Debug.Log("АКТИВИРУЮ защиту!");
         _isWorking = true;
-        _isDefending = true;
     }
 
     /// <summary>
