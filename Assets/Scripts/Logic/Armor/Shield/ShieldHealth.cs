@@ -12,6 +12,7 @@ public class ShieldHealth : MonoBehaviour, IHealth
     public void SetHealth(int shieldHealth)
     {
         _health = shieldHealth;
+        HealthChanged?.Invoke(_health);
     }
 
     public void AddHealth(int health)
@@ -22,7 +23,6 @@ public class ShieldHealth : MonoBehaviour, IHealth
     public void Kill()
     {
         _health = _maxHealth;
-
         Died?.Invoke();
     }
 
@@ -30,9 +30,9 @@ public class ShieldHealth : MonoBehaviour, IHealth
     {
         _health -= damage;
 
-        HealthChanged?.Invoke(_health);
-
-        if (_health <= 1)
+        if (_health <= 0)
             Kill();
+
+        HealthChanged?.Invoke(_health);
     }
 }

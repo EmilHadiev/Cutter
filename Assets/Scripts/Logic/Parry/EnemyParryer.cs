@@ -1,5 +1,4 @@
 ﻿using DynamicMeshCutter;
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -17,12 +16,9 @@ public class EnemyParryer : MonoBehaviour, IParryable
     private ICutMouseBehaviour _mouseBehaviour;
     private ISoundContainer _soundContainer;
 
-    private bool IsActivated => enabled == true;
-
     private bool _isParryWindowOpen;
+    private bool _isWorking;
     private bool _wasParried;
-
-    public bool IsParryTime => enabled == true && _isParryWindowOpen;
 
     private void OnEnable()
     {
@@ -40,6 +36,7 @@ public class EnemyParryer : MonoBehaviour, IParryable
         _stateMachine = _enemy.StateMachine;
         _animator = _enemy.Animator;
         _parryView = new EnemyParryView(_soundContainer, _factory, _animator, _parryParticlePosition, _stunParticlePosition);
+        Deactivate();
     }
 
     [Inject]
@@ -50,8 +47,8 @@ public class EnemyParryer : MonoBehaviour, IParryable
         _soundContainer = soundContainer;
     }
 
-    public void Activate() => enabled = true;
-    public void Deactivate() => enabled = false;
+    public void Activate() => _isWorking = true;
+    public void Deactivate() => _isWorking = false;
 
     private void TryParry()
     {
@@ -74,7 +71,7 @@ public class EnemyParryer : MonoBehaviour, IParryable
 
     private void ParryTimeStarted()
     {
-        if (IsActivated == false)
+        if (_isWorking == false)
             return;
 
         _parryView.ShowParryWindow();
@@ -93,6 +90,7 @@ public class EnemyParryer : MonoBehaviour, IParryable
             return;
 
         _wasParried = false;
+        _isParryWindowOpen = false;
         _stateMachine.LoadSavedState();
         _parryView.CloseParryImpact();
         Deactivate();

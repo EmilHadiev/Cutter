@@ -43,6 +43,7 @@ public class Shield : MonoBehaviour, ICutSoundable
     public void TakeDamage()
     {
         _health.TakeDamage(Damage);
+        Debug.Log("Урон по щиту получен!");
     }
 
     public void PlaySound()
@@ -54,6 +55,5 @@ public class Shield : MonoBehaviour, ICutSoundable
     private void OnDied()
     {
         _target.enabled = true;
-        _soundContainer.Play(SoundsName.ShieldBreak);
     }
 }

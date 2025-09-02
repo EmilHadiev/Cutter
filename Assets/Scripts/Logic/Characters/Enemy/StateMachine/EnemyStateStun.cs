@@ -1,4 +1,6 @@
-﻿public class EnemyStateStun : IEnemyState
+﻿using UnityEngine;
+
+public class EnemyStateStun : IEnemyState
 {
     private readonly IDefensible _defender;
 

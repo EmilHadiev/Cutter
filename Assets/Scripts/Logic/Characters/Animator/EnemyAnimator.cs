@@ -11,6 +11,9 @@ public class EnemyAnimator : MonoBehaviour, IEnemyAnimator
     private const string DefenseTrigger = "DefenseTrigger";
     private const string VictoryTrigger = "VictoryTrigger";
     private const string StunTrigger = "StunTrigger";
+    private const string AttackSpeed = "AttackSpeed";
+
+    private const float DefaultAttackSpeed = 1;
 
     private void OnValidate()
     {
@@ -33,4 +36,7 @@ public class EnemyAnimator : MonoBehaviour, IEnemyAnimator
     public void ResetStunTrigger() => _animator.ResetTrigger(StunTrigger);
 
     public void SetVictoryTrigger() => _animator.SetTrigger(VictoryTrigger);
+
+    public void SetAttackSpeed(float speed = 1) => _animator.SetFloat(AttackSpeed, speed);
+    public void ResetAttackSpeed() => _animator.SetFloat(AttackSpeed, DefaultAttackSpeed);
 }

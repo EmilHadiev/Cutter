@@ -12,9 +12,10 @@ public class EnemyDefender : MonoBehaviour, IDefensible
     private ICutMouseBehaviour _mouseBehaviour;
     private IParryable _parryer;
 
-    public bool IsDefending { get; private set; }
+    private bool _isWorking = true;
+    private bool _isDefending;
 
-    public bool IsShieldExisting => _shield != null && _shield.gameObject.activeInHierarchy;
+    public bool IsCanDefend => _shield != null && _shield.gameObject.activeInHierarchy == true && _isWorking;
 
     private void OnValidate()
     {
@@ -23,8 +24,11 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
     private void Awake()
     {
-        if (IsShieldExisting == false)
+        if (IsCanDefend == false)
+        {
             enabled = false;
+            _isWorking = false;
+        }    
     }
 
     private void OnEnable()
@@ -57,45 +61,17 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
     public bool TryDefend()
     {
-        if (enabled == false)
+        if (IsCanDefend == false)
         {
             return false;
         }
 
-        if (IsShieldExisting == false)
-        {
-            _parryer.Deactivate();
-            return false;
-        }
-        else
-        {
-            _parryer.Activate();
-        }
-
-        if (_parryer.IsParryTime)
-        {
-            return true;
-        }
-
-        _shield.TakeDamage();
-        StartDefend();
+        _isDefending = true;
         return true;
     }
 
-    public void Deactivate()
-    {
-        enabled = false;
-    }
-
-    public void Activate()
-    {
-        enabled = true;
-    }
-
-    private void StartDefend()
-    {
-        IsDefending = true;        
-    }
+    public void Deactivate() => _isWorking = false;
+    public void Activate() => _isWorking = true;
 
     /// <summary>
     /// From animation
@@ -107,16 +83,18 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
     private void OnCutEnded()
     {
-        if (IsDefending)
+        if (_isDefending)
         {
-            PlayView();
+            _view.Play();
             _animator.SetDefenseTrigger();
-            IsDefending = false;
+            TryAttackShield();
+            _isDefending = false;
         }
     }
 
-    private void PlayView()
+    private void TryAttackShield()
     {
-        _view.Play();
+        if (_isWorking)
+            _shield.TakeDamage();
     }
 }

@@ -14,4 +14,7 @@
     void ResetStunTrigger();
 
     void SetVictoryTrigger();
+
+    void SetAttackSpeed(float speed = 1);
+    void ResetAttackSpeed();
 }

@@ -4,6 +4,7 @@ using Zenject;
 public class ServiceInstaller : MonoInstaller
 {
     [SerializeField] private SoundContainer _soundContainer;
+    [SerializeField] private CameraFollower _cameraFollower;
 
     public override void InstallBindings()
     {
@@ -12,6 +13,12 @@ public class ServiceInstaller : MonoInstaller
         BindAddressablesLoader();
         BindFactory();
         BindGameOverService();
+        BindCameraFollower();
+    }
+
+    private void BindCameraFollower()
+    {
+        Container.BindInterfacesTo<CameraFollower>().FromInstance(_cameraFollower).AsSingle();
     }
 
     private void BindGameOverService()

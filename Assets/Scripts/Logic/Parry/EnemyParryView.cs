@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EnemyParryView
 {
+    private const float AttackSpeed = 0.25f;
+
     private readonly ISoundContainer _soundContainer;
     private readonly IEnemyAnimator _animator;
 
@@ -22,15 +24,13 @@ public class EnemyParryView
 
     public void ShowParryWindow()
     {
-        Debug.Log("Временно отключено!");
-        return;
+        _animator.SetAttackSpeed(AttackSpeed);
         _parryWindowView.Play();
     }
 
     public void CloseParryWindow()
     {
-        Debug.Log("Временно отключено!");
-        return;
+        _animator.ResetAttackSpeed();
         _parryWindowView.Stop();
     }
 
@@ -45,8 +45,9 @@ public class EnemyParryView
     public void CloseParryImpact()
     {
         _animator.ResetStunTrigger();
+        _animator.ResetAttackSpeed();
         _parryView.Stop();
-       _stunView.Stop();
+        _stunView.Stop();
     }
 
     private async UniTaskVoid CreateStunParticle(IFactory factory, ParticlePosition position, string assetName)
