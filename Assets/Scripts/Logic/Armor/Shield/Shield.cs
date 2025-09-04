@@ -1,4 +1,5 @@
 ﻿using DynamicMeshCutter;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +14,8 @@ public class Shield : MonoBehaviour, ICutSoundable
     private readonly ISoundContainer _soundContainer;
 
     private const int Damage = 1;
+
+    public event Action ShieldBroke;
 
     private void OnValidate()
     {
@@ -40,6 +43,11 @@ public class Shield : MonoBehaviour, ICutSoundable
         _health.SetHealth(health);
     }
 
+    public void RestoreAlittle()
+    {
+        _health.AddHealth(Damage);
+    }
+
     public void TakeDamage()
     {
         _health.TakeDamage(Damage);
@@ -54,6 +62,7 @@ public class Shield : MonoBehaviour, ICutSoundable
 
     private void OnDied()
     {
+        ShieldBroke?.Invoke();
         _target.enabled = true;
     }
 }

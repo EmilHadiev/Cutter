@@ -3,14 +3,14 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(CapsuleCollider))]
-public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable
+public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable, ICutUpdatable
 {
     [SerializeField] private MeshTarget _target;
 
-    private IHealth _health;
-    private IDefensible _defenser;
+    private CutValidator _validator;
 
     private bool _isActivated;
+    private bool _isWork;
 
     [Inject]
     private ISoundContainer _soundContainer;
@@ -24,28 +24,43 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable
     {
         IEnemy enemy = GetComponent<IEnemy>();
 
-        _health = enemy.Health;
-        _defenser = enemy.Defender;
+        _validator = enemy.Validator;
 
-        DeactivateCut();
+        MeshTargetEnableToggle(false);
     }
 
-    public void TryActivateCut()
+    public void UpdateTargets()
     {
-         if (_defenser.TryDefend())
+        if (_isWork == false)
+            return;
+
+        if (_validator.IsCanCut() == false)
         {
-            Debug.Log("ÇÀÙÈÒÀ! àêòèâðîàíà!");
+            _isActivated = false;
+            MeshTargetEnableToggle(false);
             return;
         }
-
-        _target.enabled = true;
-        _isActivated = true;
+        else
+        {
+            _isActivated = true;
+            MeshTargetEnableToggle(true);
+        }
     }
+
+    public void TryActivateCut() => _isWork = true;
 
     public void DeactivateCut()
     {
-        _target.enabled = false;
-        TryToKill();
+        if (_isActivated == false)
+        {
+            _validator.HandleFailCut();
+            return;
+        }
+
+        MeshTargetEnableToggle(false);
+        PlaySound();
+        _isActivated = false;
+        _isWork = false;
     }
 
     public void PlaySound()
@@ -54,13 +69,9 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable
         _soundContainer.Play(SoundsName.AttackFleshImpact);
     }
 
-    private void TryToKill()
+    private void MeshTargetEnableToggle(bool isOn)
     {
-        if (_isActivated)
-        {
-            PlaySound();
-            _health.Kill();
-            _isActivated = false;
-        }
+        if (_target != null)
+            _target.enabled = isOn;
     }
 }

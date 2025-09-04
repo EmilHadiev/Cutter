@@ -1,5 +1,4 @@
-﻿using DynamicMeshCutter;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 public class EnemyParryer : MonoBehaviour, IParryable
@@ -10,89 +9,94 @@ public class EnemyParryer : MonoBehaviour, IParryable
     private EnemyParryView _parryView;
 
     private IEnemy _enemy;
-    private IEnemyStateMachine _stateMachine;
     private IEnemyAnimator _animator;
     private IFactory _factory;
-    private ICutMouseBehaviour _mouseBehaviour;
+    private IDefensible _defender;
     private ISoundContainer _soundContainer;
 
     private bool _isParryWindowOpen;
     private bool _isWorking;
-    private bool _wasParried;
 
-    private void OnEnable()
-    {
-        _mouseBehaviour.CutEnded += TryParry;
-    }
+    private bool IsCanParry => _isParryWindowOpen == true && _isWorking == true;
 
-    private void OnDisable()
-    {
-        _mouseBehaviour.CutEnded -= TryParry;
-    }
+    public bool IsCanCut => IsCanParry == false;
 
-    private void Awake()
+    private void Start()
     {
         _enemy = GetComponent<Enemy>();
-        _stateMachine = _enemy.StateMachine;
+
         _animator = _enemy.Animator;
+        _defender = _enemy.Defender;
+
+        if (_defender.IsCanDefending)
+            Activate();
+
         _parryView = new EnemyParryView(_soundContainer, _factory, _animator, _parryParticlePosition, _stunParticlePosition);
-        Deactivate();
     }
 
     [Inject]
-    private void Constructor(ISoundContainer soundContainer, IFactory factory, ICutMouseBehaviour mouseBehaviour)
+    private void Constructor(ISoundContainer soundContainer, IFactory factory)
     {
         _factory = factory;
-        _mouseBehaviour = mouseBehaviour;
         _soundContainer = soundContainer;
     }
 
     public void Activate() => _isWorking = true;
     public void Deactivate() => _isWorking = false;
 
+    private void OpenParryWindow()
+    {
+        _parryView.ShowParryWindow();
+        _isParryWindowOpen = true;
+    }
+
+    private void CloseParryWindow()
+    {
+        _parryView.CloseParryWindow();
+        _isParryWindowOpen = false;
+    }
+
     private void TryParry()
     {
-        if (_isParryWindowOpen == false)
+        if (IsCanParry == false)
         {
             return;
         }
 
         _parryView.ShowParryImpact();
-        _wasParried = true;
-
-        SwitchState();
     }
 
-    private void SwitchState()
+    public void HandleFailCut()
     {
-        _stateMachine.SaveCurrentState();
-        _stateMachine.SwitchState<EnemyStateStun>();
+        TryParry();
     }
+
+    #region FromAnimations
 
     private void ParryTimeStarted()
     {
         if (_isWorking == false)
             return;
 
-        _parryView.ShowParryWindow();
-        _isParryWindowOpen = true;
+        OpenParryWindow();
     }
 
     private void ParryTimeEnded()
+    {        
+        CloseParryWindow();
+    }
+
+    private void StunStarted()
     {
-        _parryView.CloseParryWindow();
-        _isParryWindowOpen = false;
+        _defender.Deactivate();
+        CloseParryWindow();
     }
 
     private void StunEnded()
     {
-        if (_wasParried == false)
-            return;
-
-        _wasParried = false;
-        _isParryWindowOpen = false;
-        _stateMachine.LoadSavedState();
+        _defender.Activate();
         _parryView.CloseParryImpact();
-        Deactivate();
     }
+
+    #endregion
 }

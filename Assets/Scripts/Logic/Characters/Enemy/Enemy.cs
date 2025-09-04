@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour, IEnemy
     [SerializeField] private EnemyParryer _parryer;
 
     private EnemyStateMachine _stateMachine;
+    private CutValidator _cutValidator;
 
     public IHealth Health => _health;
     public IMovable Mover => _mover;
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour, IEnemy
     public IAttackable Attacker => _attacker;
     public IDefensible Defender => _defender;
     public IParryable Parryer => _parryer;
+    public CutValidator Validator => _cutValidator;
 
 
     private void OnValidate()
@@ -44,7 +46,8 @@ public class Enemy : MonoBehaviour, IEnemy
 
     private void Awake()
     {
-        _stateMachine = new EnemyStateMachine(Mover, Attacker, Animator, Defender);
+        _stateMachine = new EnemyStateMachine(Mover, Attacker, Animator);
+        _cutValidator = new CutValidator(new ICutCondition[] {Parryer, Defender});
     }
 
     private void Start()

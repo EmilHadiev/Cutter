@@ -1,6 +1,6 @@
 ﻿using System;
 
-public interface IParryable
+public interface IParryable : ICutCondition
 {
     void Activate();
     void Deactivate();

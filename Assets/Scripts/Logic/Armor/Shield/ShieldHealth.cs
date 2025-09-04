@@ -12,12 +12,18 @@ public class ShieldHealth : MonoBehaviour, IHealth
     public void SetHealth(int shieldHealth)
     {
         _health = shieldHealth;
+        _maxHealth = shieldHealth;
         HealthChanged?.Invoke(_health);
     }
 
     public void AddHealth(int health)
     {
-        return;
+        _health += health;
+
+        if (_health > _maxHealth)
+            _health = _maxHealth;
+
+        HealthChanged?.Invoke(_health);
     }
 
     public void Kill()

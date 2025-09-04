@@ -8,6 +8,7 @@ public interface IEnemy
     public IAttackable Attacker { get; }
     public IDefensible Defender { get; }
     public IParryable Parryer { get; }
+    public CutValidator Validator { get; }
 
     void SetData(EnemyData data);
 }

@@ -1,5 +1,4 @@
-﻿using DynamicMeshCutter;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 public class EnemyDefender : MonoBehaviour, IDefensible
@@ -9,13 +8,12 @@ public class EnemyDefender : MonoBehaviour, IDefensible
     private IEnemyAnimator _animator;
     private EnemyData _data;
     private DefenderView _view;
-    private ICutMouseBehaviour _mouseBehaviour;
-    private IParryable _parryer;
 
     private bool _isWorking = true;
-    private bool _isDefending;
 
-    public bool IsCanDefend => _shield != null && _shield.gameObject.activeInHierarchy == true && _isWorking;
+    public bool IsCanDefending => _shield != null && _shield.gameObject.activeInHierarchy == true && _isWorking;
+
+    public bool IsCanCut => IsCanDefending == false;
 
     private void OnValidate()
     {
@@ -24,21 +22,11 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
     private void Awake()
     {
-        if (IsCanDefend == false)
+        if (IsCanDefending == false)
         {
             enabled = false;
             _isWorking = false;
-        }    
-    }
-
-    private void OnEnable()
-    {
-        _mouseBehaviour.CutEnded += OnCutEnded;
-    }
-
-    private void OnDisable()
-    {
-        _mouseBehaviour.CutEnded -= OnCutEnded;
+        }
     }
 
     private void Start()
@@ -47,29 +35,19 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
         _animator = enemy.Animator;
         _data = enemy.Data;
-        _parryer = enemy.Parryer;
 
         _shield.SetHealth(_data.ShieldHealth);
     }
 
-    [Inject]
-    private void Constructor(ICutMouseBehaviour mouseBehaviour, IFactory factory, ISoundContainer soundContainer)
+    private void OnParried()
     {
-        _mouseBehaviour = mouseBehaviour;
-        _view = new DefenderView(factory, _shield);
+        _shield.RestoreAlittle();
     }
 
-    public bool TryDefend()
+    [Inject]
+    private void Constructor(IFactory factory, ISoundContainer soundContainer)
     {
-        if (IsCanDefend == false)
-        {
-            Debug.Log("Больше не могу дефать!");
-            Debug.Log($"is working {_isWorking}. is defending {_isDefending}");
-            return false;
-        }
-
-        _isDefending = true;
-        return true;
+        _view = new DefenderView(factory, _shield);
     }
 
     public void Deactivate()
@@ -82,28 +60,26 @@ public class EnemyDefender : MonoBehaviour, IDefensible
         _isWorking = true;
     }
 
-    /// <summary>
-    /// From animation
-    /// </summary>
+    public void HandleFailCut()
+    {
+        TryDefend();
+    }
+
+    private void TryDefend()
+    {
+        if (IsCanDefending)
+        {
+            _view.Play();
+            _animator.SetDefenseTrigger();
+            _shield.TakeDamage();
+        }
+    }
+
+    #region FromAnimations
+
     private void DefenseEnded()
     {
         _animator.ResetDefenseTrigger(); 
     }
-
-    private void OnCutEnded()
-    {
-        if (_isDefending)
-        {
-            _view.Play();
-            _animator.SetDefenseTrigger();
-            TryAttackShield();
-            _isDefending = false;
-        }
-    }
-
-    private void TryAttackShield()
-    {
-        if (_isWorking)
-            _shield.TakeDamage();
-    }
+    #endregion
 }

@@ -12,9 +12,11 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
     private readonly ICutMouseBehaviour _mouseBehaviour;
     private readonly Camera _camera;
     private readonly RaycastHit[] _targets;
-    private readonly ICuttable[] _deactivateTargets;
     private readonly LayerMask _enemyMask;
     private readonly ICutTargetsCounter _counter;
+
+    private readonly ICuttable[] _deactivateTargets;
+    private readonly ICutUpdatable[] _updateTargets;
 
     private int _countTargets;
     private int _cutTarget;
@@ -29,8 +31,11 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
         _enemyMask = GetLayerMask();
 
         _maxTargets = GetMaxTargets(playerData);
+
         _targets = new RaycastHit[_maxTargets];
+
         _deactivateTargets = new ICuttable[_maxTargets]; 
+        _updateTargets = new ICutUpdatable[_maxTargets];
     }
 
     protected abstract LayerMask GetLayerMask();
@@ -50,10 +55,14 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
 
     public void Tick()
     {
-        if (_isWorking == false || _countTargets >= _maxTargets)
+        if (_isWorking == false)
             return;
 
-        SetTargets();
+        if (_countTargets < _maxTargets)
+            SetTargets();
+
+        if (_updateTargets.Length > 0)
+            UpdateTargets();
     }
 
     private void StartCutting()
@@ -78,13 +87,24 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
 
         for (int i = 0; i < _countTargets; i++)
         {
-            if (_targets[i].collider.TryGetComponent(out ICuttable cuttable))
+            Collider collider = _targets[i].collider;
+
+            if (collider.TryGetComponent(out ICuttable cuttable))
             {
                 cuttable.TryActivateCut();
                 _deactivateTargets[i] = cuttable;
                 ++_cutTarget;
             }
+
+            if (collider.TryGetComponent(out ICutUpdatable cutUpdatable))
+                _updateTargets[i] = cutUpdatable;
         }
+    }
+
+    private void UpdateTargets()
+    {
+        for (int i = 0; i < _updateTargets.Length; i++)
+            _updateTargets[i]?.UpdateTargets();
     }
 
     private int GetCountTargets()

@@ -7,8 +7,6 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
 
     private IEnemyAnimator _animator;
     private IEnemyStateMachine _stateMachine;
-    private IParryable _parryer;
-    private IDefensible _defender;
 
     private EnemyAttackLogic _attackLogic;
 
@@ -26,8 +24,6 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
 
         _animator = enemy.Animator;
         _stateMachine = enemy.StateMachine;
-        _parryer = enemy.Parryer;
-        _defender = enemy.Defender;
 
         _attackLogic = new EnemyAttackLogic(enemy.Data, transform);
 
@@ -49,27 +45,12 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
 
     public void StartAttack()
     {
-        TryActivateParryer();
         PlayAttackAnimation();
     }
 
     public void StopAttack()
     {
-        DeactivateParryer();
         StopAnimations();
-    }
-
-    private void TryActivateParryer()
-    {
-        if (_defender.IsCanDefend)
-        {
-            _parryer.Activate();
-        }
-    }
-
-    private void DeactivateParryer()
-    {
-        _parryer.Deactivate();
     }
 
     private void StopAnimations()

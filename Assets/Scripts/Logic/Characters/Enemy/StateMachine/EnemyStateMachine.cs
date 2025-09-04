@@ -8,12 +8,11 @@ public class EnemyStateMachine : IEnemyStateMachine
     private IEnemyState _currentState;
     private IEnemyState _previousState;
 
-    public EnemyStateMachine(IMovable movable, IAttackable attackable, IEnemyAnimator animator, IDefensible defensible)
+    public EnemyStateMachine(IMovable movable, IAttackable attackable, IEnemyAnimator animator)
     {
         _states.Add(typeof(EnemyWalkingState), new EnemyWalkingState(movable));
         _states.Add(typeof(EnemyAttackingState), new EnemyAttackingState(attackable));
         _states.Add(typeof(EnemyVictoryState), new EnemyVictoryState(animator));
-        _states.Add(typeof(EnemyStateStun), new EnemyStateStun(defensible));
 
         _states.Add(typeof(EnemyStabState), new EnemyStabState());
     }

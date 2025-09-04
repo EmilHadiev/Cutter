@@ -1,10 +1,7 @@
-﻿using System;
-
-public interface IDefensible
+﻿public interface IDefensible : ICutCondition
 {
-    bool IsCanDefend { get; }
+    public bool IsCanDefending { get;}
 
-    bool TryDefend();
     void Deactivate();
     void Activate();
 }
