@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 
 public class ShieldHealthView : MonoBehaviour
@@ -15,11 +16,18 @@ public class ShieldHealthView : MonoBehaviour
     private void OnEnable()
     {
         _health.HealthChanged += OnHealthChanged;
+        _health.Died += OnDied;
     }
 
     private void OnDisable()
     {
         _health.HealthChanged -= OnHealthChanged;
+        _health.Died -= OnDied;
+    }
+
+    private void OnDied()
+    {
+        _text.text = "";
     }
 
     private void OnHealthChanged(int health)

@@ -37,7 +37,10 @@ public class ShieldHealth : MonoBehaviour, IHealth
         _health -= damage;
 
         if (_health <= 0)
+        {
             Kill();
+            return;
+        }
 
         HealthChanged?.Invoke(_health);
     }

@@ -77,19 +77,17 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
         _startAttackAnimations[index]?.Invoke();
     }
 
-    private void AttackStarted()
-    {
-        _attackLogic.Attack();
-    }
-
-    private void AttackEnded()
-    {
-        ResetAttackAnimation();
-    }
-
     private void ResetAttackAnimation()
     {
         StopAnimations();
         StartAttack();
     }
+
+    #region FromAnimations
+    private void AttackEnded()
+    {
+        _attackLogic.Attack();
+        ResetAttackAnimation();
+    }
+    #endregion
 }

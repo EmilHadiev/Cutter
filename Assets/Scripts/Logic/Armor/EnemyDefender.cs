@@ -39,11 +39,6 @@ public class EnemyDefender : MonoBehaviour, IDefensible
         _shield.SetHealth(_data.ShieldHealth);
     }
 
-    private void OnParried()
-    {
-        _shield.RestoreAlittle();
-    }
-
     [Inject]
     private void Constructor(IFactory factory, ISoundContainer soundContainer)
     {

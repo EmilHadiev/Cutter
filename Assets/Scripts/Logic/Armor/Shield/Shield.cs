@@ -43,15 +43,9 @@ public class Shield : MonoBehaviour, ICutSoundable
         _health.SetHealth(health);
     }
 
-    public void RestoreAlittle()
-    {
-        _health.AddHealth(Damage);
-    }
-
     public void TakeDamage()
     {
         _health.TakeDamage(Damage);
-        Debug.Log("Урон по щиту получен!");
     }
 
     public void PlaySound()

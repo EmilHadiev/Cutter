@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace Cysharp.Threading.Tasks
 {
@@ -128,6 +129,11 @@ namespace Cysharp.Threading.Tasks
             }
 
             return new UniTask<AsyncUnit>(new AsyncUnitSource(this.source), this.token);
+        }
+
+        public static async Task Delay(int v, object cancellationToken)
+        {
+            throw new NotImplementedException();
         }
 
         sealed class AsyncUnitSource : IUniTaskSource<AsyncUnit>

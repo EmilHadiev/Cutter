@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Lizard
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 5
-  <AssetReference>k__BackingField:
-    m_AssetGUID: 47c7cdf374fc1214ba39892caf01d65a
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  <Damage>k__BackingField: 1
+  <Radius>k__BackingField: 3
+  <ShieldHealth>k__BackingField: 3

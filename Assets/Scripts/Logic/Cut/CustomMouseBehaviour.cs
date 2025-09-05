@@ -13,9 +13,12 @@ namespace DynamicMeshCutter
         private bool _isDragging;
         private Camera _mainCamera;
         private ICutPartContainer _cutPartContainer;
+        private IEnergy _playerEnergy;
 
         public event Action CutStarted;
         public event Action CutEnded;
+
+        private bool _isCanCut;
 
         protected override void Awake()
         {
@@ -51,6 +54,14 @@ namespace DynamicMeshCutter
 
         private void StartCut()
         {
+            if (_playerEnergy.TrySpendEnergy() == false)
+            {
+                _isCanCut = false;
+                return;
+            }
+
+            _isCanCut = true;
+
             _isDragging = true;
             CutStarted?.Invoke();
             _from = GetMouseWorldPosition();
@@ -58,15 +69,19 @@ namespace DynamicMeshCutter
 
         private void EndCut()
         {
-            Cut();
+            if (_isCanCut == false)
+                return;
+
             _isDragging = false;
+            Cut();
             CutEnded?.Invoke();
         }
 
         [Inject]
-        private void Constructor(ICutPartContainer cutPartContainer)
+        private void Constructor(ICutPartContainer cutPartContainer, IPlayer player)
         {
             _cutPartContainer = cutPartContainer;
+            _playerEnergy = player.Energy;
         }
 
         private Vector3 GetMouseWorldPosition()

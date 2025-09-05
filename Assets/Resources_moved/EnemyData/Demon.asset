@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Demon
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 5
-  <AssetReference>k__BackingField:
-    m_AssetGUID: 4b3e96e05dffedb458615124b953b2e2
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  <Damage>k__BackingField: 1
+  <Radius>k__BackingField: 3
+  <ShieldHealth>k__BackingField: 3

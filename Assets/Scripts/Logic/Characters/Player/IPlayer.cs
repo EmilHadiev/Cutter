@@ -1,5 +1,7 @@
 ﻿public interface IPlayer
 {
-    IMovable Movable { get;}
-    IHealth Health { get;}
+    IMovable Movable { get; }
+    IHealth Health { get; }
+    IEnergy Energy { get; }
+    PlayerData Data { get; }
 }
