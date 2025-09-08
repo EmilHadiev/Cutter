@@ -1,24 +1,47 @@
-﻿using System.Collections;
+﻿using SplineMesh;
 using UnityEngine;
+using Zenject;
 
 public class PlayerMover : MonoBehaviour, IMovable
 {
+    [SerializeField] private Spline _spine;
+
+    [Inject]
+    private PlayerData _data;
+
+    private IMover _mover;
+
     public Transform Transform => transform;
 
     public FloatProperty MoveSpeed => throw new System.NotImplementedException();
 
+    private void Awake()
+    {
+        _mover = new PlayerMovePattern(_spine, Transform, _data.Speed);
+        SetMove(_mover);
+    }
+
     public void SetMove(IMover mover)
     {
-        throw new System.NotImplementedException();
+        _mover?.StopMove();
+        _mover = mover;
+        _mover.StartMove();
     }
 
     public void StartMove()
     {
-        throw new System.NotImplementedException();
+        enabled = true;
+        _mover.StartMove();
     }
 
     public void StopMove()
     {
-        throw new System.NotImplementedException();
+        enabled = false;
+        _mover.StopMove();
+    }
+
+    private void Update()
+    {
+        _mover.Update();
     }
 }

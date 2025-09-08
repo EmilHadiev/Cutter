@@ -7,6 +7,7 @@ public class Sword : MonoBehaviour
 {
     [SerializeField] private SwordBladeRotator _bladeRotator;
     [SerializeField] private ParticlePosition _particlePosition;
+    [SerializeField] private SwordPosition _swordPosition;
 
     private const float CutDuration = 0.5f;
 
@@ -14,10 +15,11 @@ public class Sword : MonoBehaviour
     private SwordView _swordView;
     private ICutMouseBehaviour _cutMouseBehaviour;
 
-    private Vector3 _defaultPosition;
     private Vector3 _startPosition;
     private Vector3 _endPosition;
     private bool _isCutting;
+
+    private Vector3 SwordPosition => _swordPosition.transform.position;
 
     private void OnValidate()
     {
@@ -28,7 +30,6 @@ public class Sword : MonoBehaviour
     {
         _cutMouseBehaviour.CutStarted += OnCutStarted;
         _cutMouseBehaviour.CutEnded += OnCutEnded;
-        _defaultPosition = transform.position;
     }
 
     private void OnDestroy()
@@ -86,7 +87,7 @@ public class Sword : MonoBehaviour
             .SetEase(Ease.OutCubic));
 
         // 4. Немедленное возвращение в defaultPosition
-        cutSequence.Append(transform.DOMove(_defaultPosition, CutDuration)
+        cutSequence.Append(transform.DOMove(SwordPosition, CutDuration)
             .SetEase(Ease.InBack));
 
         // 5. Завершение анимации
@@ -95,6 +96,7 @@ public class Sword : MonoBehaviour
 
     private void EndCut()
     {
+        transform.position = SwordPosition;
         _swordView.Deactivate();
         transform.rotation = Quaternion.LookRotation(Vector3.forward);
         _isCutting = false;
