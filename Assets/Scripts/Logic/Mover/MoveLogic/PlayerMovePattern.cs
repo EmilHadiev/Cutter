@@ -31,11 +31,11 @@ public class PlayerMovePattern : IMover
 
         if (_splinePosition <= _spline.nodes.Count - 1)
         {
-            Place();
+            GetPlace();
         }
     }
 
-    private void Place()
+    private void GetPlace()
     {
         CurveSample sample = _spline.GetSample(_splinePosition);
 
