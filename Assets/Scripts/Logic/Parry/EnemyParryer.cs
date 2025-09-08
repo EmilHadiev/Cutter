@@ -19,7 +19,16 @@ public class EnemyParryer : MonoBehaviour, IParryable
 
     private bool IsCanParry => _isParryWindowOpen == true && _isWorking == true;
 
-    public bool IsCanCut => IsCanParry == false;
+    public bool IsCanCut
+    {
+        get
+        {
+            if (enabled == false)
+                return true;
+
+            return IsCanParry == false;
+        }
+    }
 
     private void Start()
     {
@@ -44,17 +53,7 @@ public class EnemyParryer : MonoBehaviour, IParryable
     public void Activate() => _isWorking = true;
     public void Deactivate() => _isWorking = false;
 
-    private void OpenParryWindow()
-    {
-        _parryView.ShowParryWindow();
-        _isParryWindowOpen = true;
-    }
-
-    private void CloseParryWindow()
-    {
-        _parryView.CloseParryWindow();
-        _isParryWindowOpen = false;
-    }
+    public void HandleFailCut() => TryParry();
 
     private void TryParry()
     {
@@ -66,9 +65,33 @@ public class EnemyParryer : MonoBehaviour, IParryable
         _parryView.ShowParryImpact();
     }
 
-    public void HandleFailCut()
+    private void OpenParryWindow()
     {
-        TryParry();
+        if (enabled == false)
+            return;
+
+        _parryView.ShowParryWindow();
+        _isParryWindowOpen = true;
+    }
+
+    private void CloseParryWindow()
+    {
+        if (enabled == false)
+            return;
+
+        _parryView.CloseParryWindow();
+        _isParryWindowOpen = false;
+    }
+
+    private void DefenderToggle(bool isOn)
+    {
+        if (enabled == false)
+            return;
+
+        if (isOn)
+            _defender.Activate();
+        else
+            _defender.Deactivate();
     }
 
     #region FromAnimations
@@ -88,13 +111,13 @@ public class EnemyParryer : MonoBehaviour, IParryable
 
     private void StunStarted()
     {
-        _defender.Deactivate();
+        DefenderToggle(false);
         CloseParryWindow();
     }
 
     private void StunEnded()
     {
-        _defender.Activate();
+        DefenderToggle(true);
         _parryView.CloseParryImpact();
     }
 

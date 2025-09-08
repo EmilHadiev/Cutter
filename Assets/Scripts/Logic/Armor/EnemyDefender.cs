@@ -9,11 +9,20 @@ public class EnemyDefender : MonoBehaviour, IDefensible
     private EnemyData _data;
     private DefenderView _view;
 
-    private bool _isWorking = true;
+    private bool _isWorking;
 
     public bool IsCanDefending => _shield != null && _shield.gameObject.activeInHierarchy == true && _isWorking;
 
-    public bool IsCanCut => IsCanDefending == false;
+    public bool IsCanCut
+    {
+        get
+        {
+            if (enabled == false)
+                return true;
+
+            return IsCanDefending == false;
+        }
+    }
 
     private void OnValidate()
     {
@@ -22,10 +31,9 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
     private void Awake()
     {
-        if (IsCanDefending == false)
+        if (enabled == false)
         {
-            enabled = false;
-            _isWorking = false;
+            _shield.gameObject.SetActive(false);
         }
     }
 
@@ -35,6 +43,8 @@ public class EnemyDefender : MonoBehaviour, IDefensible
 
         _animator = enemy.Animator;
         _data = enemy.Data;
+
+        _isWorking = true;
 
         _shield.SetHealth(_data.ShieldHealth);
     }
@@ -48,11 +58,13 @@ public class EnemyDefender : MonoBehaviour, IDefensible
     public void Deactivate()
     {
         _isWorking = false;
+        _shield.gameObject.SetActive(false);
     }
 
     public void Activate()
     {
         _isWorking = true;
+        _shield.gameObject.SetActive(true);
     }
 
     public void HandleFailCut()
