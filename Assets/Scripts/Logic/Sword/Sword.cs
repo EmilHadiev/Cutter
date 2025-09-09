@@ -5,9 +5,9 @@ using Zenject;
 
 public class Sword : MonoBehaviour
 {
-    [SerializeField] private SwordBladeRotator _bladeRotator;
     [SerializeField] private ParticlePosition _particlePosition;
     [SerializeField] private SwordPosition _swordPosition;
+    [SerializeField] private Quaternion _defaultRotation = new Quaternion(-30, 0,0, 110);
 
     private const float CutDuration = 0.5f;
 
@@ -17,6 +17,7 @@ public class Sword : MonoBehaviour
 
     private Vector3 _startPosition;
     private Vector3 _endPosition;
+
     private bool _isCutting;
 
     private Vector3 SwordPosition => _swordPosition.transform.position;
@@ -43,7 +44,7 @@ public class Sword : MonoBehaviour
         if (_isCutting)
             return;
 
-        transform.LookAt(_mousePosition.GetMousePosition());
+        Look();
     }
 
     [Inject]
@@ -52,6 +53,16 @@ public class Sword : MonoBehaviour
         _mousePosition = cutView;
         _cutMouseBehaviour = cutMouseBehaviour;
         _swordView = new SwordView(factory, _particlePosition.transform);
+    }
+
+    private void Look()
+    {
+        Vector3 direction = _mousePosition.GetMousePosition();
+
+        if (direction == Vector3.zero)
+            transform.rotation = _defaultRotation;
+        else
+            transform.LookAt(direction);
     }
 
     private void OnCutStarted()
@@ -98,7 +109,7 @@ public class Sword : MonoBehaviour
     {
         transform.position = SwordPosition;
         _swordView.Deactivate();
-        transform.rotation = Quaternion.LookRotation(Vector3.forward);
+        transform.rotation = Quaternion.LookRotation(transform.forward);
         _isCutting = false;
     }
 }

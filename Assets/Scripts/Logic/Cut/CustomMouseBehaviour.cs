@@ -5,9 +5,12 @@ using Zenject;
 
 namespace DynamicMeshCutter
 {
+    [RequireComponent(typeof(LineRenderer))]
     public class CustomMouseBehaviour : CutterBehaviour, ICutMouseBehaviour
     {
-        private LineRenderer _lineRenderer;
+        private const int LeftMouseButton = 0;
+
+        private CutLineView _lineView;
         private Vector3 _from;
         private Vector3 _to;
         private bool _isDragging;
@@ -23,15 +26,16 @@ namespace DynamicMeshCutter
         protected override void Awake()
         {
             base.Awake();
-            _lineRenderer = GetComponent<LineRenderer>();
+            LineRenderer lineRenderer = GetComponent<LineRenderer>();
             _mainCamera = Camera.main;
+            _lineView = new CutLineView(lineRenderer);
         }
 
         protected override void Update()
         {
             base.Update();
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(LeftMouseButton))
             {
                 StartCut();
             }
@@ -39,14 +43,15 @@ namespace DynamicMeshCutter
             if (_isDragging)
             {
                 _to = GetMouseWorldPosition();
-                VisualizeLine(true);
+                _lineView.UpdateEndMousePosition(_to);
+                _lineView.VisualizeLine(true);
             }
             else
             {
-                VisualizeLine(false);
+                _lineView.VisualizeLine(false);
             }
 
-            if (Input.GetMouseButtonUp(0) && _isDragging)
+            if (Input.GetMouseButtonUp(LeftMouseButton) && _isDragging)
             {
                 EndCut();
             }
@@ -65,6 +70,7 @@ namespace DynamicMeshCutter
             _isDragging = true;
             CutStarted?.Invoke();
             _from = GetMouseWorldPosition();
+            _lineView.SetStartLinePosition(GetMouseWorldPosition());
         }
 
         private void EndCut()
@@ -127,24 +133,6 @@ namespace DynamicMeshCutter
             MeshCreation.TranslateCreatedObjects(info, cData.CreatedObjects, cData.CreatedTargets, Separation);
         }
 
-        private void VisualizeLine(bool value)
-        {
-            if (_lineRenderer == null) return;
-
-            _lineRenderer.enabled = value;
-
-            if (value)
-            {
-                _lineRenderer.positionCount = 2;
-                _lineRenderer.SetPosition(0, _from);
-                _lineRenderer.SetPosition(1, _to);
-            }
-        }
-
-        public void SetLineColor(Color color)
-        {
-            _lineRenderer.endColor = color;
-            _lineRenderer.startColor = new Color(1.0f - color.r, 1.0f - color.g, 1.0f - color.b);
-        }
+        public void SetLineColor(Color color) => _lineView.SetColor(color);
     }
 }

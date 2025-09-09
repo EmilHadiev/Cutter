@@ -10,8 +10,6 @@ public class Player : MonoBehaviour, IPlayer
     [SerializeField] private PlayerHealth _health;
     [SerializeField] private PlayerEnergy _energy;
 
-    private ICameraFollower _cameraFollower;
-
     public IMovable Movable => _mover;
     public IHealth Health => _health;
     public IEnergy Energy => _energy;
@@ -26,13 +24,14 @@ public class Player : MonoBehaviour, IPlayer
 
     private void Start()
     {
-        _cameraFollower.Follow(transform);
+        SetCamera();
     }
 
     [Inject]
-    private void Constructor(ICameraFollower follower, PlayerData data)
+    private void Constructor(PlayerData data)
     {
-        _cameraFollower = follower;
         Data = data;
     }
+
+    private void SetCamera() => Camera.main.transform.parent = transform;
 }

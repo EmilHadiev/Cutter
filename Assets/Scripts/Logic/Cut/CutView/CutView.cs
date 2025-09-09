@@ -81,6 +81,9 @@ public class CutView : IInitializable, IDisposable, ITickable
     {
         var particle = await _factoryService.Create(AssetProvider.FireParticle);
         var result = particle.GetComponent<ParticleView>();
+
+        LayerChanger.SetLayerRecursively(result.gameObject, LayerMask.NameToLayer(CustomMasks.Player));
+
         result.Stop();
 
         return result;

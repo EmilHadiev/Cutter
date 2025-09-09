@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class CameraFollower : MonoBehaviour, ICameraFollower
 {
-    [SerializeField] private float _rotationX;
-    [SerializeField] private float _offsetY;
     [SerializeField] private float _distance;
 
     private Transform _player;
@@ -15,9 +13,8 @@ public class CameraFollower : MonoBehaviour, ICameraFollower
             return;
         }
 
-        Quaternion rotation = Quaternion.Euler(_rotationX, 0, 0);
-        var position = rotation * new Vector3(0, 0, -_distance) + GetFollowingPosition();
-        transform.rotation = rotation;
+        var position = new Vector3(0, 0, -_distance) + GetFollowingPosition();
+        transform.LookAt(transform.forward);
         transform.position = position;
     }
 
@@ -30,7 +27,7 @@ public class CameraFollower : MonoBehaviour, ICameraFollower
     {
         //сдвигаем нашу камеру по y, чтобы мо могли перемещать ее по Y
         Vector3 followingPosition = _player.position;
-        followingPosition.y = _offsetY;
+        followingPosition.y = _player.position.y;
         return followingPosition;
     }
 
