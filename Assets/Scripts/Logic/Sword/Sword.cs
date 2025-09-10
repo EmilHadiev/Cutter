@@ -7,7 +7,7 @@ public class Sword : MonoBehaviour
 {
     [SerializeField] private ParticlePosition _particlePosition;
     [SerializeField] private SwordPosition _swordPosition;
-    [SerializeField] private Quaternion _defaultRotation = new Quaternion(-30, 0,0, 110);
+    [SerializeField] private SwordLookAtPosition _lookAtPosition;
 
     private const float CutDuration = 0.5f;
 
@@ -60,7 +60,7 @@ public class Sword : MonoBehaviour
         Vector3 direction = _mousePosition.GetMousePosition();
 
         if (direction == Vector3.zero)
-            transform.rotation = _defaultRotation;
+            transform.LookAt(_lookAtPosition.transform);
         else
             transform.LookAt(direction);
     }

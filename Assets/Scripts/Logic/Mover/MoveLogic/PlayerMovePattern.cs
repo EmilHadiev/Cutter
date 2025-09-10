@@ -4,18 +4,22 @@ using UnityEngine;
 public class PlayerMovePattern : IMover
 {
     private readonly Spline _spline;
-    private readonly float _speed;
     private readonly Transform _player;
+
+    private readonly float _speed;
+    private readonly float _rotationSpeed;
 
     private float _splinePosition = 0f;
 
     private bool _isWorking;
 
-    public PlayerMovePattern(Spline spline, Transform transform, float speed)
+    public PlayerMovePattern(Spline spline, Transform transform, PlayerData data)
     {
         _spline = spline;
-        _speed = speed;
         _player = transform;
+
+        _speed = data.Speed;
+        _rotationSpeed = data.RotationSpeed;
     }
 
     public void StartMove() => _isWorking = true;
@@ -39,7 +43,16 @@ public class PlayerMovePattern : IMover
     {
         CurveSample sample = _spline.GetSample(_splinePosition);
 
-        _player.localPosition = sample.location;
-        _player.localRotation = sample.Rotation;
+        _player.localPosition = sample.location;   
+        SetRotation(sample.Rotation);
+    }
+
+    private void SetRotation(Quaternion sample)
+    {
+        _player.localRotation = Quaternion.Slerp(
+            _player.localRotation,
+            sample,
+            _rotationSpeed * Time.deltaTime
+        );
     }
 }

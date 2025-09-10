@@ -1273,6 +1273,7 @@ GameObject:
   - component: {fileID: 294327172}
   - component: {fileID: 294327170}
   - component: {fileID: 294327171}
+  - component: {fileID: 294327173}
   m_Layer: 7
   m_Name: MouseCutter
   m_TagString: Untagged
@@ -1297,6 +1298,7 @@ MonoBehaviour:
   UseAsync: 0
   VertexCreationThreshold: 0
   DefaultMaterial: {fileID: 2100000, guid: 03ddc7e460b33402eb7640fab3881ac9, type: 2}
+  _lineView: {fileID: 294327173}
 --- !u!120 &294327171
 LineRenderer:
   serializedVersion: 2
@@ -1416,6 +1418,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 953671823}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &294327173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294327169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdf2e9a8f7423a74fa620687bbf77401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 294327171}
+  _player: {fileID: 1254488629}
 --- !u!1 &315814842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,7 +1755,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.7
+  m_fontSize: 45.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1855,7 +1871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particlePosition: {fileID: 434533986}
   _swordPosition: {fileID: 1336930517}
-  _defaultRotation: {x: -15, y: 0, z: 0, w: 110}
+  _lookAtPosition: {fileID: 1493084258}
 --- !u!1001 &546030961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4407,7 +4423,7 @@ GameObject:
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4424,6 +4440,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 1493084257}
   - {fileID: 1336930518}
   - {fileID: 514991683}
   - {fileID: 1353459445}
@@ -4453,7 +4470,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254488628}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20d1223b658e5de4a9ecdee6b9c640b8, type: 3}
   m_Name: 
@@ -5009,10 +5026,20 @@ MonoBehaviour:
     up: {x: 0, y: 0, z: 0}
     scale: {x: 1, y: 0}
     roll: 0
-  - position: {x: -3.3850625, y: 1, z: 23.774445}
-    direction: {x: -4, y: 1, z: 23.774445}
+  - position: {x: -2, y: 1, z: 18}
+    direction: {x: -5, y: 1, z: 18}
+    up: {x: 0, y: 1, z: 0}
+    scale: {x: 1, y: 1}
+    roll: 0
+  - position: {x: -4.5, y: 1, z: 25}
+    direction: {x: -4.5, y: 1, z: 25}
     up: {x: 0, y: 0, z: 0}
     scale: {x: 1, y: 0}
+    roll: 0
+  - position: {x: -4.5, y: 1, z: 45}
+    direction: {x: -4.5, y: 1, z: 45}
+    up: {x: 0, y: 1, z: 0}
+    scale: {x: 1, y: 1}
     roll: 0
   curves:
   - n1:
@@ -5037,15 +5064,45 @@ MonoBehaviour:
       scale: {x: 1, y: 0}
       roll: 0
     n2:
-      position: {x: -3.3850625, y: 1, z: 23.774445}
-      direction: {x: -4, y: 1, z: 23.774445}
+      position: {x: -2, y: 1, z: 18}
+      direction: {x: -5, y: 1, z: 18}
+      up: {x: 0, y: 1, z: 0}
+      scale: {x: 1, y: 1}
+      roll: 0
+    Changed:
+      m_PersistentCalls:
+        m_Calls: []
+  - n1:
+      position: {x: -2, y: 1, z: 18}
+      direction: {x: -5, y: 1, z: 18}
+      up: {x: 0, y: 1, z: 0}
+      scale: {x: 1, y: 1}
+      roll: 0
+    n2:
+      position: {x: -4.5, y: 1, z: 25}
+      direction: {x: -4.5, y: 1, z: 25}
       up: {x: 0, y: 0, z: 0}
       scale: {x: 1, y: 0}
       roll: 0
     Changed:
       m_PersistentCalls:
         m_Calls: []
-  Length: 34.4531
+  - n1:
+      position: {x: -4.5, y: 1, z: 25}
+      direction: {x: -4.5, y: 1, z: 25}
+      up: {x: 0, y: 0, z: 0}
+      scale: {x: 1, y: 0}
+      roll: 0
+    n2:
+      position: {x: -4.5, y: 1, z: 45}
+      direction: {x: -4.5, y: 1, z: 45}
+      up: {x: 0, y: 1, z: 0}
+      scale: {x: 1, y: 1}
+      roll: 0
+    Changed:
+      m_PersistentCalls:
+        m_Calls: []
+  Length: 57.50976
   isLoop: 0
   CurveChanged:
     m_PersistentCalls:
@@ -5065,6 +5122,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1493084256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1493084257}
+  - component: {fileID: 1493084258}
+  m_Layer: 7
+  m_Name: SwordLookAtPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1493084257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493084256}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1254488629}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1493084258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493084256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2355258056b6d884aa42f5635244cfea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1514419014
 PrefabInstance:
   m_ObjectHideFlags: 0

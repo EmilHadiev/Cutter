@@ -5,12 +5,13 @@ using Zenject;
 
 namespace DynamicMeshCutter
 {
-    [RequireComponent(typeof(LineRenderer))]
+    [RequireComponent(typeof(CutLineView))]
     public class CustomMouseBehaviour : CutterBehaviour, ICutMouseBehaviour
     {
+        [SerializeField] private CutLineView _lineView;
+
         private const int LeftMouseButton = 0;
 
-        private CutLineView _lineView;
         private Vector3 _from;
         private Vector3 _to;
         private bool _isDragging;
@@ -23,12 +24,15 @@ namespace DynamicMeshCutter
 
         private bool _isCanCut;
 
+        private void OnValidate()
+        {
+            _lineView ??= GetComponent<CutLineView>();
+        }
+
         protected override void Awake()
         {
             base.Awake();
-            LineRenderer lineRenderer = GetComponent<LineRenderer>();
             _mainCamera = Camera.main;
-            _lineView = new CutLineView(lineRenderer);
         }
 
         protected override void Update()
@@ -43,12 +47,6 @@ namespace DynamicMeshCutter
             if (_isDragging)
             {
                 _to = GetMouseWorldPosition();
-                _lineView.UpdateEndMousePosition(_to);
-                _lineView.VisualizeLine(true);
-            }
-            else
-            {
-                _lineView.VisualizeLine(false);
             }
 
             if (Input.GetMouseButtonUp(LeftMouseButton) && _isDragging)
@@ -70,7 +68,6 @@ namespace DynamicMeshCutter
             _isDragging = true;
             CutStarted?.Invoke();
             _from = GetMouseWorldPosition();
-            _lineView.SetStartLinePosition(GetMouseWorldPosition());
         }
 
         private void EndCut()

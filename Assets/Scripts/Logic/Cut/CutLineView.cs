@@ -1,21 +1,79 @@
 ﻿using UnityEngine;
+using Zenject;
 
-public class CutLineView
+[RequireComponent(typeof(LineRenderer))]
+public class CutLineView : MonoBehaviour
 {
-    private readonly LineRenderer _renderer;
-    private Vector3 _startLinePosition;
-    private Vector3 _endLinePosition;
+    [SerializeField] private LineRenderer _renderer;
+    private const int LeftMouseButton = 0;
 
-    public CutLineView(LineRenderer renderer)
+    private Camera _camera;
+    private Transform _player;
+
+    private Vector3 _startLineLocalPosition;
+    private Vector3 _endLineLocalPosition;
+
+    private bool _isDragging;
+
+    private void OnValidate()
     {
-        _renderer = renderer;
+        _renderer ??= GetComponent<LineRenderer>();
     }
 
-    public void SetStartLinePosition(Vector3 mousePosition) => _startLinePosition = mousePosition;
+    protected void Awake()
+    {
+        _camera = Camera.main;
+    }
 
-    public void UpdateEndMousePosition(Vector3 mousePosition) => _endLinePosition = mousePosition;
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(LeftMouseButton))
+        {
+            _isDragging = true;
+            SetStartLinePosition();
+        }
 
-    public void VisualizeLine(bool isOn)
+        if (_isDragging)
+        {
+            VisualizeLine(true);
+            UpdateEndMousePosition();
+        }
+        else
+        {
+            VisualizeLine(false);
+        }
+
+        if (Input.GetMouseButtonUp(LeftMouseButton))
+            _isDragging = false;
+    }
+
+    [Inject]
+    private void Constructor(IPlayer player)
+    {
+        _player = player.Movable.Transform;
+    }
+
+    public void SetColor(Color color)
+    {
+        _renderer.endColor = color;
+        _renderer.startColor = new Color(1.0f - color.r, 1.0f - color.g, 1.0f - color.b);
+    }
+
+    private void SetStartLinePosition()
+    {
+        Vector3 worldPos = GetMouseWorldPosition();
+        // Сохраняем локальную позицию относительно игрока
+        _startLineLocalPosition = _player.InverseTransformPoint(worldPos);
+    }
+
+    private void UpdateEndMousePosition()
+    {
+        Vector3 worldPos = GetMouseWorldPosition();
+        // Сохраняем локальную позицию относительно игрока
+        _endLineLocalPosition = _player.InverseTransformPoint(worldPos);
+    }
+
+    private void VisualizeLine(bool isOn)
     {
         if (_renderer == null)
             return;
@@ -25,14 +83,20 @@ public class CutLineView
         if (isOn)
         {
             _renderer.positionCount = 2;
-            _renderer.SetPosition(0, _startLinePosition);
-            _renderer.SetPosition(1, _endLinePosition);
+
+            // Преобразуем локальные позиции обратно в мировые
+            Vector3 startWorldPos = _player.TransformPoint(_startLineLocalPosition);
+            Vector3 endWorldPos = _player.TransformPoint(_endLineLocalPosition);
+
+            _renderer.SetPosition(0, startWorldPos);
+            _renderer.SetPosition(1, endWorldPos);
         }
     }
 
-    public void SetColor(Color color)
+    private Vector3 GetMouseWorldPosition()
     {
-        _renderer.endColor = color;
-        _renderer.startColor = new Color(1.0f - color.r, 1.0f - color.g, 1.0f - color.b);
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = _camera.nearClipPlane + 0.05f;
+        return _camera.ScreenToWorldPoint(mousePos);
     }
 }

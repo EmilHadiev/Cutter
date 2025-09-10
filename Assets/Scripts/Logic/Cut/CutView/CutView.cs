@@ -9,17 +9,21 @@ public class CutView : IInitializable, IDisposable, ITickable
     private readonly ICutMouseBehaviour _mouseBehavior;
     private readonly IFactory _factoryService;
     private readonly IMousePosition _mousePosition;
+    private readonly Transform _player;
 
     private ParticleView _followerParticle;
     private ParticleView _startParticle;
 
+    private Vector3 _startParticleLocalPosition;
+
     private bool _isWorking = false;
 
-    public CutView(IFactory factory, ICutMouseBehaviour cutMouseBehaviour, IMousePosition mousePosition)
+    public CutView(IFactory factory, ICutMouseBehaviour cutMouseBehaviour, IMousePosition mousePosition, IPlayer player)
     {
         _factoryService = factory;
         _mouseBehavior = cutMouseBehaviour;
         _mousePosition = mousePosition;
+        _player = player.Movable.Transform;
         CreateParticles().Forget();
     }
 
@@ -41,12 +45,18 @@ public class CutView : IInitializable, IDisposable, ITickable
         if (_isWorking == false)
             return;
 
-        _followerParticle.transform.position = _mousePosition.GetMousePosition();
+        UpdateStartParticle();
+        UpdateFollowingParticle();
     }
+
+    private void UpdateStartParticle() => _startParticle.transform.position = _player.TransformPoint(_startParticleLocalPosition);
+    private void UpdateFollowingParticle() => _followerParticle.transform.position = _mousePosition.GetMousePosition();
 
     private void OnCutStarted()
     {
-        _startParticle.transform.position = _mousePosition.GetMousePosition();
+        _startParticleLocalPosition = _player.InverseTransformPoint(_mousePosition.GetMousePosition());
+
+        _startParticle.transform.position = _startParticleLocalPosition;
         WorkToggle(true);
     }
 

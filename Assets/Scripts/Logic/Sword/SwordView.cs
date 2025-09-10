@@ -15,6 +15,9 @@ public class SwordView
         CreateParticle().Forget();        
     }
 
+    public void Show() => _particle.Play();
+    public void Deactivate() => _particle.Stop();
+
     private async UniTaskVoid CreateParticle()
     {
         var prefab = await _factory.Create(AssetProvider.FireParticle, default, default, _particlePosition);
@@ -24,6 +27,4 @@ public class SwordView
 
         LayerChanger.SetLayerRecursively(_particle.gameObject, LayerMask.NameToLayer(CustomMasks.Player));
     }
-    public void Show() => _particle.Play();
-    public void Deactivate() => _particle.Stop();
 }

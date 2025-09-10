@@ -17,7 +17,7 @@ public class PlayerMover : MonoBehaviour, IMovable
 
     private void Awake()
     {
-        _mover = new PlayerMovePattern(_spine, Transform, _data.Speed);
+        _mover = new PlayerMovePattern(_spine, Transform, _data);
         SetMove(_mover);
     }
 
