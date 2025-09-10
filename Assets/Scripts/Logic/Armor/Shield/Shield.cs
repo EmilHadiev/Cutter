@@ -11,7 +11,7 @@ public class Shield : MonoBehaviour, ICutSoundable
     [SerializeField] private MeshTarget _target;
 
     [Inject]
-    private readonly ISoundContainer _soundContainer;
+    private readonly IGameplaySoundContainer _soundContainer;
 
     private const int Damage = 1;
 

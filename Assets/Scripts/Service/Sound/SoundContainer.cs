@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class SoundContainer : MonoBehaviour, ISoundContainer
+public abstract class SoundContainer : MonoBehaviour
 {
     [SerializeField] private AudioSource _source;
     [SerializeField] private GameSound[] _sounds;

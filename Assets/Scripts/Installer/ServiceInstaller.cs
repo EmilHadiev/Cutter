@@ -21,7 +21,7 @@ public class ServiceInstaller : MonoInstaller
 
     private void BindSoundContainer()
     {
-        Container.BindInterfacesTo<SoundContainer>().FromComponentInNewPrefab(_soundContainer).AsSingle();
+        Container.BindInterfacesTo<GamePlaySoundContainer>().FromComponentInNewPrefab(_soundContainer).AsSingle();
     }
 
     private void BindSceneLoader()

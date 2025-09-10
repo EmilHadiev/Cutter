@@ -5,14 +5,14 @@ public class EnemyParryView
 {
     private const float AttackSpeed = 0.25f;
 
-    private readonly ISoundContainer _soundContainer;
+    private readonly IGameplaySoundContainer _soundContainer;
     private readonly IEnemyAnimator _animator;
 
     private ParticleView _parryView;
     private ParticleView _stunView;
     private ParticleView _parryWindowView;
 
-    public EnemyParryView(ISoundContainer container, IFactory factory, IEnemyAnimator animator, ParticlePosition parryPosition, ParticlePosition stunPosition)
+    public EnemyParryView(IGameplaySoundContainer container, IFactory factory, IEnemyAnimator animator, ParticlePosition parryPosition, ParticlePosition stunPosition)
     {
         _soundContainer = container;
         _animator = animator;

@@ -12,7 +12,7 @@ public class EnemyParryer : MonoBehaviour, IParryable
     private IEnemyAnimator _animator;
     private IFactory _factory;
     private IDefensible _defender;
-    private ISoundContainer _soundContainer;
+    private IGameplaySoundContainer _soundContainer;
 
     private bool _isParryWindowOpen;
     private bool _isWorking;
@@ -44,7 +44,7 @@ public class EnemyParryer : MonoBehaviour, IParryable
     }
 
     [Inject]
-    private void Constructor(ISoundContainer soundContainer, IFactory factory)
+    private void Constructor(IGameplaySoundContainer soundContainer, IFactory factory)
     {
         _factory = factory;
         _soundContainer = soundContainer;

@@ -13,7 +13,7 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable, ICutUpdatab
     private bool _isWork;
 
     [Inject]
-    private ISoundContainer _soundContainer;
+    private IGameplaySoundContainer _soundContainer;
 
     private void OnValidate()
     {

@@ -6,7 +6,7 @@ public class ObstacleCut : MonoBehaviour, ICuttable, ICutSoundable
 {
     [SerializeField] private Collider _collider;
 
-    private ISoundContainer _soundContainer;
+    private IGameplaySoundContainer _soundContainer;
     private IFactory _factory;
 
     private MeshTarget _meshTarget;
@@ -23,7 +23,7 @@ public class ObstacleCut : MonoBehaviour, ICuttable, ICutSoundable
     }
 
     [Inject] 
-    private void Constructor(IFactory factory, ISoundContainer soundContainer)
+    private void Constructor(IFactory factory, IGameplaySoundContainer soundContainer)
     {
         _factory = factory;
         _soundContainer = soundContainer;
