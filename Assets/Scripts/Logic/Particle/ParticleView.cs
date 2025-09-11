@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class ParticleView : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _particle;
-
     /// <summary>
     /// first the Stop method will be called, 
     /// then the particle will play

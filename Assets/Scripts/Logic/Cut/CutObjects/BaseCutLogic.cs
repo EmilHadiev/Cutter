@@ -5,8 +5,7 @@ using Zenject;
 
 public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
 {
-    private const int AttackDistance = 100;
-
+    private readonly int _attackDistance = 15;
     private readonly int _maxTargets;
 
     private readonly ICutMouseBehaviour _mouseBehaviour;
@@ -85,6 +84,9 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
     {
         _countTargets = GetCountTargets();
 
+        if (_countTargets == 0)
+            return;
+
         for (int i = 0; i < _countTargets; i++)
         {
             Collider collider = _targets[i].collider;
@@ -110,7 +112,7 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
     private int GetCountTargets()
     {
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        return Physics.RaycastNonAlloc(ray, _targets, AttackDistance, _enemyMask);
+        return Physics.RaycastNonAlloc(ray, _targets, _attackDistance, _enemyMask);
     }
 
     private void DeactivateTargets()

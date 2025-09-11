@@ -49,7 +49,6 @@ public class ObstacleCut : MonoBehaviour, ICuttable, ICutSoundable
     public virtual void DeactivateCut()
     {
         PlaySound();
-        _meshTarget.enabled =false;
     }
 
     protected void CreateClone(GameObject prefab)

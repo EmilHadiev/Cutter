@@ -2,13 +2,13 @@
 
 public class MousePosition : IMousePosition
 {
-    private const int DistanceToCamera = 10;
-
     private readonly Camera _camera;
+    private readonly int _distanceToCamera = 10;
 
-    public MousePosition()
+    public MousePosition(PlayerData playerData)
     {
         _camera = Camera.main;
+        _distanceToCamera = playerData.AttackDistance;
     }    
 
     public Vector3 GetMousePosition()
@@ -21,7 +21,7 @@ public class MousePosition : IMousePosition
             return Vector3.zero;
         }
 
-        mousePos.z = DistanceToCamera;
+        mousePos.z = _distanceToCamera;
         return _camera.ScreenToWorldPoint(mousePos);
     }
 }

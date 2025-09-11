@@ -5,7 +5,9 @@ using Zenject;
 public class CutLineView : MonoBehaviour
 {
     [SerializeField] private LineRenderer _renderer;
+
     private const int LeftMouseButton = 0;
+    private const float LineWidth = 0.1f;
 
     private Camera _camera;
     private Transform _player;
@@ -23,6 +25,7 @@ public class CutLineView : MonoBehaviour
     protected void Awake()
     {
         _camera = Camera.main;
+        _renderer.widthMultiplier = LineWidth;
     }
 
     private void Update()

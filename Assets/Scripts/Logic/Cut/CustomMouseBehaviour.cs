@@ -18,6 +18,7 @@ namespace DynamicMeshCutter
         private Camera _mainCamera;
         private ICutPartContainer _cutPartContainer;
         private IEnergy _playerEnergy;
+        private IMousePosition _mousePosition;
 
         public event Action CutStarted;
         public event Action CutEnded;
@@ -46,7 +47,7 @@ namespace DynamicMeshCutter
 
             if (_isDragging)
             {
-                _to = GetMouseWorldPosition();
+                _to = _mousePosition.GetMousePosition();
             }
 
             if (Input.GetMouseButtonUp(LeftMouseButton) && _isDragging)
@@ -67,7 +68,7 @@ namespace DynamicMeshCutter
 
             _isDragging = true;
             CutStarted?.Invoke();
-            _from = GetMouseWorldPosition();
+            _from = _mousePosition.GetMousePosition();
         }
 
         private void EndCut()
@@ -76,22 +77,16 @@ namespace DynamicMeshCutter
                 return;
 
             _isDragging = false;
-            Cut();
             CutEnded?.Invoke();
+            Cut();
         }
 
         [Inject]
-        private void Constructor(ICutPartContainer cutPartContainer, IPlayer player)
+        private void Constructor(ICutPartContainer cutPartContainer, IPlayer player, IMousePosition mousePosition)
         {
             _cutPartContainer = cutPartContainer;
             _playerEnergy = player.Energy;
-        }
-
-        private Vector3 GetMouseWorldPosition()
-        {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = _mainCamera.nearClipPlane + 0.05f;
-            return _mainCamera.ScreenToWorldPoint(mousePos);
+            _mousePosition = mousePosition;
         }
 
         private void Cut()
