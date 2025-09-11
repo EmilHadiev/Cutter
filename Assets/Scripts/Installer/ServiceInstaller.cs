@@ -3,7 +3,8 @@ using Zenject;
 
 public class ServiceInstaller : MonoInstaller
 {
-    [SerializeField] private SoundContainer _soundContainer;
+    [SerializeField] private GamePlaySoundContainer _gamePlayerSoundContainer;
+    [SerializeField] private AmbientSoundContainer _ambientSoundContainer;
 
     public override void InstallBindings()
     {
@@ -21,7 +22,8 @@ public class ServiceInstaller : MonoInstaller
 
     private void BindSoundContainer()
     {
-        Container.BindInterfacesTo<GamePlaySoundContainer>().FromComponentInNewPrefab(_soundContainer).AsSingle();
+        Container.BindInterfacesTo<GamePlaySoundContainer>().FromComponentInNewPrefab(_gamePlayerSoundContainer).AsSingle();
+        Container.BindInterfacesTo<AmbientSoundContainer>().FromComponentInNewPrefab(_ambientSoundContainer).AsSingle().NonLazy();
     }
 
     private void BindSceneLoader()

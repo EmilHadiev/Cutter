@@ -12,6 +12,7 @@ public class ObstacleCut : MonoBehaviour, ICuttable, ICutSoundable
     private MeshTarget _meshTarget;
     private GameObject _clone;
 
+    [ContextMenu(nameof(OnValidate))]
     private void OnValidate()
     {
         _collider ??= GetComponent<Collider>();
@@ -45,10 +46,10 @@ public class ObstacleCut : MonoBehaviour, ICuttable, ICutSoundable
         _clone.gameObject.SetActive(true);
     }
 
-    public void DeactivateCut()
+    public virtual void DeactivateCut()
     {
         PlaySound();
-        _meshTarget.enabled = false;
+        _meshTarget.enabled =false;
     }
 
     protected void CreateClone(GameObject prefab)

@@ -37,10 +37,33 @@ public abstract class SoundContainer : MonoBehaviour
         }
     }
 
+    public void PlayWhenFree(string soundName)
+    {
+        if (_source.isPlaying)
+            return;
+
+        Play(soundName);
+    }
+
     public void Stop()
     {
         _source.Stop();
     }
+
+    protected void PlayCycle(string soundName)
+    {
+        if (_clips.TryGetValue(soundName, out AudioClip clip))
+        {
+            _source.clip = clip;
+            _source.Play();
+        }
+        else
+        {
+            Debug.LogError($"Sound for ability {soundName} not found");
+        }
+    }
+
+    protected void SetPitch(float value) => _source.pitch = value;
 
     private void PlayInternal()
     {
@@ -51,13 +74,5 @@ public abstract class SoundContainer : MonoBehaviour
         }
 
         _source.PlayOneShot(_currentClip, VolumeScale);
-    }
-
-    public void PlayWhenFree(string soundName)
-    {
-        if (_source.isPlaying)
-            return;
-
-        Play(soundName);
     }
 }
