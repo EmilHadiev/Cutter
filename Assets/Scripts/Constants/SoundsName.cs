@@ -6,6 +6,8 @@
     public const string AttackObstacleImpact = "AttackObstacleImpact";
     public const string ParryImpact = "ParryImpact";
     public const string BonusItem = "BonusItem";
+    public const string Lose = "Lose";
+    public const string Win = "Win";
     #endregion
 
     #region AmbientSounds

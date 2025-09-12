@@ -8,12 +8,13 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable, ICutUpdatab
     [SerializeField] private MeshTarget _target;
 
     private CutValidator _validator;
+    private ICombatSession _combatSession;
+    private IGameplaySoundContainer _soundContainer;
 
     private bool _isActivated;
     private bool _isWork;
 
-    [Inject]
-    private IGameplaySoundContainer _soundContainer;
+    
 
     private void OnValidate()
     {
@@ -27,6 +28,13 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable, ICutUpdatab
         _validator = enemy.Validator;
 
         MeshTargetEnableToggle(false);
+    }
+
+    [Inject]
+    private void Constructor(IGameplaySoundContainer soundContainer, ICombatSession combatSession)
+    {
+        _soundContainer = soundContainer;
+        _combatSession = combatSession;
     }
 
     public void UpdateTargets()
@@ -47,20 +55,25 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable, ICutUpdatab
         }
     }
 
-    public void TryActivateCut() => _isWork = true;
+    public void TryActivateCut()
+    {
+        _isWork = true;
+        Debug.Log(gameObject.name);
+    }
 
     public void DeactivateCut()
     {
         if (_isActivated == false)
         {
             _validator.HandleFailCut();
+            MeshTargetEnableToggle(false);
             return;
         }
 
-        MeshTargetEnableToggle(false);
         PlaySound();
         _isActivated = false;
         _isWork = false;
+        _combatSession.RemoveEnemy();
     }
 
     public void PlaySound()

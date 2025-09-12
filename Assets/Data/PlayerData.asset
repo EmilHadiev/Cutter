@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <NumberEnemiesCut>k__BackingField: 1
   <NumberCutObstacles>k__BackingField: 3
-  <Health>k__BackingField: 1
+  <Health>k__BackingField: 10
   <Energy>k__BackingField: 2
   <Speed>k__BackingField: 0.1
   <RotationSpeed>k__BackingField: 5

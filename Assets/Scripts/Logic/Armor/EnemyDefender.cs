@@ -34,17 +34,17 @@ public class EnemyDefender : MonoBehaviour, IDefensible
         if (enabled == false)
         {
             _shield.gameObject.SetActive(false);
+            return;
         }
-    }
 
-    private void Start()
-    {
         IEnemy enemy = GetComponent<IEnemy>();
 
         _animator = enemy.Animator;
         _data = enemy.Data;
 
         _isWorking = true;
+
+        Debug.Log(IsCanDefending + " defender");
 
         _shield.SetHealth(_data.ShieldHealth);
     }
@@ -58,13 +58,13 @@ public class EnemyDefender : MonoBehaviour, IDefensible
     public void Deactivate()
     {
         _isWorking = false;
-        _shield.gameObject.SetActive(false);
+        _shield?.gameObject.SetActive(false);
     }
 
     public void Activate()
     {
         _isWorking = true;
-        _shield.gameObject.SetActive(true);
+        _shield?.gameObject.SetActive(true);
     }
 
     public void HandleFailCut()

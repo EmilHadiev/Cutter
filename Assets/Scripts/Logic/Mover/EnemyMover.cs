@@ -6,10 +6,15 @@ using Zenject;
 public class EnemyMover : MonoBehaviour, IMovable
 {
     [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private TriggerObserver _observer;
 
     private IMover _mover;
     private FloatProperty _moveSpeed;
     private IPlayer _player;
+    private ICombatSession _session;
+    private IEnemyStateMachine _stateMachine;
+
+    private bool _isWorking;
 
     public Transform Transform => transform;
     public FloatProperty MoveSpeed => _moveSpeed;
@@ -17,24 +22,40 @@ public class EnemyMover : MonoBehaviour, IMovable
     private void OnValidate()
     {
         _agent ??= GetComponent<NavMeshAgent>();
+        _observer ??= GetComponent<TriggerObserver>();
     }
 
-    private void Awake()
+    private void Start()
     {
         IEnemy enemy = GetComponent<Enemy>();
 
         var data = enemy.Data;
         var animator = enemy.Animator;
+        _stateMachine = enemy.StateMachine;
 
         _moveSpeed = new FloatProperty(data.Speed);
 
         SetMove(new EnemyMoveToPlayerPattern(_agent, _moveSpeed, _player.Movable.Transform, transform, animator));
+        StopMove();
+    }
+
+    private void OnEnable()
+    {
+        _observer.Entered += OnPlayerEntered;
+        _observer.Exited += OnPlayerExited;
+    }
+
+    private void OnDisable()
+    {
+        _observer.Entered -= OnPlayerEntered;
+        _observer.Exited -= OnPlayerExited;
     }
 
     [Inject]
-    private void Constructor(IPlayer player)
+    private void Constructor(IPlayer player, ICombatSession combatSession)
     {
-        _player = player;        
+        _player = player;
+        _session = combatSession;
     }
 
     public void SetMove(IMover mover)
@@ -46,20 +67,34 @@ public class EnemyMover : MonoBehaviour, IMovable
 
     public void StartMove()
     {
-        enabled = true;
+        _isWorking = true;
         
         _mover.StartMove();
     }
 
     public void StopMove()
     {
-        enabled = false;
+        _isWorking = false;
 
         _mover.StopMove();
     }
 
     private void Update()
     {
+        if (_isWorking == false)
+            return;
+
         _mover.Update();
+    }
+
+    private void OnPlayerEntered(Collider collider)
+    {
+        _stateMachine.SwitchState<EnemyWalkingState>();
+        _session.StartFight();
+    }
+
+    private void OnPlayerExited(Collider collider)
+    {
+        _session.RemoveEnemy();
     }
 }

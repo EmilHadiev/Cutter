@@ -5,12 +5,18 @@ using Zenject;
 public class PlayerHealth : MonoBehaviour, IHealth
 {
     private IGameOverService _gameOverService;
+    private Camera _camera;
 
     private int _currentHealth;
     private int _maxHealth;
 
     public event Action Died;
     public event Action<int> HealthChanged;
+
+    private void Awake()
+    {
+        _camera = Camera.main;
+    }
 
     [Inject]
     private void Constructor(PlayerData data, IGameOverService gameOverService)
@@ -46,6 +52,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public void Kill()
     {
         Died?.Invoke();
+        _camera.transform.parent = null;
         _gameOverService.Lose();
         gameObject.SetActive(false);
     }

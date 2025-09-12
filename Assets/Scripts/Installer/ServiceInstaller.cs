@@ -13,6 +13,12 @@ public class ServiceInstaller : MonoInstaller
         BindAddressablesLoader();
         BindFactory();
         BindGameOverService();
+        BindCombatSessionInstaller();
+    }
+
+    private void BindCombatSessionInstaller()
+    {
+        Container.BindInterfacesTo<CombatSession>().AsSingle();
     }
 
     private void BindGameOverService()

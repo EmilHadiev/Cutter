@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour, IEnemy
 
     private void Start()
     {
-        _stateMachine.SwitchState<EnemyWalkingState>();
+        _stateMachine.SwitchState<EnemyStabState>();
     }
 
     public void SetData(EnemyData data)

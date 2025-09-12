@@ -9,18 +9,15 @@ public class Sword : MonoBehaviour
     [SerializeField] private SwordPosition _swordPosition;
     [SerializeField] private SwordLookAtPosition _lookAtPosition;
 
-    private const float CutDuration = 0.5f;
-
     private IMousePosition _mousePosition;
     private SwordView _swordView;
     private ICutMouseBehaviour _cutMouseBehaviour;
+    private SwordAnimation _swordAnimation;
 
     private Vector3 _startPosition;
     private Vector3 _endPosition;
 
     private bool _isCutting;
-
-    private Vector3 SwordPosition => _swordPosition.transform.position;
 
     private void OnValidate()
     {
@@ -29,6 +26,8 @@ public class Sword : MonoBehaviour
 
     private void Start()
     {
+        _swordAnimation = new SwordAnimation(transform, _swordPosition);
+
         _cutMouseBehaviour.CutStarted += OnCutStarted;
         _cutMouseBehaviour.CutEnded += OnCutEnded;
     }
@@ -55,16 +54,6 @@ public class Sword : MonoBehaviour
         _swordView = new SwordView(factory, _particlePosition.transform);
     }
 
-    private void Look()
-    {
-        Vector3 direction = _mousePosition.GetMousePosition();
-
-        if (direction == Vector3.zero)
-            transform.LookAt(_lookAtPosition.transform);
-        else
-            transform.LookAt(direction);
-    }
-
     private void OnCutStarted()
     {
         _startPosition = _mousePosition.GetMousePosition();
@@ -78,38 +67,25 @@ public class Sword : MonoBehaviour
         StartCutAnimation();
     }
 
+    private void Look()
+    {
+        Vector3 direction = _mousePosition.GetMousePosition();
+
+        if (direction == Vector3.zero)
+            transform.LookAt(_lookAtPosition.transform);
+        else
+            transform.LookAt(direction);
+    }
+
     private void StartCutAnimation()
     {
         _isCutting = true;
-
-        // Создаем последовательность анимаций
-        Sequence cutSequence = DOTween.Sequence();
-
-        // 1. Сохраняем текущую позицию и вращение
-        Vector3 currentPosition = transform.position;
-        Quaternion currentRotation = transform.rotation;
-
-        // 2. Телепортируем меч в начальную позицию резания
-        transform.position = _startPosition;
-        transform.LookAt(_endPosition);
-
-        // 3. Движение от startPosition до endPosition (разрез)
-        cutSequence.Append(transform.DOMove(_endPosition, CutDuration)
-            .SetEase(Ease.OutCubic));
-
-        // 4. Немедленное возвращение в defaultPosition
-        cutSequence.Append(transform.DOMove(SwordPosition, CutDuration)
-            .SetEase(Ease.InBack));
-
-        // 5. Завершение анимации
-        cutSequence.OnComplete(() => EndCut());
+        _swordAnimation.Play(_startPosition, _endPosition, EndCut);
     }
 
     private void EndCut()
     {
-        transform.position = SwordPosition;
-        _swordView.Deactivate();
-        transform.rotation = Quaternion.LookRotation(transform.forward);
+        _swordAnimation.Stop(_swordView.Deactivate);
         _isCutting = false;
     }
 }

@@ -19,16 +19,15 @@ public class Spawner : MonoBehaviour
         _data = new List<EnemyData>(data);
     }
 
-    private void Start()
-    {
-        Spawn().Forget();
-    }
+    public void Spawn(Vector3 position = default, Quaternion quaternion = default) => Create().Forget();
 
-    public async UniTask Spawn()
+    private async UniTask Create(Vector3 position = default, Quaternion quaternion = default)
     {
         try
         {
             var skeleton = await _factory.Create(AssetProvider.SkeletonPrefab);
+            skeleton.transform.position = position;
+            skeleton.transform.rotation = quaternion;
         }
         catch (Exception ex)
         {
