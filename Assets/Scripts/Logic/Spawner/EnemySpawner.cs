@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class Spawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
     private List<GameObject> loadedAssets = new List<GameObject>();
     private IFactory _factory;
@@ -19,19 +19,22 @@ public class Spawner : MonoBehaviour
         _data = new List<EnemyData>(data);
     }
 
-    public void Spawn(Vector3 position = default, Quaternion quaternion = default) => Create().Forget();
+    public async UniTask<GameObject> Spawn(Vector3 position = default, Quaternion rotation = default)
+    {
+        return await Create(position, rotation);
+    }
 
-    private async UniTask Create(Vector3 position = default, Quaternion quaternion = default)
+    private async UniTask<GameObject> Create(Vector3 position = default, Quaternion rotation = default)
     {
         try
         {
-            var skeleton = await _factory.Create(AssetProvider.SkeletonPrefab);
-            skeleton.transform.position = position;
-            skeleton.transform.rotation = quaternion;
+            var skeleton = await _factory.Create(AssetProvider.SkeletonPrefab, position, rotation, null);
+            return skeleton;
         }
         catch (Exception ex)
         {
             Debug.LogError(ex.Message);
+            return null;
         }
     }
 }

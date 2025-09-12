@@ -1,5 +1,6 @@
 using DG.Tweening;
 using DynamicMeshCutter;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -11,6 +12,8 @@ public class BonusCut : MonoBehaviour, ICuttable
     [SerializeField] private ParticleView _destroyParticle;
 
     private IGameplaySoundContainer _soundContainer;
+
+    public event Action Cut;
 
     private void OnValidate()
     {
@@ -38,6 +41,7 @@ public class BonusCut : MonoBehaviour, ICuttable
     {
         PlaySound();
         PlayView();
+        Cut?.Invoke();
     }
 
     private void PlaySound()

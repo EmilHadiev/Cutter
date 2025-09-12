@@ -24,4 +24,9 @@
     public const string EnemiesDataFolder = "EnemiesData";
     public const string SkeletonData = "EnemiesData/Skeleton.asset";
     #endregion
+
+    #region Swords
+    public const string SkeletonSword = "Swords/SkeletonSword.prefab";
+
+    #endregion
 }
