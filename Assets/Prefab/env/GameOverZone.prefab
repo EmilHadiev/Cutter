@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8153256640377555496}
   - component: {fileID: 4126052760813307467}
   m_Layer: 10
-  m_Name: GameOverTrigger
+  m_Name: GameOverZone
   m_TagString: Untagged
   m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

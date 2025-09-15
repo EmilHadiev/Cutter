@@ -4,7 +4,7 @@ using Zenject;
 
 public class CutPartExplosion : IInitializable, IDisposable
 {
-    private const int ExplosionForce = 50;
+    private const int ExplosionForce = 75;
     private const int ExplosionRadius = 1;
 
     private readonly ICutPartContainer _container;

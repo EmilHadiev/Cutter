@@ -101,7 +101,6 @@ public class EnemyParryer : MonoBehaviour, IParryable
         if (_isWorking == false)
             return;
 
-        Debug.Log("ОТКРЫВАЮ ОКНО ДЛЯ ПАРИРОВАНИЯ!");
         OpenParryWindow();
     }
 

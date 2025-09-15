@@ -6,32 +6,38 @@ public class PlayerMovePattern : IMover
     private readonly Spline _spline;
     private readonly Transform _player;
 
-    private readonly float _speed;
+    private readonly FloatProperty _speed;
     private readonly float _rotationSpeed;
 
     private float _splinePosition = 0f;
 
     private bool _isWorking;
 
-    public PlayerMovePattern(Spline spline, Transform transform, PlayerData data)
+    public PlayerMovePattern(Spline spline, Transform transform, PlayerData data, FloatProperty speed)
     {
         _spline = spline;
         _player = transform;
 
-        _speed = data.Speed;
+        _speed = speed;
         _rotationSpeed = data.RotationSpeed;
     }
 
-    public void StartMove() => _isWorking = true;
+    public void StartMove()
+    {
+        _isWorking = true;
+    }
 
-    public void StopMove() => _isWorking = false;
+    public void StopMove()
+    {
+        _isWorking = false;
+    }
 
     public void Update()
     {
         if (_isWorking == false)
             return;
 
-        _splinePosition += _speed * Time.deltaTime;
+        _splinePosition += _speed.Value * Time.deltaTime;
 
         if (_splinePosition <= _spline.nodes.Count - 1)
         {

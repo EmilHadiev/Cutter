@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class CombatSession : ICombatSession
+﻿public class CombatSession : ICombatSession
 {
     private readonly IPlayer _player;
 
@@ -13,7 +11,6 @@ public class CombatSession : ICombatSession
 
     public void StartFight()
     {
-        Debug.Log("Враг добавлен!");
         _player.Movable.StopMove();
         _countEnemies++;
     }
@@ -23,11 +20,7 @@ public class CombatSession : ICombatSession
         if (_countEnemies == 0)
             return;
 
-        Debug.Log("ВЫЧЕТ!");
-
         _countEnemies -= 1;
-
-        Debug.Log(_countEnemies);
 
         if (_countEnemies == 0)
             StopFight();
@@ -35,7 +28,6 @@ public class CombatSession : ICombatSession
 
     private void StopFight()
     {
-        Debug.Log("Продолжаю двигаться!");
         _player.Movable.StartMove();
     }
 }

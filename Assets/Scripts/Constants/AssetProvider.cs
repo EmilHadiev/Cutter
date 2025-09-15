@@ -26,7 +26,7 @@
     #endregion
 
     #region Swords
-    public const string SkeletonSword = "Swords/SkeletonSword.prefab";
+    public const string SkeletonSword = "SkeletonSword";
 
     #endregion
 }

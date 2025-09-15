@@ -58,7 +58,6 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable, ICutUpdatab
     public void TryActivateCut()
     {
         _isWork = true;
-        Debug.Log(gameObject.name);
     }
 
     public void DeactivateCut()

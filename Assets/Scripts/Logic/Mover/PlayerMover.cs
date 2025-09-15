@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerMover : MonoBehaviour, IMovable
+public class PlayerMover : MonoBehaviour, IMovable, ISpeedChangable
 {
     [SerializeField] private Spline _spine;
 
@@ -10,16 +10,19 @@ public class PlayerMover : MonoBehaviour, IMovable
     private PlayerData _data;
 
     private IMover _mover;
+    private FloatProperty _speed;
+    private float _defaultSpeed;
 
     public Transform Transform => transform;
 
-    public FloatProperty MoveSpeed => throw new System.NotImplementedException();
-
     private void Awake()
     {
-        _mover = new PlayerMovePattern(_spine, Transform, _data);
+        _defaultSpeed = _data.Speed;
+        _speed = new FloatProperty(_data.Speed);
+        _mover = new PlayerMovePattern(_spine, Transform, _data, _speed);
         SetMove(_mover);
     }
+
 
     public void SetMove(IMover mover)
     {
@@ -39,6 +42,13 @@ public class PlayerMover : MonoBehaviour, IMovable
         enabled = false;
         _mover.StopMove();
     }
+
+    public void SpeedUp(float speed)
+    {
+        _speed.Value = speed;
+        Debug.Log("СКОРОСТЬ ИЗМЕНЕНА!");
+    }
+    public void SetDefaultSpeed() => _speed.Value = _defaultSpeed;
 
     private void Update()
     {
