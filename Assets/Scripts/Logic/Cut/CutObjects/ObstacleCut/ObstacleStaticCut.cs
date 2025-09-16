@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(MaterialColorChanger))]
 public class ObstacleStaticCut : ObstacleCut
 {
     [SerializeField] private GameObject _nonStaticPrefab;

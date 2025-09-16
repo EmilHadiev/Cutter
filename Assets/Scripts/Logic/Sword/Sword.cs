@@ -7,6 +7,7 @@ public class Sword : MonoBehaviour
 {
     [SerializeField] private SwordPosition _swordPosition;
     [SerializeField] private SwordLookAtPosition _lookAtPosition;
+    [SerializeField] private Vector3 _defaultRotation;
 
     private ParticlePosition _particlePosition;
     private IMousePosition _mousePosition;
@@ -14,6 +15,7 @@ public class Sword : MonoBehaviour
     private ICutMouseBehaviour _cutMouseBehaviour;
     private SwordAnimation _swordAnimation;
     private IFactory _factory;
+    private PlayerData _playerData;
 
     private Vector3 _startPosition;
     private Vector3 _endPosition;
@@ -30,9 +32,15 @@ public class Sword : MonoBehaviour
 
     private async UniTaskVoid CreateSword()
     {
-        var prefab = await _factory.Create(AssetProvider.SkeletonSword);
+        var prefab = await _factory.Create(AssetProvider.SpecterBlade);
+        Quaternion rotation;
 
-        Quaternion rotation = Quaternion.Euler(90, 0, 0);
+        if (prefab.transform.rotation.x == 0)
+            rotation = Quaternion.Euler(prefab.transform.rotation.x, _defaultRotation.y, _defaultRotation.z);
+        else
+            rotation = Quaternion.Euler(_defaultRotation.x, _defaultRotation.y, _defaultRotation.z);
+
+
         prefab.transform.parent = transform;
         prefab.transform.SetLocalPositionAndRotation(Vector3.zero, rotation);
 
@@ -57,11 +65,12 @@ public class Sword : MonoBehaviour
     }
 
     [Inject]
-    private void Constructor(IMousePosition cutView, IFactory factory, ICutMouseBehaviour cutMouseBehaviour)
+    private void Constructor(IMousePosition cutView, IFactory factory, ICutMouseBehaviour cutMouseBehaviour, PlayerData data)
     {
         _factory = factory;
         _mousePosition = cutView;
         _cutMouseBehaviour = cutMouseBehaviour;
+        _playerData = data;
     }
 
     private void OnCutStarted()

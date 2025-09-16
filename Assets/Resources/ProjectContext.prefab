@@ -75,9 +75,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerData: {fileID: 11400000, guid: ef2ec47180c59aa42b5aaa424c270fae, type: 2}
-  _data:
-  - {fileID: 11400000, guid: 9ed859c29ffa49849ac4945d8218ee41, type: 2}
-  - {fileID: 11400000, guid: 53780e1f374aa5b4499ee9b5a4a03daa, type: 2}
-  - {fileID: 11400000, guid: 4776fd4ce95c9ba4c905fc5d53076bae, type: 2}
-  - {fileID: 11400000, guid: 7de8e1ecc15a2724bb0e7eaec96f8e75, type: 2}
-  - {fileID: 11400000, guid: fa364452c6a6d8a4aa2119a40f0ff28a, type: 2}
+  _swords:
+  - {fileID: 11400000, guid: 4e0b4b59d8f0d5d40a72e8356a7fa9a4, type: 2}
+  - {fileID: 11400000, guid: 6b2147825e2275544ac9608fae735e0b, type: 2}
+  - {fileID: 11400000, guid: 5f4491f97d58194478801fdb4734dadf, type: 2}
+  - {fileID: 11400000, guid: 455ffa3b6d6301a41848edcca0aa16ec, type: 2}
+  - {fileID: 11400000, guid: 878538b22ea2e74489112bf0211f10f9, type: 2}
+  - {fileID: 11400000, guid: d99d51924e46eae47868a28a02d8fe99, type: 2}
+  - {fileID: 11400000, guid: 36a4afb7d275b574ab2e986ab80e7977, type: 2}
+  - {fileID: 11400000, guid: 73d1a8df6d592fb45b2ff212e9fe0825, type: 2}
