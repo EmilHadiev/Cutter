@@ -46,7 +46,7 @@ public class SwordsContainer : MonoBehaviour
         foreach (var data in _data)
         {
             var view = Instantiate(_view, _container);
-            view.Init(data);
+            view.Init(data, null);
             _views.Add(view);
         }
     }
@@ -60,6 +60,5 @@ public class SwordsContainer : MonoBehaviour
     private void SetSwordToPlayer(SwordData sword)
     {
         _playerData.Sword = sword.Sword;
-        _currentSword.sprite = sword.Sprite;
     }
 }

@@ -13,6 +13,12 @@ public class PlayerHealthView : MonoBehaviour
 
     private void Awake()
     {
+        if (_maxHealth == 1)
+        {
+            enabled = false;
+            return;
+        }
+
         CreateTemplates();
     }
 
@@ -24,6 +30,13 @@ public class PlayerHealthView : MonoBehaviour
     private void OnDisable()
     {
         _playerHealth.HealthChanged -= OnHealthChanged;
+    }
+
+    [Inject]
+    private void Constructor(IPlayer player)
+    {
+        _playerHealth = player.Health;
+        _maxHealth = player.Data.Health;
     }
 
     private void CreateTemplates()
@@ -38,13 +51,6 @@ public class PlayerHealthView : MonoBehaviour
         }
 
         OnHealthChanged(_maxHealth);
-    }
-
-    [Inject]
-    private void Constructor(IPlayer player)
-    {
-        _playerHealth = player.Health;
-        _maxHealth = player.Data.Health;
     }
 
     private void OnHealthChanged(int currentHealth)

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 public class EnemyAttacker : MonoBehaviour, IAttackable
 {
@@ -7,6 +8,9 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
 
     private IEnemyAnimator _animator;
     private IEnemyStateMachine _stateMachine;
+
+    [Inject]
+    private readonly ICombatSession _combatSession;
 
     private EnemyAttackLogic _attackLogic;
 
@@ -63,12 +67,14 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
     {
         enabled = true;
         _stateMachine.SwitchState<EnemyAttackingState>();
+        _combatSession.StartFight();
     }
 
     private void OnExited(Collider collider)
     {
         _stateMachine.SwitchState<EnemyWalkingState>();
         enabled = false;
+        _combatSession.RemoveEnemy();
     }
 
     private void PlayAttackAnimation()

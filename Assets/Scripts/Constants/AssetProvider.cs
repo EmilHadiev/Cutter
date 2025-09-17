@@ -1,4 +1,6 @@
-﻿public static class AssetProvider
+﻿using UnityEngine;
+
+public static class AssetProvider
 {
     #region Particles
     public const string FireParticle = "FireParticle";
@@ -26,15 +28,6 @@
     #endregion
 
     #region Swords
-    public const string SkeletonSword = "SkeletonSword";
-    public const string SpecterBlade = "SpecterBlade";
-    public const string RatDagger = "RatDagger";
-    public const string NagaSpear = "NagaSpear";
-    public const string KhopeshBlade = "KhopeshBlade";
-    public const string Hammer = "Hammer";
-    public const string DemonBlade = "DemonBlade";
-    public const string Axe = "Axe";
-
     public enum Swords
     {
         SkeletonSword,
@@ -46,5 +39,9 @@
         DemonBlade,
         Axe
     }
+    #endregion
+
+    #region Scenes
+    public const string ViewSelectorScene = "ViewSelector";
     #endregion
 }

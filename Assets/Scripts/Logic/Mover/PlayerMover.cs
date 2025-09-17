@@ -20,9 +20,9 @@ public class PlayerMover : MonoBehaviour, IMovable, ISpeedChangable
         _defaultSpeed = _data.Speed;
         _speed = new FloatProperty(_data.Speed);
         _mover = new PlayerMovePattern(_spine, Transform, _data, _speed);
+
         SetMove(_mover);
     }
-
 
     public void SetMove(IMover mover)
     {
@@ -43,11 +43,7 @@ public class PlayerMover : MonoBehaviour, IMovable, ISpeedChangable
         _mover.StopMove();
     }
 
-    public void SpeedUp(float speed)
-    {
-        _speed.Value = speed;
-        Debug.Log("СКОРОСТЬ ИЗМЕНЕНА!");
-    }
+    public void SpeedUp(float speed) => _speed.Value = speed;
     public void SetDefaultSpeed() => _speed.Value = _defaultSpeed;
 
     private void Update()

@@ -14,4 +14,8 @@
     public const string Ambient1 = "Ambient1";
     public const string Ambient2 = "Ambient2";
     #endregion
+
+    #region
+    public const string ButtonClick = "ButtonClick";
+    #endregion
 }

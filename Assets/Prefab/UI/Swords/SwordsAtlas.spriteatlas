@@ -46,48 +46,16 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 6847bc40b10b60344bd240f0bae94441, type: 3}
-    - {fileID: 2800000, guid: 86dc9f438200eb845b65891a5a6d4e2b, type: 3}
-    - {fileID: 2800000, guid: 9f4e7925912734941abf95d4458f2d50, type: 3}
-    - {fileID: 2800000, guid: a2c49013fd5a7504bb3b356016a883f6, type: 3}
-    - {fileID: 2800000, guid: 0e406e6cfbd65e04896ea1316350d77d, type: 3}
-    - {fileID: 2800000, guid: e071118a4f54baa4da7b1989a416034d, type: 3}
-    - {fileID: 2800000, guid: 4bea83502bf1c7f49b83869ddb2e46ae, type: 3}
-    - {fileID: 2800000, guid: b72583a23115276428bb5643804c19c4, type: 3}
-    - {fileID: 2800000, guid: 45d3d77519a9679418957ac968013ba0, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
     - 6847bc40b10b60344bd240f0bae94441: 21300000
-    - 4bea83502bf1c7f49b83869ddb2e46ae: 21300000
-    - b72583a23115276428bb5643804c19c4: 21300000
-    - a2c49013fd5a7504bb3b356016a883f6: 21300000
-    - 86dc9f438200eb845b65891a5a6d4e2b: 21300000
-    - 9f4e7925912734941abf95d4458f2d50: 21300000
-    - 45d3d77519a9679418957ac968013ba0: 21300000
-    - e071118a4f54baa4da7b1989a416034d: 21300000
-    - 0e406e6cfbd65e04896ea1316350d77d: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 6847bc40b10b60344bd240f0bae94441, type: 3}
-  - {fileID: 21300000, guid: 4bea83502bf1c7f49b83869ddb2e46ae, type: 3}
-  - {fileID: 21300000, guid: b72583a23115276428bb5643804c19c4, type: 3}
-  - {fileID: 21300000, guid: a2c49013fd5a7504bb3b356016a883f6, type: 3}
-  - {fileID: 21300000, guid: 86dc9f438200eb845b65891a5a6d4e2b, type: 3}
-  - {fileID: 21300000, guid: 9f4e7925912734941abf95d4458f2d50, type: 3}
-  - {fileID: 21300000, guid: 45d3d77519a9679418957ac968013ba0, type: 3}
-  - {fileID: 21300000, guid: e071118a4f54baa4da7b1989a416034d, type: 3}
-  - {fileID: 21300000, guid: 0e406e6cfbd65e04896ea1316350d77d, type: 3}
   m_PackedSpriteNamesToIndex:
   - swordsButton
-  - NagaSpear
-  - skeletonSword
-  - DemonSword
-  - Axe
-  - dagger
-  - specterSword
-  - Koshep
-  - Hammer
   m_RenderDataMap: {}
   m_Tag: SwordsAtlas
   m_IsVariant: 0

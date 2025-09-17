@@ -7,7 +7,7 @@ public class PlayerInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        BindPlayer();
+        BindPlayer();        
     }
 
     private void BindPlayer()

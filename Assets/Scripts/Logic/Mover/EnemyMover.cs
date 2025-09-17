@@ -11,7 +11,6 @@ public class EnemyMover : MonoBehaviour, IMovable
     private IMover _mover;
     private FloatProperty _moveSpeed;
     private IPlayer _player;
-    private ICombatSession _session;
     private IEnemyStateMachine _stateMachine;
 
     private bool _isWorking;
@@ -42,20 +41,17 @@ public class EnemyMover : MonoBehaviour, IMovable
     private void OnEnable()
     {
         _observer.Entered += OnPlayerEntered;
-        _observer.Exited += OnPlayerExited;
     }
 
     private void OnDisable()
     {
         _observer.Entered -= OnPlayerEntered;
-        _observer.Exited -= OnPlayerExited;
     }
 
     [Inject]
-    private void Constructor(IPlayer player, ICombatSession combatSession)
+    private void Constructor(IPlayer player)
     {
         _player = player;
-        _session = combatSession;
     }
 
     public void SetMove(IMover mover)
@@ -90,11 +86,5 @@ public class EnemyMover : MonoBehaviour, IMovable
     private void OnPlayerEntered(Collider collider)
     {
         _stateMachine.SwitchState<EnemyWalkingState>();
-        _session.StartFight();
-    }
-
-    private void OnPlayerExited(Collider collider)
-    {
-        _session.RemoveEnemy();
     }
 }

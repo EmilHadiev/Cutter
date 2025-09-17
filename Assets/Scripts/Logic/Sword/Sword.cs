@@ -24,30 +24,10 @@ public class Sword : MonoBehaviour
 
     private void Start()
     {
-        CreateSword().Forget();
+        CreateAndSetSword(_playerData.Sword);
 
         _cutMouseBehaviour.CutStarted += OnCutStarted;
         _cutMouseBehaviour.CutEnded += OnCutEnded;
-    }
-
-    private async UniTaskVoid CreateSword()
-    {
-        var prefab = await _factory.Create(AssetProvider.SpecterBlade);
-        Quaternion rotation;
-
-        if (prefab.transform.rotation.x == 0)
-            rotation = Quaternion.Euler(prefab.transform.rotation.x, _defaultRotation.y, _defaultRotation.z);
-        else
-            rotation = Quaternion.Euler(_defaultRotation.x, _defaultRotation.y, _defaultRotation.z);
-
-
-        prefab.transform.parent = transform;
-        prefab.transform.SetLocalPositionAndRotation(Vector3.zero, rotation);
-
-        _particlePosition = prefab.GetComponentInChildren<ParticlePosition>();
-
-        _swordView = new SwordView(_factory, _particlePosition.transform);
-        _swordAnimation = new SwordAnimation(transform, _swordPosition);
     }
 
     private void OnDestroy()
@@ -71,6 +51,32 @@ public class Sword : MonoBehaviour
         _mousePosition = cutView;
         _cutMouseBehaviour = cutMouseBehaviour;
         _playerData = data;
+    }
+
+    public void CreateAndSetSword(AssetProvider.Swords sword)
+    {
+        CreateSword(sword).Forget();
+    }
+
+    private async UniTaskVoid CreateSword(AssetProvider.Swords sword)
+    {
+        var prefab = await _factory.Create(sword.ToString());
+
+        Quaternion rotation;
+
+        if (prefab.transform.rotation.x == 0)
+            rotation = Quaternion.Euler(prefab.transform.rotation.x, _defaultRotation.y, _defaultRotation.z);
+        else
+            rotation = Quaternion.Euler(_defaultRotation.x, _defaultRotation.y, _defaultRotation.z);
+
+
+        prefab.transform.parent = transform;
+        prefab.transform.SetLocalPositionAndRotation(Vector3.zero, rotation);
+
+        _particlePosition = prefab.GetComponentInChildren<ParticlePosition>();
+
+        _swordView = new SwordView(_factory, _particlePosition.transform);
+        _swordAnimation = new SwordAnimation(transform, _swordPosition);
     }
 
     private void OnCutStarted()

@@ -8,5 +8,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Arena1.unity
     guid: acae23241b60f454c95dc7591fda26b3
+  - enabled: 0
+    path: Assets/Scenes/ViewSelector.unity
+    guid: 75b26213de34abd4abfeab69f09cf37a
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 1da51fe8d5f78af48bc23ca8270d8534, type: 2}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7751752837595104060}
   - component: {fileID: 386844903824662341}
   - component: {fileID: 883638100328002566}
+  - component: {fileID: -4521258299004611284}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: -4521258299004611284}
   - {fileID: 883638100328002566}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 1
@@ -84,3 +86,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d99d51924e46eae47868a28a02d8fe99, type: 2}
   - {fileID: 11400000, guid: 36a4afb7d275b574ab2e986ab80e7977, type: 2}
   - {fileID: 11400000, guid: 73d1a8df6d592fb45b2ff212e9fe0825, type: 2}
+--- !u!114 &-4521258299004611284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5803247415228222784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd984e47e1266e44a27b8c02ed806ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gamePlayerSoundContainer: {fileID: 5738650554588357602, guid: a8c035819fd763b419379fd119b8f6dc, type: 3}
+  _ambientSoundContainer: {fileID: 6759400483352120428, guid: 177de5b6fae276c41abd9afea175b638, type: 3}
+  _uiSoundContainer: {fileID: 7030295461613583538, guid: a7084ba321eb1fb4b8b1ac7dba4f9629, type: 3}

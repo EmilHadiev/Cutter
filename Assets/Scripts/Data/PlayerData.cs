@@ -11,5 +11,5 @@ public class PlayerData : ScriptableObject
     [field: SerializeField, Range(1, 10)] public float RotationSpeed { get; private set; } = 5f;
     [field: SerializeField, Range(1, 100)] public int AttackDistance { get; private set; } = 5;
 
-    [field: SerializeField] public AssetProvider.Swords Sword { get; set; } = AssetProvider.Swords.SkeletonSword;
+    [field: SerializeField] public AssetProvider.Swords Sword { get; set; }
 }
