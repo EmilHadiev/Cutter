@@ -131,11 +131,6 @@ namespace Cysharp.Threading.Tasks
             return new UniTask<AsyncUnit>(new AsyncUnitSource(this.source), this.token);
         }
 
-        public static async Task Delay(int v, object cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
         sealed class AsyncUnitSource : IUniTaskSource<AsyncUnit>
         {
             readonly IUniTaskSource source;

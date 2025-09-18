@@ -22,6 +22,6 @@ public class GlobalServiceInstaller : MonoInstaller
 
     private void BindSceneLoader()
     {
-        Container.BindInterfacesTo<SceneLoader>().AsSingle();
+        Container.BindInterfacesTo<AddressablesSceneLoader>().AsSingle();
     }
 }

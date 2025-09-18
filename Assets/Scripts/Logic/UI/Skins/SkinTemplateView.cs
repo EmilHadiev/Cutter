@@ -11,11 +11,13 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
 
     private SkinData _data;
     private GameObject _prefab;
+    private SwordSkinViewer _skinViewer;
 
-    public void Init(SkinData data, GameObject prefab)
+    public void Init(SkinData data, GameObject prefab, SwordSkinViewer swordSkinViewer)
     {
         _data = data;
         _prefab = prefab;
+        _skinViewer = swordSkinViewer;
         SetPrefabView();
     }
 
@@ -24,6 +26,7 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
         if (_data.IsPurchased == false)
             return;
 
+        ShowPrefab(_skinViewer, _prefab, _data);
         PerformEvent(_data);
     }
 
@@ -43,4 +46,5 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
     }
 
     protected abstract void PerformEvent(SkinData skinData);
+    protected abstract void ShowPrefab(SwordSkinViewer skinViewer, GameObject prefab, SkinData data);
 }

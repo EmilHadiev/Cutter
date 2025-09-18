@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class SwordTemplateView : SkinTemplateView
 {
@@ -7,5 +8,10 @@ public class SwordTemplateView : SkinTemplateView
     protected override void PerformEvent(SkinData skinData)
     {
         Clicked?.Invoke(skinData as SwordData);
+    }
+
+    protected override void ShowPrefab(SwordSkinViewer skinViewer, GameObject prefab, SkinData data)
+    {
+        skinViewer.SetSword(prefab, data);
     }
 }

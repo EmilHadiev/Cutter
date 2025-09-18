@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -9,12 +11,14 @@ public class SkinContainer : MonoBehaviour
     [SerializeField] private ParticleTemplateView _particleView;
     [SerializeField] private Transform _swordContainer;
     [SerializeField] private Transform _particleContainer;
+    [SerializeField] private SwordSkinViewer _skinView;
 
     private PlayerData _playerData;
     private IFactory _factory;
 
     private List<SwordTemplateView> _swordsView;
     private List<ParticleTemplateView> _particlesView;
+
     private List<string> _assets;
 
     private IEnumerable<SwordData> _swordsData;
@@ -29,19 +33,16 @@ public class SkinContainer : MonoBehaviour
 
         CreateSwordTemplates().Forget();
         CreateParticleTemplates().Forget();
-        Show();
+
+        SubscribeToEvents();
     }
 
-    private void OnEnable()
+    private void OnDestroy()
     {
-        for (int i = 0; i < _swordsView.Count; i++)
-            _swordsView[i].Clicked += SetSwordToPlayer;
-
-        for (int i = 0; i < _particlesView.Count; i++)
-            _particlesView[i].Clicked += SetParticleToPlayer;
+        UnSubscribeFromEvents();
     }
 
-    private void OnDisable()
+    private void UnSubscribeFromEvents()
     {
         for (int i = 0; i < _swordsView.Count; i++)
             _swordsView[i].Clicked -= SetSwordToPlayer;
@@ -50,7 +51,16 @@ public class SkinContainer : MonoBehaviour
             _particlesView[i].Clicked -= SetParticleToPlayer;
     }
 
-    private void OnDestroy()
+    private void SubscribeToEvents()
+    {
+        for (int i = 0; i < _swordsView.Count; i++)
+            _swordsView[i].Clicked += SetSwordToPlayer;
+
+        for (int i = 0; i < _particlesView.Count; i++)
+            _particlesView[i].Clicked += SetParticleToPlayer;
+    }
+
+    private void Done()
     {
         foreach (var asset in _assets)
         {
@@ -82,7 +92,7 @@ public class SkinContainer : MonoBehaviour
             var prefab = await _factory.CreateAsync(assetName);
 
             _assets.Add(assetName);
-            view.Init(data, prefab);
+            view.Init(data, prefab, _skinView);
             _swordsView.Add(view);
         }
     }
@@ -96,24 +106,20 @@ public class SkinContainer : MonoBehaviour
             var prefab = await _factory.CreateAsync(assetName);
 
             _assets.Add(assetName);
-            view.Init(data, prefab);
+            view.Init(data, prefab, _skinView);
             _particlesView.Add(view);
         }
-    }
-
-    private void Show()
-    {
-        foreach (var view in _swordsView)
-            view.Render();
     }
 
     private void SetSwordToPlayer(SwordData sword)
     {
         _playerData.Sword = sword.Sword;
+        Debug.Log("!!!");
     }
 
     private void SetParticleToPlayer(ParticleData particleData)
     {
         _playerData.Particle = particleData.Particle;
+        Debug.Log("@@@");
     }
 }

@@ -57,6 +57,10 @@ public static class AssetProvider
     #endregion
 
     #region Scenes
-    public const string ViewSelectorScene = "ViewSelector";
+    public enum Scenes
+    {
+        MainArena,
+        ViewSelector
+    }
     #endregion
 }
