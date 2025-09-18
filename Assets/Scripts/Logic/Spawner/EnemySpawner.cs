@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
     {
         try
         {
-            var skeleton = await _factory.Create(AssetProvider.SkeletonPrefab, position, rotation, null);
+            var skeleton = await _factory.CreateAsync(AssetProvider.SkeletonPrefab, position, rotation, null);
             return skeleton;
         }
         catch (Exception ex)

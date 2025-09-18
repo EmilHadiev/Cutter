@@ -5,13 +5,15 @@ public class SwordView
 {
     private readonly IFactory _factory;
     private readonly Transform _particlePosition;
+    private readonly PlayerData _playerData;
 
     private ParticleView _particle;
 
-    public SwordView(IFactory factory, Transform _particlePostion) 
+    public SwordView(IFactory factory, Transform _particlePostion, PlayerData data) 
     { 
         _factory = factory;
         _particlePosition = _particlePostion;
+        _playerData = data;
         CreateParticle().Forget();        
     }
 
@@ -20,7 +22,7 @@ public class SwordView
 
     private async UniTaskVoid CreateParticle()
     {
-        var prefab = await _factory.Create(AssetProvider.FireParticle, default, default, _particlePosition);
+        var prefab = await _factory.CreateAsync(_playerData.Particle.ToString(), default, default, _particlePosition);
         _particle = prefab.GetComponent<ParticleView>();
         _particle.Stop();
         _particle.transform.position = _particlePosition.position;

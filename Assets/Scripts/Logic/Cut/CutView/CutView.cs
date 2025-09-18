@@ -10,6 +10,7 @@ public class CutView : IInitializable, IDisposable, ITickable
     private readonly IFactory _factoryService;
     private readonly IMousePosition _mousePosition;
     private readonly Transform _player;
+    private readonly PlayerData _playerData;
 
     private ParticleView _followerParticle;
     private ParticleView _startParticle;
@@ -24,6 +25,7 @@ public class CutView : IInitializable, IDisposable, ITickable
         _mouseBehavior = cutMouseBehaviour;
         _mousePosition = mousePosition;
         _player = player.Movable.Transform;
+        _playerData = player.Data;
         CreateParticles().Forget();
     }
 
@@ -83,13 +85,13 @@ public class CutView : IInitializable, IDisposable, ITickable
 
     private async UniTaskVoid CreateParticles()
     {
-        _followerParticle = await CreateParticle(AssetProvider.FireParticle);
-        _startParticle = await CreateParticle(AssetProvider.FireParticle);
+        _followerParticle = await CreateParticle(_playerData.Particle.ToString());
+        _startParticle = await CreateParticle(_playerData.Particle.ToString());
     }
     
     private async UniTask<ParticleView> CreateParticle(string assetName)
     {
-        var particle = await _factoryService.Create(AssetProvider.FireParticle);
+        var particle = await _factoryService.CreateAsync(_playerData.Particle.ToString());
         var result = particle.GetComponent<ParticleView>();
 
         LayerChanger.SetLayerRecursively(result.gameObject, LayerMask.NameToLayer(CustomMasks.Player));

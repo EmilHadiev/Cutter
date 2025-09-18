@@ -18,5 +18,6 @@ MonoBehaviour:
   <Energy>k__BackingField: 2
   <Speed>k__BackingField: 0.1
   <RotationSpeed>k__BackingField: 5
-  <AttackDistance>k__BackingField: 10
-  <Sword>k__BackingField: 0
+  <AttackDistance>k__BackingField: 5
+  <Sword>k__BackingField: 6
+  <Particle>k__BackingField: 2

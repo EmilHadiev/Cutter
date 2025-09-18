@@ -4,5 +4,7 @@
     public const string Player = "Player";
     public const string Enemy = "Enemy";
 
-    public const string SwordPath = "Sword";
+    public const string SkinPath = "Skin";
+    public const string Sword = "Sword";
+    public const string Particle = "Particle";
 }

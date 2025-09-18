@@ -60,7 +60,7 @@ public class Sword : MonoBehaviour
 
     private async UniTaskVoid CreateSword(AssetProvider.Swords sword)
     {
-        var prefab = await _factory.Create(sword.ToString());
+        var prefab = await _factory.CreateAsync(sword.ToString());
 
         Quaternion rotation;
 
@@ -75,7 +75,7 @@ public class Sword : MonoBehaviour
 
         _particlePosition = prefab.GetComponentInChildren<ParticlePosition>();
 
-        _swordView = new SwordView(_factory, _particlePosition.transform);
+        _swordView = new SwordView(_factory, _particlePosition.transform, _playerData);
         _swordAnimation = new SwordAnimation(transform, _swordPosition);
     }
 

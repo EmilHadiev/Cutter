@@ -21,7 +21,7 @@ public class DefenderView
 
     private async UniTaskVoid CreateParticle(IFactory factory, Transform parent)
     {
-        var prefab = await factory.Create(AssetProvider.DefenseParticle);
+        var prefab = await factory.CreateAsync(AssetProvider.DefenseParticle);
         _particle = prefab.GetComponent<ParticleView>();
 
         _particle.transform.position = parent.transform.position;

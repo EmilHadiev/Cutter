@@ -102,11 +102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8503596642769193703, guid: ae7fcf8e2f10ecc46b81d336f61a285f, type: 3}
       propertyPath: m_Range
-      value: 7.0500283
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8503596642769193703, guid: ae7fcf8e2f10ecc46b81d336f61a285f, type: 3}
       propertyPath: m_Intensity
-      value: 3.525034
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8503596642769193703, guid: ae7fcf8e2f10ecc46b81d336f61a285f, type: 3}
       propertyPath: m_Lightmapping
@@ -150,7 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6dd17a5109af5448638ceda5dceed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 5331265734892575510}
 --- !u!1001 &4888587223758422475
 PrefabInstance:
   m_ObjectHideFlags: 0

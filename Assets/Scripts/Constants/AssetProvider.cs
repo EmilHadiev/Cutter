@@ -3,11 +3,26 @@
 public static class AssetProvider
 {
     #region Particles
-    public const string FireParticle = "FireParticle";
     public const string DefenseParticle = "DefenseParticle";
     public const string ParryParticle = "ParryParticle";
     public const string StunParticle = "StunParticle";
     public const string ParryWindowParticle = "ParryWindowParticle";
+
+    /// <summary>
+    /// players
+    /// </summary>
+
+    public enum Particles
+    {
+        None,
+        FireParticle,
+        ElectricParticle,
+        HeartAndStarParticles,
+        LightParticle,
+        SoulsParticle,
+        IceParticle,
+        DarkParticle
+    }
     #endregion
 
     #region Label

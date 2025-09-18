@@ -6,16 +6,31 @@ public class DataInstaller : MonoInstaller
 {
     [SerializeField] private PlayerData _playerData;
     [SerializeField] private SwordData[] _swords;
+    [SerializeField] private ParticleData[] _particles;
 
     public override void InstallBindings()
     {
         BindPlayerData();
         BindSwordsData();
+        BindParticlesData();
     }
 
     private void BindPlayerData()
     {
         Container.Bind<PlayerData>().FromNewScriptableObject(_playerData).AsSingle();
+    }
+
+    private void BindParticlesData()
+    {
+        List<ParticleData> swords = new List<ParticleData>(_particles.Length);
+
+        for (int i = 0; i < _particles.Length; i++)
+        {
+            var data = Instantiate(_particles[i]);
+            swords.Add(data);
+        }
+
+        Container.Bind<IEnumerable<ParticleData>>().FromInstance(swords);
     }
 
     private void BindSwordsData()

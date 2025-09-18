@@ -54,7 +54,7 @@ public class EnemyParryView
     {
         Transform transform = position.transform;
 
-        var prefab = await factory.Create(assetName, transform.position, transform.rotation, transform);
+        var prefab = await factory.CreateAsync(assetName, transform.position, transform.rotation, transform);
         _stunView = prefab.GetComponent<ParticleView>();
         _stunView.Stop();
     }
@@ -63,7 +63,7 @@ public class EnemyParryView
     {
         Transform transform = position.transform;
 
-        var prefab = await factory.Create(assetName, transform.position, transform.rotation, transform);
+        var prefab = await factory.CreateAsync(assetName, transform.position, transform.rotation, transform);
         _parryView = prefab.GetComponent<ParticleView>();
         _parryView.Stop();
     }
@@ -72,7 +72,7 @@ public class EnemyParryView
     {
         Transform transform = position.transform;
 
-        var prefab = await factory.Create(assetName, transform.position, transform.rotation, transform);
+        var prefab = await factory.CreateAsync(assetName, transform.position, transform.rotation, transform);
         _parryWindowView = prefab.GetComponent<ParticleView>();
         _parryWindowView.Stop();
     }

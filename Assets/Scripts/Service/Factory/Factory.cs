@@ -16,13 +16,13 @@ public class Factory : IFactory
         _instantiator = instantiator;
     }
 
-    public async UniTask<GameObject> Create(string assetName, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
+    public async UniTask<GameObject> CreateAsync(string assetName, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
     {
         var prefab = await _addressablesLoaderService.LoadAssetAsync<GameObject>(assetName);
         return _instantiator.InstantiatePrefab(prefab, position, rotation, parent);
     }
 
-    public async UniTask<GameObject> Create(string assetName)
+    public async UniTask<GameObject> CreateAsync(string assetName)
     {
         var prefab = await _addressablesLoaderService.LoadAssetAsync<GameObject>(assetName);
         return _instantiator.InstantiatePrefab(prefab);
@@ -38,7 +38,7 @@ public class Factory : IFactory
         _addressablesLoaderService.Release(reference);
     }
 
-    public async UniTask<IList<GameObject>> CreateByLabel(string label)
+    public async UniTask<IList<GameObject>> CreateAsyncByLabel(string label)
     {
         IList<GameObject> prefabs = await _addressablesLoaderService.LoadAssetsByLabelAsync<GameObject>(label);
         IList<GameObject> results = new List<GameObject>(prefabs.Count);
@@ -51,13 +51,13 @@ public class Factory : IFactory
         return results;
     }
 
-    public async UniTask<GameObject> Create(AssetReference reference)
+    public async UniTask<GameObject> CreateAsync(AssetReference reference)
     {
         var prefab = await _addressablesLoaderService.LoadAssetAsync<GameObject>(reference);
         return _instantiator.InstantiatePrefab(prefab);
     }
 
-    public async UniTask<GameObject> Create(AssetReference reference, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
+    public async UniTask<GameObject> CreateAsync(AssetReference reference, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
     {
         var prefab = await _addressablesLoaderService.LoadAssetAsync<GameObject>(reference);
         return _instantiator.InstantiatePrefab(prefab, position, rotation, parent);

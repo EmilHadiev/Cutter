@@ -12,4 +12,5 @@ public class PlayerData : ScriptableObject
     [field: SerializeField, Range(1, 100)] public int AttackDistance { get; private set; } = 5;
 
     [field: SerializeField] public AssetProvider.Swords Sword { get; set; }
+    [field: SerializeField] public AssetProvider.Particles Particle { get; set; }
 }
