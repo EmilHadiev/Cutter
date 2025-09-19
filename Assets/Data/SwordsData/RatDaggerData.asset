@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RatDaggerData
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 6
-  <IsPurchased>k__BackingField: 1
+  <IsPurchased>k__BackingField: 0
   <ViewPosition>k__BackingField: {x: 0, y: -30, z: -5}
   <ViewRotation>k__BackingField: {x: 0, y: 90, z: 0}
   <ViewScale>k__BackingField: 75

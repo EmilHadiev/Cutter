@@ -17,5 +17,7 @@
 
     #region
     public const string ButtonClick = "ButtonClick";
+    public const string AddRewardCoins = "AddRewardCoins";
+    public const string UnlockSkin = "UnlockSkin";
     #endregion
 }

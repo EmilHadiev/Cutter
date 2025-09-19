@@ -1,5 +1,5 @@
 ﻿public interface IPurchasable
 {
     int Id { get; }
-    bool IsPurchased { get; }
+    bool IsPurchased { get; set; }
 }

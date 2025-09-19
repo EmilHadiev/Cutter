@@ -1,4 +1,6 @@
-﻿public interface ISceneLoader
+﻿using System;
+
+public interface ISceneLoader
 {
     void Restart();
     void SwitchTo(int buildIndex);

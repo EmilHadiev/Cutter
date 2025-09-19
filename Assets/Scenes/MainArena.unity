@@ -532,6 +532,7 @@ GameObject:
   - component: {fileID: 119810432}
   - component: {fileID: 119810431}
   - component: {fileID: 119810434}
+  - component: {fileID: 119810435}
   m_Layer: 5
   m_Name: ChangeSwordButton
   m_TagString: Untagged
@@ -654,6 +655,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13a86ab323bc20d4397474e51928cdcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _button: {fileID: 119810431}
+--- !u!114 &119810435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119810429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e7d9a2fc04c444487aaa0825935495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneName: 1
   _button: {fileID: 119810431}
 --- !u!1 &152763367
 GameObject:
@@ -1538,7 +1553,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50.6
+  m_fontSize: 50.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

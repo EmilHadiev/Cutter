@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,32 +12,37 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
     private GameObject _prefab;
     private SwordSkinViewer _skinViewer;
 
+    public bool IsLock => _data.IsPurchased;
+
     public void Init(SkinData data, GameObject prefab, SwordSkinViewer swordSkinViewer)
     {
         _data = data;
         _prefab = prefab;
         _skinViewer = swordSkinViewer;
         SetPrefabView();
+
+        if (IsLock)
+            _hideImage.gameObject.SetActive(false);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (_data.IsPurchased == false)
-            return;
-
         ShowPrefab(_skinViewer, _prefab, _data);
-        PerformEvent(_data);
+
+        if (_data.IsPurchased)
+            PerformEvent(_data);
     }
 
-    public void Render()
+    public void Unlock()
     {
-        if (_data.IsPurchased)
-            _hideImage.gameObject.SetActive(false);
+        _data.IsPurchased = true;
+        _hideImage.gameObject.SetActive(false);
     }
 
     private void SetPrefabView()
     {
         LayerChanger.SetLayerRecursively(_prefab, LayerMask.NameToLayer(UI));
+
         _prefab.transform.parent = transform;
         _prefab.transform.localPosition = _data.ViewPosition;
         _prefab.transform.localRotation = Quaternion.Euler(_data.ViewRotation.x, _data.ViewRotation.y, _data.ViewRotation.z);

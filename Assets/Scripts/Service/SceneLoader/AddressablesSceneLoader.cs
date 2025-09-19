@@ -12,11 +12,16 @@ public class AddressablesSceneLoader : IDisposable, ISceneLoader
 {
     private readonly ConcurrentDictionary<int, string> _scenes;
     private readonly ConcurrentDictionary<string, AsyncOperationHandle<SceneInstance>> _activeSceneHandles;
+    private readonly IAdvService _advService;
+    private readonly ISavable _saver;
 
     private CancellationTokenSource _cts;
 
-    public AddressablesSceneLoader()
+    public AddressablesSceneLoader(IAdvService adv, ISavable savable)
     {
+        _advService = adv;
+        _saver = savable;
+
         _scenes = new ConcurrentDictionary<int, string>();
         _activeSceneHandles = new ConcurrentDictionary<string, AsyncOperationHandle<SceneInstance>>();
 
@@ -83,6 +88,8 @@ public class AddressablesSceneLoader : IDisposable, ISceneLoader
             if (sceneHandle.Status == AsyncOperationStatus.Succeeded)
             {
                 Debug.Log($"Scene {sceneAddress} loaded successfully!");
+                _advService.ShowInterstitial();
+                _saver.Save();
             }
             else if (sceneHandle.Status == AsyncOperationStatus.Failed)
             {
@@ -120,5 +127,6 @@ public class AddressablesSceneLoader : IDisposable, ISceneLoader
         }
 
         _activeSceneHandles.Clear();
+        _saver.Save();
     }
 }

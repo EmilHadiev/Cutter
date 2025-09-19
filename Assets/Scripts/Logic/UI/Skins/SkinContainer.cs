@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -15,34 +15,31 @@ public class SkinContainer : MonoBehaviour
 
     private PlayerData _playerData;
     private IFactory _factory;
-
+    private ICoinsStorage _coinsStorage;
     private List<SwordTemplateView> _swordsView;
     private List<ParticleTemplateView> _particlesView;
-
-    private List<string> _assets;
+    private SkinUnlocker _skinUnlocker;
+    private CoinsCalculator _coinsCalculator;
 
     private IEnumerable<SwordData> _swordsData;
     private IEnumerable<ParticleData> _particlesData;
+    private List<SkinTemplateView> _skins;
 
-    private void Awake()
+    private async void Awake()
     {
         _swordsView = new List<SwordTemplateView>();
         _particlesView = new List<ParticleTemplateView>();
+        _skins = new List<SkinTemplateView>();
 
-        _assets = new List<string>();
+        await CreateSwordTemplates();
+        await CreateParticleTemplates();
 
-        CreateSwordTemplates().Forget();
-        CreateParticleTemplates().Forget();
+        _skinUnlocker = new SkinUnlocker(_skins, _coinsStorage, _coinsCalculator);
 
-        SubscribeToEvents();
+        SubScribeToEvents();
     }
 
     private void OnDestroy()
-    {
-        UnSubscribeFromEvents();
-    }
-
-    private void UnSubscribeFromEvents()
     {
         for (int i = 0; i < _swordsView.Count; i++)
             _swordsView[i].Clicked -= SetSwordToPlayer;
@@ -51,7 +48,7 @@ public class SkinContainer : MonoBehaviour
             _particlesView[i].Clicked -= SetParticleToPlayer;
     }
 
-    private void SubscribeToEvents()
+    private void SubScribeToEvents()
     {
         for (int i = 0; i < _swordsView.Count; i++)
             _swordsView[i].Clicked += SetSwordToPlayer;
@@ -60,30 +57,33 @@ public class SkinContainer : MonoBehaviour
             _particlesView[i].Clicked += SetParticleToPlayer;
     }
 
-    private void Done()
-    {
-        foreach (var asset in _assets)
-        {
-            if (asset == _playerData.Sword.ToString())
-                continue;
-
-            if (asset == _playerData.Particle.ToString())
-                continue;
-
-            _factory.ReleaseAsset(asset);
-        }
-    }
-
     [Inject]
-    private void Constructor(IEnumerable<SwordData> swords, IEnumerable<ParticleData> particles, PlayerData playerData, Factory factory)
+    private void Constructor(IEnumerable<SwordData> swords, IEnumerable<ParticleData> particles, PlayerData playerData, 
+        Factory factory, ICoinsStorage coinsStorage, CoinsCalculator coinsCalculator)
     {
         _swordsData = swords;
         _particlesData = particles;
         _playerData = playerData;
         _factory = factory;
+        _coinsStorage = coinsStorage;
+        _coinsCalculator = coinsCalculator;
     }
 
-    private async UniTaskVoid CreateSwordTemplates()
+    public bool TryUnlockRandomSkin(out int newPrice)
+    {
+        if (_skinUnlocker.TryUnlock())
+        {
+            newPrice = _skinUnlocker.GetCurrentPrice();
+            return true;
+        }
+
+        newPrice = 0;
+        return false;
+    }
+
+    public int GetCurrentPrice() => _skinUnlocker.GetCurrentPrice();
+
+    private async UniTask CreateSwordTemplates()
     {
         foreach (var data in _swordsData)
         {
@@ -91,13 +91,13 @@ public class SkinContainer : MonoBehaviour
             string assetName = data.Sword.ToString();
             var prefab = await _factory.CreateAsync(assetName);
 
-            _assets.Add(assetName);
             view.Init(data, prefab, _skinView);
             _swordsView.Add(view);
+            _skins.Add(view);
         }
     }
 
-    private async UniTaskVoid CreateParticleTemplates()
+    private async UniTask CreateParticleTemplates()
     {
         foreach (var data in _particlesData)
         {
@@ -105,21 +105,19 @@ public class SkinContainer : MonoBehaviour
             string assetName = data.Particle.ToString();
             var prefab = await _factory.CreateAsync(assetName);
 
-            _assets.Add(assetName);
             view.Init(data, prefab, _skinView);
             _particlesView.Add(view);
+            _skins.Add(view);
         }
     }
 
     private void SetSwordToPlayer(SwordData sword)
     {
         _playerData.Sword = sword.Sword;
-        Debug.Log("!!!");
     }
 
     private void SetParticleToPlayer(ParticleData particleData)
     {
         _playerData.Particle = particleData.Particle;
-        Debug.Log("@@@");
     }
 }

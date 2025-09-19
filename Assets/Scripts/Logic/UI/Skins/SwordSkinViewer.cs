@@ -11,6 +11,7 @@ public class SwordSkinViewer : MonoBehaviour
             Destroy(_currentSword);
 
         _currentSword = Instantiate(sword, transform);
+        _currentSword.transform.localPosition = new Vector3(_currentSword.transform.localPosition.x, _currentSword.transform.localPosition.y, -5);
     }
 
     public void SetParticle(GameObject particle, SkinData data)
@@ -35,8 +36,9 @@ public class SwordSkinViewer : MonoBehaviour
         _currentParticle.transform.localPosition = Vector3.zero;
 
         int bigParticle = 1;
+        float particleSize = 0.5f;
 
         if (_currentParticle.transform.localScale.x > bigParticle)
-            _currentParticle.transform.localScale = new Vector3(1, 1, 1);
+            _currentParticle.transform.localScale = new Vector3(particleSize, particleSize, particleSize);
     }
 }

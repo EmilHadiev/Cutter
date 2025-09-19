@@ -11,6 +11,30 @@ public class GlobalServiceInstaller : MonoInstaller
     {
         BindSceneLoader();
         BindSoundContainer();
+        BindAdvService();
+        BindSaveService();
+        BindCoinsCalculator();
+        BindCoinStorage();
+    }
+
+    private void BindCoinStorage()
+    {
+        Container.BindInterfacesTo<CoinsStorage>().AsSingle();
+    }
+
+    private void BindCoinsCalculator()
+    {
+        Container.Bind<CoinsCalculator>().AsSingle();
+    }
+
+    private void BindSaveService()
+    {
+        Container.BindInterfacesTo<Saver>().AsSingle();
+    }
+
+    private void BindAdvService()
+    {
+        Container.BindInterfacesTo<AdvService>().AsSingle();
     }
 
     private void BindSoundContainer()
