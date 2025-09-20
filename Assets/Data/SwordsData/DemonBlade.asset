@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: DemonBlade
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 2
-  <IsPurchased>k__BackingField: 0
-  <ViewPosition>k__BackingField: {x: 0, y: -55, z: -5}
+  <IsPurchased>k__BackingField: 1
+  <ViewPosition>k__BackingField: {x: 0, y: -75, z: -5}
   <ViewRotation>k__BackingField: {x: 0, y: 90, z: 0}
-  <ViewScale>k__BackingField: 35
+  <ViewScale>k__BackingField: 60
   <Sword>k__BackingField: 6

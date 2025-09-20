@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ElectricParticle
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 0
-  <IsPurchased>k__BackingField: 0
+  <IsPurchased>k__BackingField: 1
   <ViewPosition>k__BackingField: {x: 0, y: 0, z: -30}
   <ViewRotation>k__BackingField: {x: 0, y: 0, z: 0}
-  <ViewScale>k__BackingField: 0.5
+  <ViewScale>k__BackingField: 0.35
   <Particle>k__BackingField: 2
