@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image _hideImage;
+    [SerializeField] private Transform _container;
 
     private const string UI = "UI";
 
@@ -27,10 +28,11 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        ShowPrefab(_skinViewer, _prefab, _data);
-
         if (_data.IsPurchased)
+        {
+            ShowPrefab(_skinViewer, _prefab, _data);
             PerformEvent(_data);
+        }    
     }
 
     public void Unlock()
@@ -43,7 +45,7 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
     {
         LayerChanger.SetLayerRecursively(_prefab, LayerMask.NameToLayer(UI));
 
-        _prefab.transform.parent = transform;
+        _prefab.transform.parent = _container;
         _prefab.transform.localPosition = _data.ViewPosition;
         _prefab.transform.localRotation = Quaternion.Euler(_data.ViewRotation.x, _data.ViewRotation.y, _data.ViewRotation.z);
         _prefab.transform.localScale = new Vector3(_data.ViewScale, _data.ViewScale, _data.ViewScale);

@@ -4,4 +4,5 @@
     IHealth Health { get; }
     IEnergy Energy { get; }
     PlayerData Data { get; }
+    IComboSystem ComboSystem { get; }
 }

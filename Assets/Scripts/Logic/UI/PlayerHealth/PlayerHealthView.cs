@@ -13,12 +13,6 @@ public class PlayerHealthView : MonoBehaviour
 
     private void Awake()
     {
-        if (_maxHealth == 1)
-        {
-            enabled = false;
-            return;
-        }
-
         CreateTemplates();
     }
 
@@ -55,6 +49,9 @@ public class PlayerHealthView : MonoBehaviour
 
     private void OnHealthChanged(int currentHealth)
     {
+        if (currentHealth <= 1)
+            return;
+
         for (int i = 0; i < _points.Count; i++)
         {
             if (i + 1 <= currentHealth)

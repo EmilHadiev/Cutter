@@ -24,12 +24,11 @@ public class ButtonUnlock : MonoBehaviour
     
     private void TryUnlock()
     {
-        if (_skinContainer.TryUnlockRandomSkin(out int newPrice))
-        {
-            _priceText.text = newPrice.ToString();
+        if (_skinContainer.TryUnlockRandomSkin())
             _sound.Play(SoundsName.UnlockSkin);
-        }
-        else
-            Debug.Log($"Нужно {_skinContainer.GetCurrentPrice()}");
+
+        UpdatePrice();
     }
+
+    public void UpdatePrice() => _priceText.text = _skinContainer.GetCurrentPrice().ToString();
 }

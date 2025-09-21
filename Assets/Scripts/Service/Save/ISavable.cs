@@ -2,4 +2,5 @@
 {
     void Load();
     void Save();
+    void ResetAllProgress();
 }

@@ -7,6 +7,7 @@ using Zenject;
 
 public class SkinContainer : MonoBehaviour
 {
+    [SerializeField] private ButtonUnlock _unlockButton;
     [SerializeField] private SwordTemplateView _swordView;
     [SerializeField] private ParticleTemplateView _particleView;
     [SerializeField] private Transform _swordContainer;
@@ -37,6 +38,7 @@ public class SkinContainer : MonoBehaviour
         _skinUnlocker = new SkinUnlocker(_skins, _coinsStorage, _coinsCalculator);
 
         SubScribeToEvents();
+        _unlockButton.UpdatePrice();
     }
 
     private void OnDestroy()
@@ -69,17 +71,7 @@ public class SkinContainer : MonoBehaviour
         _coinsCalculator = coinsCalculator;
     }
 
-    public bool TryUnlockRandomSkin(out int newPrice)
-    {
-        if (_skinUnlocker.TryUnlock())
-        {
-            newPrice = _skinUnlocker.GetCurrentPrice();
-            return true;
-        }
-
-        newPrice = 0;
-        return false;
-    }
+    public bool TryUnlockRandomSkin() => _skinUnlocker.TryUnlock();
 
     public int GetCurrentPrice() => _skinUnlocker.GetCurrentPrice();
 

@@ -8,6 +8,7 @@
     public const string BonusItem = "BonusItem";
     public const string Lose = "Lose";
     public const string Win = "Win";
+    public const string TakeDamage = "TakeDamage";
     #endregion
 
     #region AmbientSounds
@@ -15,7 +16,7 @@
     public const string Ambient2 = "Ambient2";
     #endregion
 
-    #region
+    #region UISounds
     public const string ButtonClick = "ButtonClick";
     public const string AddRewardCoins = "AddRewardCoins";
     public const string UnlockSkin = "UnlockSkin";

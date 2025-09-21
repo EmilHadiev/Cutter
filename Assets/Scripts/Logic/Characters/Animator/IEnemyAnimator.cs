@@ -7,13 +7,14 @@
     void StopAttacking2();
     void StopRunning();
 
+    void SetVictoryTrigger();
+    void StopVictory();
+
     void SetDefenseTrigger();
     void ResetDefenseTrigger();
 
     void SetStunTrigger();
     void ResetStunTrigger();
-
-    void SetVictoryTrigger();
 
     void SetAttackSpeed(float speed = 1);
     void ResetAttackSpeed();

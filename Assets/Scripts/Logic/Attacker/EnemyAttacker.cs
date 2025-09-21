@@ -74,7 +74,6 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
     {
         _stateMachine.SwitchState<EnemyWalkingState>();
         enabled = false;
-        _combatSession.RemoveEnemy();
     }
 
     private void PlayAttackAnimation()

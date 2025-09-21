@@ -4,15 +4,19 @@ using Zenject;
 [RequireComponent(typeof(PlayerMover))]
 [RequireComponent(typeof(PlayerHealth))]
 [RequireComponent(typeof(PlayerEnergy))]
+[RequireComponent(typeof(Resurrector))]
+[RequireComponent(typeof(ComboSystem))]
 public class Player : MonoBehaviour, IPlayer
 {
     [SerializeField] private PlayerMover _mover;
     [SerializeField] private PlayerHealth _health;
     [SerializeField] private PlayerEnergy _energy;
+    [SerializeField] private ComboSystem _comboSystem;
 
     public IMovable Movable => _mover;
     public IHealth Health => _health;
     public IEnergy Energy => _energy;
+    public IComboSystem ComboSystem => _comboSystem;
     public PlayerData Data { get; private set; }
 
     private void OnValidate()
@@ -20,11 +24,7 @@ public class Player : MonoBehaviour, IPlayer
         _mover ??= GetComponent<PlayerMover>();
         _health ??= GetComponent<PlayerHealth>();
         _energy ??= GetComponent<PlayerEnergy>();
-    }
-
-    private void Start()
-    {
-        SetCamera();
+        _comboSystem ??= GetComponent<ComboSystem>();
     }
 
     [Inject]
@@ -32,6 +32,4 @@ public class Player : MonoBehaviour, IPlayer
     {
         Data = data;
     }
-
-    private void SetCamera() => Camera.main.transform.parent = transform;
 }

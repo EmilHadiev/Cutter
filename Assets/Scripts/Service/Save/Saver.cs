@@ -11,12 +11,21 @@ public class Saver : ISavable
 
     public void Save()
     {
-        SaveCoins();
+        LoadData();
+
+        YG2.SaveProgress();
     }
 
     public void Load()
     {
         LoadCoins();
+    }
+
+    public void ResetAllProgress() => YG2.SetDefaultSaves();
+
+    private void LoadData()
+    {
+        SaveCoins();
     }
 
     private void SaveCoins() => YG2.saves.coins = _coinsStorage.Coins;

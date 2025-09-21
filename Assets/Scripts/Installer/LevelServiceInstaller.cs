@@ -1,7 +1,11 @@
+using System;
+using UnityEngine;
 using Zenject;
 
 public class LevelServiceInstaller : MonoInstaller
 {
+    [SerializeField] private UIStateMachine _stateMachine;
+
     public override void InstallBindings()
     {
         BindPauseService();
@@ -10,6 +14,18 @@ public class LevelServiceInstaller : MonoInstaller
         BindGameOverService();
         BindFactory();
         BindAddressablesLoader();
+        BindUIStateMachine();
+        BindRewardService();
+    }
+
+    private void BindRewardService()
+    {
+        Container.BindInterfacesTo<RewardService>().AsSingle();
+    }
+
+    private void BindUIStateMachine()
+    {
+        Container.BindInterfacesTo<UIStateMachine>().FromInstance(_stateMachine).AsSingle();
     }
 
     private void BindPauseService()

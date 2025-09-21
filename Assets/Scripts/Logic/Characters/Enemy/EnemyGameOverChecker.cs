@@ -16,15 +16,20 @@ public class EnemyGameOverChecker : MonoBehaviour
     private void OnEnable()
     {
         _gameOverService.Lost += PlayerLost;
+        _gameOverService.Continue += PlayerContinue;
     }
 
     private void OnDisable()
     {
         _gameOverService.Lost -= PlayerLost;
+        _gameOverService.Continue -= PlayerContinue;
     }
 
     private void PlayerLost()
     {
+        _stateMachine.SaveCurrentState();
         _stateMachine.SwitchState<EnemyVictoryState>();
     }
+
+    private void PlayerContinue() => _stateMachine.LoadSavedState();
 }

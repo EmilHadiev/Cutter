@@ -6,35 +6,27 @@ using Zenject;
 public class Beginner : MonoBehaviour
 {
     [SerializeField] private Button _button;
-    [SerializeField] private Canvas _pauseUI;
 
-    private IGameStarter _starter;
+    private IUIStateMachine _uiStateMachine;
 
     private void OnValidate()
     {
-        _button ??= GetComponent<Button>();
-    }
-
-    private void OnEnable()
-    {
-        _button.onClick.AddListener(StartGame);
+        _button.onClick.AddListener(Clicked);
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(StartGame);
+        _button.onClick.RemoveListener(Clicked);
     }
 
     [Inject]
-    private void Constructor(IGameStarter starter)
+    private void Constructor(IUIStateMachine uiStateMachine)
     {
-        _starter = starter;
+        _uiStateMachine = uiStateMachine;
     }
 
-    private void StartGame()
+    private void Clicked()
     {
-        _starter.Start();
-        _pauseUI.enabled = false;
-        gameObject.SetActive(false);
+        _uiStateMachine.Switch<GameplayStateUI>();
     }
 }

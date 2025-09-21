@@ -14,6 +14,10 @@
 
     public void Exit()
     {
-        
+        _animator.StopAttacking2();
+        _animator.StopAttacking1();
+        _animator.StopRunning();
+
+        _animator.StopVictory();
     }
 }
