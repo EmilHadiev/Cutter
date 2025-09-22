@@ -5,6 +5,7 @@ using Zenject;
 public abstract class Bonus : MonoBehaviour
 {
     [SerializeField] private BonusCut _bonusCut;
+    [field: SerializeField] public BonusType BonusType { get; private set; }
 
     [Inject]
     private readonly IPlayer _player;

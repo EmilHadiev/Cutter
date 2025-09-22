@@ -10056,6 +10056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bonusCut: {fileID: 2377818760181146974}
+  <BonusType>k__BackingField: 2
 --- !u!1001 &8837468803835408468
 PrefabInstance:
   m_ObjectHideFlags: 0

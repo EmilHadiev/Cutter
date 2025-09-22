@@ -2,5 +2,5 @@
 
 public interface IBonusSpawner
 {
-    void Spawn(Vector3 position);
+    void Spawn(BonusType type, Vector3 position);
 }

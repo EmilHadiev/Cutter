@@ -8,15 +8,21 @@ public class BonusSpawner : MonoBehaviour, IBonusSpawner
     [Inject]
     private readonly IFactory _factory;
 
-    public void Spawn(Vector3 position)
+    public void Spawn(BonusType type, Vector3 position)
     {
-        var prefab = _factory.Create(GetRandomBonus().gameObject);
+        var prefab = _factory.Create(GetBonus(type).gameObject);
         prefab.transform.position = position;
     }
 
-    private Bonus GetRandomBonus()
+    private Bonus GetBonus(BonusType bonusType)
     {
-        int index = Random.Range(0, _bonus.Length);
-        return _bonus[index];
-    }
+        for (int i = 0; i < _bonus.Length; i++)
+        {
+            if (_bonus[i].BonusType == bonusType)
+                return _bonus[i];
+        }
+
+        Debug.LogError($"{nameof(bonusType)}");
+        return null;
+    } 
 }
