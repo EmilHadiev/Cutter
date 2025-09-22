@@ -12,7 +12,7 @@ public class VictoryStateUI : UiState
     public override void Show()
     {
         base.Show();
-        _rewardText.text = $"{_rewardService.StandartReward} + {_rewardService.AdditionalReward}";
         _rewardService.GiveReward();
+        _rewardText.text = $"{_rewardService.StandartReward} + {_rewardService.AdditionalReward}";
     }
 }

@@ -3,7 +3,7 @@
 public class MousePosition : IMousePosition
 {
     private readonly Camera _camera;
-    private readonly int _distanceToCamera = 10;
+    private readonly int _distanceToCamera;
 
     public MousePosition(PlayerData playerData)
     {

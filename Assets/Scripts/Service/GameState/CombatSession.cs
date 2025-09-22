@@ -1,12 +1,8 @@
-﻿using System;
-
-public class CombatSession : ICombatSession
+﻿public class CombatSession : ICombatSession
 {
     private readonly IPlayer _player;
 
     private int _countEnemies;
-
-    public event Action EnemyDied;
 
     public CombatSession(IPlayer player)
     {
@@ -31,7 +27,6 @@ public class CombatSession : ICombatSession
             return;
 
         _countEnemies -= 1;
-        EnemyDied?.Invoke();
 
         if (_countEnemies == 0)
             StopFight();

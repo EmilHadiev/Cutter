@@ -1,34 +1,17 @@
 using UnityEngine;
 using Zenject;
 
-public class BonusSpawner : MonoBehaviour
+public class BonusSpawner : MonoBehaviour, IBonusSpawner
 {
     [SerializeField] private Bonus[] _bonus;
-    [SerializeField] private BonusPlace[] _places;
 
     [Inject]
     private readonly IFactory _factory;
 
-    private void OnValidate()
+    public void Spawn(Vector3 position)
     {
-        _places ??= GetComponentsInChildren<BonusPlace>();
-    }
-
-    private void Start()
-    {
-        if (_bonus.Length == 0 || _places.Length == 0)
-            return;
-
-        Spawn();
-    }
-
-    private void Spawn()
-    {
-        for (int i = 0; i < _places.Length; i++)
-        {
-            var prefab = _factory.Create(GetRandomBonus().gameObject);
-            prefab.transform.position = _places[i].transform.position;
-        }
+        var prefab = _factory.Create(GetRandomBonus().gameObject);
+        prefab.transform.position = position;
     }
 
     private Bonus GetRandomBonus()

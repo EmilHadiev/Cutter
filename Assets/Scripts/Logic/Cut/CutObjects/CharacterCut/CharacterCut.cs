@@ -8,13 +8,12 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable, ICutUpdatab
     [SerializeField] private MeshTarget _target;
 
     private CutValidator _validator;
-    private ICombatSession _combatSession;
+    private IComboSystem _comboSystem;
     private IGameplaySoundContainer _soundContainer;
 
     private bool _isActivated;
     private bool _isWork;
 
-    
 
     private void OnValidate()
     {
@@ -31,10 +30,10 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable, ICutUpdatab
     }
 
     [Inject]
-    private void Constructor(IGameplaySoundContainer soundContainer, ICombatSession combatSession)
+    private void Constructor(IGameplaySoundContainer soundContainer, IPlayer player)
     {
         _soundContainer = soundContainer;
-        _combatSession = combatSession;
+        _comboSystem = player.ComboSystem;
     }
 
     public void UpdateTargets()
@@ -72,7 +71,7 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable, ICutUpdatab
         PlaySound();
         _isActivated = false;
         _isWork = false;
-        _combatSession.RemoveEnemy();
+        _comboSystem.AddPoint();
     }
 
     public void PlaySound()

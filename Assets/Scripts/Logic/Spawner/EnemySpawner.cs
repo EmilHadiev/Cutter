@@ -1,22 +1,16 @@
 using Cysharp.Threading.Tasks;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour, IEnemySpawner
 {
-    private List<GameObject> loadedAssets = new List<GameObject>();
     private IFactory _factory;
-    private IAddressablesLoader _loader;
-    private List<EnemyData> _data;
 
     [Inject]
-    private void Constructor(IFactory factory, IAddressablesLoader loader, IEnumerable<EnemyData> data)
+    private void Constructor(IFactory factory)
     {
         _factory = factory;
-        _loader = loader;
-        _data = new List<EnemyData>(data);
     }
 
     public async UniTask<GameObject> Spawn(Vector3 position = default, Quaternion rotation = default)

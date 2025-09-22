@@ -2,5 +2,5 @@
 {
     int GetComboReward { get; }
 
-    void ResetCombo();
+    void AddPoint();
 }

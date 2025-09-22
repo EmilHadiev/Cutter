@@ -1,36 +1,32 @@
 using UnityEngine;
-using Zenject;
 
 public class ComboSystem : MonoBehaviour, IComboSystem
 {
     [SerializeField] private ParticleViewText _particleText;
 
     private const int ComboMultiplier = 10;
-
-    [Inject]
-    private readonly ICombatSession _comboSession;
+    private const int ComboStarter = 1;
 
     public int GetComboReward => _combo * ComboMultiplier;
 
     private int _combo;
 
-    private void OnEnable()
+    private void Start()
     {
-        _comboSession.EnemyDied += OnEnemyDied;
+        _combo = 0;
         _particleText.Stop();
     }
 
-    private void OnDisable()
+    public void AddPoint()
     {
-        _comboSession.EnemyDied -= OnEnemyDied;
-        ResetCombo();
+        _combo += 1;
+        TryShowPoints();
     }
 
-    public void ResetCombo() => _combo = 0;
-
-    private void OnEnemyDied()
+    private void TryShowPoints()
     {
-        ++_combo;
+        if (ComboStarter >= _combo)
+            return;
 
         _particleText.SetText(_combo.ToString() + "x");
         _particleText.Play();

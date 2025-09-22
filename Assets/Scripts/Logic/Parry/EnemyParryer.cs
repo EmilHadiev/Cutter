@@ -23,6 +23,9 @@ public class EnemyParryer : MonoBehaviour, IParryable
     {
         get
         {
+            if (gameObject == null)
+                return true;
+
             if (enabled == false)
                 return true;
 

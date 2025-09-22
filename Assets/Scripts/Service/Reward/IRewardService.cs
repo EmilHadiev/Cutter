@@ -4,4 +4,5 @@
     int StandartReward { get; }
 
     void GiveReward();
+    void AddAdditionalReward(int coins);
 }

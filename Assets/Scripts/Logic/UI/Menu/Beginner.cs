@@ -9,7 +9,7 @@ public class Beginner : MonoBehaviour
 
     private IUIStateMachine _uiStateMachine;
 
-    private void OnValidate()
+    private void OnEnable()
     {
         _button.onClick.AddListener(Clicked);
     }

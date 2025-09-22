@@ -1,15 +1,17 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(SpawnOptions))]
 public class EnemySpawnTrigger : MonoBehaviour
 {
-    [SerializeField] private EnemySpawner _spawner;
     [SerializeField] private SpawnOptions _spawnOptions;
+
+    [Inject]
+    private readonly IEnemySpawner _spawner;
 
     private void OnValidate()
     {
-        _spawner ??= FindObjectOfType<EnemySpawner>();
         _spawnOptions ??= GetComponent<SpawnOptions>();
     }
 

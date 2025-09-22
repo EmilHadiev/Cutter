@@ -1,10 +1,11 @@
-using System;
 using UnityEngine;
 using Zenject;
 
 public class LevelServiceInstaller : MonoInstaller
 {
     [SerializeField] private UIStateMachine _stateMachine;
+    [SerializeField] private EnemySpawner _enemySpawner;
+    [SerializeField] private BonusSpawner _bonusSpawner;
 
     public override void InstallBindings()
     {
@@ -16,6 +17,13 @@ public class LevelServiceInstaller : MonoInstaller
         BindAddressablesLoader();
         BindUIStateMachine();
         BindRewardService();
+        BindSpawners();
+    }
+
+    private void BindSpawners()
+    {
+        Container.BindInterfacesTo<EnemySpawner>().FromInstance(_enemySpawner).AsSingle();
+        Container.BindInterfacesTo<BonusSpawner>().FromInstance(_bonusSpawner).AsSingle();
     }
 
     private void BindRewardService()

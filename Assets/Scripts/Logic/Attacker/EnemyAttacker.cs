@@ -47,6 +47,11 @@ public class EnemyAttacker : MonoBehaviour, IAttackable
         _observer.Exited -= OnExited;
     }
 
+    private void OnDestroy()
+    {
+        _combatSession.RemoveEnemy();
+    }
+
     public void StartAttack()
     {
         PlayAttackAnimation();
