@@ -10,8 +10,7 @@ public class Shield : MonoBehaviour, ICutSoundable
     [SerializeField] private ShieldHealth _health;
     [SerializeField] private MeshTarget _target;
 
-    [Inject]
-    private readonly IGameplaySoundContainer _soundContainer;
+    private IEnemySoundContainer _soundContainer;
 
     private const int Damage = 1;
 
@@ -36,6 +35,12 @@ public class Shield : MonoBehaviour, ICutSoundable
     private void OnDisable()
     {
         _health.Died -= OnDied;
+    }
+
+    [Inject]
+    private void Constructor(IEnemySoundContainer enemySound)
+    {
+        _soundContainer = enemySound;
     }
 
     public void SetHealth(int health)

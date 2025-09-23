@@ -110,3 +110,4 @@ MonoBehaviour:
   _gamePlayerSoundContainer: {fileID: 5738650554588357602, guid: a8c035819fd763b419379fd119b8f6dc, type: 3}
   _ambientSoundContainer: {fileID: 6759400483352120428, guid: 177de5b6fae276c41abd9afea175b638, type: 3}
   _uiSoundContainer: {fileID: 7030295461613583538, guid: a7084ba321eb1fb4b8b1ac7dba4f9629, type: 3}
+  _enemySoundContainer: {fileID: -8749298596963118549, guid: b31354c8c8ae1774c94ee65551e62170, type: 3}

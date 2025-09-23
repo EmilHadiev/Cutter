@@ -2,6 +2,8 @@
 
 public class ButtonRewardContinue : ButtonReward
 {
+    private const int RewardReducer = 2;
+
     private IGameOverService _gameOverService;
     private IRewardService _rewardService;
 
@@ -24,5 +26,5 @@ public class ButtonRewardContinue : ButtonReward
         gameObject.SetActive(false);
     }
 
-    private int GetRewardCoins() => _rewardService.StandartReward;
+    private int GetRewardCoins() => _rewardService.StandartReward / RewardReducer;
 }

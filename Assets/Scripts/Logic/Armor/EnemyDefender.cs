@@ -48,7 +48,7 @@ public class EnemyDefender : MonoBehaviour, IDefensible
     }
 
     [Inject]
-    private void Constructor(IFactory factory, IGameplaySoundContainer soundContainer)
+    private void Constructor(IFactory factory)
     {
         _view = new DefenderView(factory, _shield);
     }

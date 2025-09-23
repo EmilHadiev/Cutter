@@ -6,6 +6,7 @@ public class GlobalServiceInstaller : MonoInstaller
     [SerializeField] private GamePlaySoundContainer _gamePlayerSoundContainer;
     [SerializeField] private AmbientSoundContainer _ambientSoundContainer;
     [SerializeField] private UISoundContainer _uiSoundContainer;
+    [SerializeField] private EnemySoundContainer _enemySoundContainer;
 
     public override void InstallBindings()
     {
@@ -42,6 +43,7 @@ public class GlobalServiceInstaller : MonoInstaller
         Container.BindInterfacesTo<GamePlaySoundContainer>().FromComponentInNewPrefab(_gamePlayerSoundContainer).AsSingle();
         Container.BindInterfacesTo<AmbientSoundContainer>().FromComponentInNewPrefab(_ambientSoundContainer).AsSingle().NonLazy();
         Container.BindInterfacesTo<UISoundContainer>().FromComponentInNewPrefab(_uiSoundContainer).AsSingle();
+        Container.BindInterfacesTo<EnemySoundContainer>().FromComponentInNewPrefab(_enemySoundContainer).AsSingle();
     }
 
     private void BindSceneLoader()

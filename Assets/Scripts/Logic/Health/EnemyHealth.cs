@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Zenject;
 
 public class EnemyHealth : MonoBehaviour, IHealth
 {
@@ -14,7 +13,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
 
     public void TakeDamage(int damage)
     {
-        throw new NotImplementedException();
+        Kill();
     }
 
     public void Kill()

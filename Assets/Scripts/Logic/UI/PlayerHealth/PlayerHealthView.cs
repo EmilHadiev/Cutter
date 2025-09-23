@@ -14,6 +14,9 @@ public class PlayerHealthView : MonoBehaviour
     private void Awake()
     {
         CreateTemplates();
+
+        if (_maxHealth == 1)
+            gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -49,15 +52,19 @@ public class PlayerHealthView : MonoBehaviour
 
     private void OnHealthChanged(int currentHealth)
     {
-        if (currentHealth <= 1)
-            return;
+        HidePoints();
+        ShowPoints(currentHealth);
+    }
 
-        for (int i = 0; i < _points.Count; i++)
-        {
-            if (i + 1 <= currentHealth)
-                _points[i].gameObject.SetActive(true);
-            else
-                _points[i].gameObject.SetActive(false);
-        }
+    private void HidePoints()
+    {
+        foreach (var point in _points)
+            point.gameObject.SetActive(false);
+    }
+
+    private void ShowPoints(int health)
+    {
+        for (int i = 0; i < health; i++)
+            _points[i].gameObject.SetActive(true);
     }
 }

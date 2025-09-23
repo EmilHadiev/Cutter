@@ -17,7 +17,13 @@ public class LevelServiceInstaller : MonoInstaller
         BindAddressablesLoader();
         BindUIStateMachine();
         BindRewardService();
+        BindSlowMotionService();
         BindSpawners();
+    }
+
+    private void BindSlowMotionService()
+    {
+        Container.BindInterfacesTo<SlowMotion>().AsSingle();
     }
 
     private void BindSpawners()

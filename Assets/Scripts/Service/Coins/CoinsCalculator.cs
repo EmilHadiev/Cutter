@@ -4,9 +4,9 @@ public class CoinsCalculator
 {
     private const int PlayerSkins = 2;
 
-    public readonly int CoinsReward = 300;
+    public readonly int CoinsReward = 350;
     public readonly int StartPrice = 1000;
-    public readonly int AdditionalPrice = 500;
+    public readonly int AdditionalPrice = 600;
 
     public int GetNewPrice(int availableSkins, int maxSkins)
     {

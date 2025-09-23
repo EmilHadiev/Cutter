@@ -36,6 +36,7 @@ public class CutInstaller : MonoInstaller
     {
         Container.BindInterfacesTo<CharacterCutLogic>().AsSingle();
         Container.BindInterfacesTo<ObstacleCutLogic>().AsSingle();
+        Container.BindInterfacesTo<ProjectileCutLogic>().AsSingle();
     }
 
     private void BindCustomMouseBehavior()
