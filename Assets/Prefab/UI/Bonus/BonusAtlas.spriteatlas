@@ -48,24 +48,20 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 4840b9566c497914ebbcdf205376d6f9, type: 3}
     - {fileID: 2800000, guid: 99b80bf7d4238b2499d7efa92ed2b11d, type: 3}
     - {fileID: 2800000, guid: 7ac46791603bec44a9dfb3bee81a46b6, type: 3}
-    - {fileID: 2800000, guid: 219021342be874849b6cb625b0df1632, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
     - 7ac46791603bec44a9dfb3bee81a46b6: 21300000
-    - 219021342be874849b6cb625b0df1632: 21300000
     - 4840b9566c497914ebbcdf205376d6f9: 21300000
     - 99b80bf7d4238b2499d7efa92ed2b11d: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 7ac46791603bec44a9dfb3bee81a46b6, type: 3}
-  - {fileID: 21300000, guid: 219021342be874849b6cb625b0df1632, type: 3}
   - {fileID: 21300000, guid: 4840b9566c497914ebbcdf205376d6f9, type: 3}
   - {fileID: 21300000, guid: 99b80bf7d4238b2499d7efa92ed2b11d, type: 3}
   m_PackedSpriteNamesToIndex:
   - heart
-  - Eye
   - coin
   - energy
   m_RenderDataMap: {}

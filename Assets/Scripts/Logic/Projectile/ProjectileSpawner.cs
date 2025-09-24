@@ -2,6 +2,9 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(ProjectileReward))]
+[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(ProjectileOptions))]
 public class ProjectileSpawner : MonoBehaviour
 {
     [SerializeField] private Transform _spawnPlace;
@@ -10,8 +13,9 @@ public class ProjectileSpawner : MonoBehaviour
 
     private IFactory _factory;
     private Projectile _projectile;
+    private Transform _player;
 
-    private void Awake() => CreateProjectile();
+    private void Start() => CreateProjectile();
 
     private void OnValidate() => _playerDetector ??= GetComponentInChildren<TriggerObserver>();
 
@@ -19,10 +23,13 @@ public class ProjectileSpawner : MonoBehaviour
 
     private void OnDisable() => _playerDetector.Entered -= AttackPlayer;
 
+    private void Update() => transform.LookAt(_player);
+
     [Inject]
-    private void Constructor(IFactory factory)
+    private void Constructor(IFactory factory, IPlayer player)
     {
         _factory = factory;
+        _player = player.Movable.Transform;
     }
 
     private void CreateProjectile()

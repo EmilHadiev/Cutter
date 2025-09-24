@@ -33,12 +33,18 @@ public class PlayerMover : MonoBehaviour, IMovable, ISpeedChangable
 
     public void StartMove()
     {
+        if (gameObject == null)
+            return;
+
         enabled = true;
         _mover.StartMove();
     }
 
     public void StopMove()
     {
+        if (gameObject == null)
+            return;
+
         enabled = false;
         _mover.StopMove();
     }

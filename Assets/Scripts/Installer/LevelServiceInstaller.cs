@@ -6,6 +6,7 @@ public class LevelServiceInstaller : MonoInstaller
     [SerializeField] private UIStateMachine _stateMachine;
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private BonusSpawner _bonusSpawner;
+    [SerializeField] private ProjectileSpawnContainer _projectileSpawnContainer;
 
     public override void InstallBindings()
     {
@@ -30,6 +31,7 @@ public class LevelServiceInstaller : MonoInstaller
     {
         Container.BindInterfacesTo<EnemySpawner>().FromInstance(_enemySpawner).AsSingle();
         Container.BindInterfacesTo<BonusSpawner>().FromInstance(_bonusSpawner).AsSingle();
+        Container.BindInterfacesTo<ProjectileSpawnContainer>().FromInstance(_projectileSpawnContainer).AsSingle();
     }
 
     private void BindRewardService()

@@ -26,8 +26,8 @@ public class SlowMotion : IDisposable, ISlowMotion
 
     public void Dispose()
     {
-        _cts.Cancel();
-        _cts.Dispose();
+        _cts?.Cancel();
+        _cts?.Dispose();
     }
 
     private void SetTime(float time) => Time.timeScale = time;

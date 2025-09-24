@@ -11,6 +11,7 @@ public class Shield : MonoBehaviour, ICutSoundable
     [SerializeField] private MeshTarget _target;
 
     private IEnemySoundContainer _soundContainer;
+    private ISlowMotion _slowMotion;
 
     private const int Damage = 1;
 
@@ -38,8 +39,9 @@ public class Shield : MonoBehaviour, ICutSoundable
     }
 
     [Inject]
-    private void Constructor(IEnemySoundContainer enemySound)
+    private void Constructor(IEnemySoundContainer enemySound, ISlowMotion slowMotion)
     {
+        _slowMotion = slowMotion;
         _soundContainer = enemySound;
     }
 
@@ -62,6 +64,7 @@ public class Shield : MonoBehaviour, ICutSoundable
     private void OnDied()
     {
         ShieldBroke?.Invoke();
+        _slowMotion.SlowDownTime();
         _target.enabled = true;
     }
 }
