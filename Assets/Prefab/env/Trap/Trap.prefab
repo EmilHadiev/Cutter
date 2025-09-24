@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4034153919356928412}
   - component: {fileID: 504386409952415943}
   - component: {fileID: 8770192087615486746}
+  - component: {fileID: 3040679646550437678}
   m_Layer: 14
   m_Name: Trap
   m_TagString: Untagged
@@ -124,6 +125,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbd10f6811f54064895247f4e2005488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3040679646550437678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3266466502488588903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0df1bdf23bac65e478683e1b92159384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targets:
+  - {fileID: 7243934684603334421}
+  - {fileID: 1365893488248299878}
+  - {fileID: 5859392334596121184}
 --- !u!1001 &781665883501836977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -227,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d075e443ddc624db302098f7826153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameobjectRoot: {fileID: 1548252342327403317}
+  GameobjectRoot: {fileID: 3266466502488588903}
   OverrideFaceMaterial: {fileID: 0}
   SeparateMeshes: 0
   ApplyTranslation: 1
@@ -337,7 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d075e443ddc624db302098f7826153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameobjectRoot: {fileID: 1050040236793629939}
+  GameobjectRoot: {fileID: 3266466502488588903}
   OverrideFaceMaterial: {fileID: 0}
   SeparateMeshes: 0
   ApplyTranslation: 1
@@ -457,7 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d075e443ddc624db302098f7826153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameobjectRoot: {fileID: 8168930134289544283}
+  GameobjectRoot: {fileID: 3266466502488588903}
   OverrideFaceMaterial: {fileID: 0}
   SeparateMeshes: 0
   ApplyTranslation: 1

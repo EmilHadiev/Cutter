@@ -5,4 +5,5 @@
     public const string Projectile = "Projectile";
     public const string NavMeshSurface = "NavMeshSurface";
     public const string Player = "Player";
+    public const string Trap = "Trap";
 }
