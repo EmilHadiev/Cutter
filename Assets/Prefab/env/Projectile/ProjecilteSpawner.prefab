@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3694325838553476577}
   - component: {fileID: 7705191790958662639}
   - component: {fileID: 4505373909809583719}
+  - component: {fileID: 2457040891401152587}
   m_Layer: 6
   m_Name: ProjecilteSpawner
   m_TagString: Untagged
@@ -192,6 +193,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerDetector: {fileID: 1279451923431618903}
+--- !u!114 &2457040891401152587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2818494763190154346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c875cee7cb37347bb452cbbeb62af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ControllerID>k__BackingField: 0
+  <IsIncompatible>k__BackingField: 0
+  <IncompatibilityReason>k__BackingField: 
+  _sourceType: 0
+  _strategy:
+    rid: 5125568642142437379
+  references:
+    version: 2
+    RefIds:
+    - rid: 5125568642142437379
+      type: {class: DC_RendererSourceSettingsStrategy, ns: NGS.AdvancedCullingSystem.Dynamic, asm: AdvancedCullingSystem.Runtime}
+      data:
+        <ReadyForCulling>k__BackingField: 0
+        _context: {fileID: 2457040891401152587}
+        _cullingMethod: 0
+        _convexCollider: 0
+        _renderer: {fileID: 4006381207588035244}
+        _mesh: {fileID: 4300000, guid: 784b4edd6a6f64b43a869f890486364d, type: 3}
+        _collider: {fileID: 0}
+        _rigibodiesChecked: 1
 --- !u!1 &5043989787611833106
 GameObject:
   m_ObjectHideFlags: 0

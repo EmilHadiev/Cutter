@@ -5,6 +5,7 @@ using Zenject;
 public class DataInstaller : MonoInstaller
 {
     [SerializeField] private PlayerData _playerData;
+    [SerializeField] private PlayerProgress _playerProgress;
     [SerializeField] private SwordData[] _swords;
     [SerializeField] private ParticleData[] _particles;
 
@@ -13,6 +14,12 @@ public class DataInstaller : MonoInstaller
         BindPlayerData();
         BindSwordsData();
         BindParticlesData();
+        BindPlayerProgress();
+    }
+
+    private void BindPlayerProgress()
+    {
+        Container.Bind<PlayerProgress>().FromNewScriptableObject(_playerProgress).AsSingle();
     }
 
     private void BindPlayerData()

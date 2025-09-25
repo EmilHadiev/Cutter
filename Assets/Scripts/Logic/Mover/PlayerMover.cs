@@ -15,8 +15,10 @@ public class PlayerMover : MonoBehaviour, IMovable, ISpeedChangable
 
     public Transform Transform => transform;
 
-    private void Awake()
+    public void SetSpline(Spline spline)
     {
+        _spine = spline;
+
         _defaultSpeed = _data.Speed;
         _speed = new FloatProperty(_data.Speed);
         _mover = new PlayerMovePattern(_spine, Transform, _data, _speed);
