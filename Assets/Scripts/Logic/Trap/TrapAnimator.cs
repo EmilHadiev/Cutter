@@ -8,6 +8,8 @@ public class TrapAnimator : MonoBehaviour
 
     private void Start()
     {
-        transform.DOLocalMoveY(Y, Duration).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+        float y = transform.position.y + Y;
+
+        transform.DOLocalMoveY(y, Duration).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
     }
 }

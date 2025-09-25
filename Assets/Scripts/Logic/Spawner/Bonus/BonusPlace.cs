@@ -8,7 +8,7 @@ public class BonusPlace : MonoBehaviour
     [Inject]
     private readonly IBonusSpawner _spawner;
 
-    private async void Start()
+    private void Start()
     {
         _spawner.Spawn(_type, transform.position);
     }

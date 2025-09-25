@@ -8,6 +8,8 @@ public class BonusCut : MonoBehaviour, ICuttable
 {
     [SerializeField] private ParticleView _destroyParticle;
 
+    private const int Y = 1;
+
     private IGameplaySoundContainer _soundContainer;
 
     public event Action Cut;
@@ -19,7 +21,8 @@ public class BonusCut : MonoBehaviour, ICuttable
 
     private void Start()
     {
-        transform.DOLocalMoveY(1, 1).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+        float y = transform.position.y + Y;
+        transform.DOLocalMoveY(y, 1).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
         _destroyParticle.Stop();
     }
 
