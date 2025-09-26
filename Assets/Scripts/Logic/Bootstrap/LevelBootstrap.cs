@@ -4,6 +4,7 @@ using Zenject;
 
 public class LevelBootstrap : MonoBehaviour
 {
+    [SerializeField] private Camera _camera;
     [SerializeField] private MapSpawner _mapSpawner;
     [SerializeField] private PlayerMover _playerMover;
     [SerializeField] private NavMeshSurface _surface;
@@ -30,6 +31,13 @@ public class LevelBootstrap : MonoBehaviour
 
     private void CreateMapAndGetSpline()
     {
-        _playerMover.SetSpline(_mapSpawner.CreateMapAndGetSpline(_mapsContainer.GetMap(_progress.CurrentLevel)));
+        var map = _mapsContainer.GetMap(_progress.CurrentLevel);
+        _playerMover.SetSpline(_mapSpawner.CreateMapAndGetSpline(map));
+        ChangeBackgroundColor(map.BackgroundColor);
+    }
+
+    private void ChangeBackgroundColor(Color color)
+    {
+        _camera.backgroundColor = color;
     }
 }

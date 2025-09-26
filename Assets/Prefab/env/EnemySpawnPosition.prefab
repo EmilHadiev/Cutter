@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 278675a5929aee541bb7f364a29ceb14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 0}
   _spawnOptions: {fileID: 6430489399216303627}
 --- !u!114 &6430489399216303627
 MonoBehaviour:
@@ -59,4 +58,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 892eb7154a82d4a419c122446eff38cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isCanDefending: 1
+  _isCanDefending: 0

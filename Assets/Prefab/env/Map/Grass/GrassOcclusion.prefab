@@ -1,0 +1,195 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6875803344924264967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7631719644678718917}
+  - component: {fileID: 1120561571096927307}
+  - component: {fileID: 8746292169480043687}
+  - component: {fileID: 40475136794874482}
+  - component: {fileID: 6334082836036663000}
+  - component: {fileID: 6193391650275092330}
+  - component: {fileID: 4322305604548976730}
+  - component: {fileID: 356697984266691353}
+  m_Layer: 11
+  m_Name: GrassOcclusion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7631719644678718917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875803344924264967}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.5, z: 0.75}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1120561571096927307
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875803344924264967}
+  m_Mesh: {fileID: 957638551632581148, guid: 4026b8460354fad48ba0e6e8de7a6cd8, type: 3}
+--- !u!23 &8746292169480043687
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875803344924264967}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 72fbfa2998ee940479cfa1468548f116, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &40475136794874482
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875803344924264967}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0.75, z: 0}
+--- !u!114 &6334082836036663000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875803344924264967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c875cee7cb37347bb452cbbeb62af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ControllerID>k__BackingField: 0
+  <IsIncompatible>k__BackingField: 0
+  <IncompatibilityReason>k__BackingField: 
+  _sourceType: 0
+  _strategy:
+    rid: 5125568642142437378
+  references:
+    version: 2
+    RefIds:
+    - rid: 5125568642142437378
+      type: {class: DC_RendererSourceSettingsStrategy, ns: NGS.AdvancedCullingSystem.Dynamic, asm: AdvancedCullingSystem.Runtime}
+      data:
+        <ReadyForCulling>k__BackingField: 0
+        _context: {fileID: 6334082836036663000}
+        _cullingMethod: 0
+        _convexCollider: 0
+        _renderer: {fileID: 8746292169480043687}
+        _mesh: {fileID: 957638551632581148, guid: 4026b8460354fad48ba0e6e8de7a6cd8, type: 3}
+        _collider: {fileID: 0}
+        _rigibodiesChecked: 1
+--- !u!114 &6193391650275092330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875803344924264967}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d075e443ddc624db302098f7826153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameobjectRoot: {fileID: 6875803344924264967}
+  OverrideFaceMaterial: {fileID: 2100000, guid: 72fbfa2998ee940479cfa1468548f116, type: 2}
+  SeparateMeshes: 0
+  ApplyTranslation: 1
+  DefaultBehaviour: 0000000000000000
+  DynamicRagdoll: {fileID: 0}
+  Animator: {fileID: 0}
+  GroupBehaviours: []
+  CreateRigidbody: 0101
+  CreateMeshCollider: 0101
+  Physics: 0200000002000000
+  Inherit: 0000
+--- !u!114 &4322305604548976730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875803344924264967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50705655fb2b42449c877db9433cdc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meshTarget: {fileID: 6193391650275092330}
+--- !u!114 &356697984266691353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875803344924264967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6110b6c6a88b643a6eab56f47bd845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _render: {fileID: 8746292169480043687}
+  _colors:
+  - {r: 0.3137255, g: 0.5568628, b: 0.20392157, a: 1}
