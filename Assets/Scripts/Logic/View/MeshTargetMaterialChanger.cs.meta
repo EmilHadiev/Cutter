@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 4d0df16539fed564c9b30f1093ea408d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _meshTarget: {instanceID: 0}
+  - _overrideMaterial: {fileID: 2100000, guid: 03ddc7e460b33402eb7640fab3881ac9, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

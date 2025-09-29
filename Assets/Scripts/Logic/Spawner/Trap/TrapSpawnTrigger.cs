@@ -8,6 +8,6 @@ public class TrapSpawnTrigger : MonoBehaviour
 
     private void Start()
     {
-        _spawner.Spawn(transform.position);
+        _spawner.Spawn(transform.position, transform.rotation);
     }
 }

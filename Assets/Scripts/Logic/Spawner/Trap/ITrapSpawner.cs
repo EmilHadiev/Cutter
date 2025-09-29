@@ -2,5 +2,5 @@
 
 public interface ITrapSpawner
 {
-    void Spawn(Vector3 position);
+    void Spawn(Vector3 position, Quaternion rotation);
 }

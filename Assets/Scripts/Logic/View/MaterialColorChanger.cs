@@ -10,16 +10,11 @@ public class MaterialColorChanger : MonoBehaviour
     private void OnValidate()
     {
         _render ??= GetComponent<Renderer>();
-
-        if (IsValid() == false)
-        {
-            Debug.LogError("Wrong color or materials size!");
-            return;
-        }
     }
 
-    private void Start()
+    public void SetColors(Color[] colors)
     {
+        _colors = colors;
         SetColors();
     }
 

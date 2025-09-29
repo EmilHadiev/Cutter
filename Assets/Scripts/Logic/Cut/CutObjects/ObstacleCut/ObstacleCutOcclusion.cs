@@ -1,10 +1,11 @@
 using DynamicMeshCutter;
-using NGS.AdvancedCullingSystem.Dynamic;
+using System;
 using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(MeshTarget))]
+[RequireComponent(typeof(ObstacleColorSetter))]
 public class ObstacleCutOcclusion : MonoBehaviour, ICuttable
 {
     [SerializeField] private MeshTarget _meshTarget;
@@ -19,12 +20,11 @@ public class ObstacleCutOcclusion : MonoBehaviour, ICuttable
 
     public void DeactivateCut()
     {
-        _meshTarget.enabled = true;
+        _soundContainer.PlayWhenFree(SoundsName.AttackObstacleImpact);
     }
 
     public void TryActivateCut()
     {
-        _soundContainer.PlayWhenFree(SoundsName.AttackObstacleImpact);
-        _meshTarget.enabled = false;
+        _meshTarget.enabled = true;
     }
 }

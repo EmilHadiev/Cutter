@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyDefender))]
 [RequireComponent(typeof(EnemyGameOverChecker))]
 [RequireComponent(typeof(EnemyParryer))]
+[RequireComponent(typeof(EnemyHider))]
 public class Enemy : MonoBehaviour, IEnemy
 {
     [SerializeField] private CharacterCut _characterCut;

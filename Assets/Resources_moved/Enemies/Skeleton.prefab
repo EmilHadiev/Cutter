@@ -657,6 +657,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 13700002, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 13700002, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6dde8a74ee2c4433b62a4c9b27a167f1, type: 2}
@@ -712,6 +716,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100028, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9089458655084567466}
+    - targetCorrespondingSourceObject: {fileID: 100028, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8879027165861692604}
+    - targetCorrespondingSourceObject: {fileID: 100028, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4484436989289011750}
     - targetCorrespondingSourceObject: {fileID: 100080, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5867587044843241286}
@@ -728,6 +738,16 @@ PrefabInstance:
 --- !u!95 &7789223060410898168 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 9500000, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
+  m_PrefabInstance: {fileID: 7789223060418225048}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &7789223060415146042 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 13700002, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
+  m_PrefabInstance: {fileID: 7789223060418225048}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7789223060418323592 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100112, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
   m_PrefabInstance: {fileID: 7789223060418225048}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7789223060418323748 stripped
@@ -904,6 +924,82 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parryParticlePosition: {fileID: 4436011257739137819}
   _stunParticlePosition: {fileID: 7906189744028281184}
+--- !u!114 &8879027165861692604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7789223060418323748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8734039ff604dff438542870de795b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hider: {fileID: 4484436989289011750}
+  _shield: {fileID: 7789223060418323830}
+  _sword: {fileID: 7789223060418323592}
+  _mesh: {fileID: 7789223060415146042}
+--- !u!114 &4484436989289011750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7789223060418323748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c875cee7cb37347bb452cbbeb62af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ControllerID>k__BackingField: 0
+  <IsIncompatible>k__BackingField: 0
+  <IncompatibilityReason>k__BackingField: 
+  _sourceType: 2
+  _strategy:
+    rid: 5125568667158053533
+  references:
+    version: 2
+    RefIds:
+    - rid: 5125568667158053533
+      type: {class: DC_CustomSourceSettingsStrategy, ns: NGS.AdvancedCullingSystem.Dynamic, asm: AdvancedCullingSystem.Runtime}
+      data:
+        <ReadyForCulling>k__BackingField: 0
+        _context: {fileID: 4484436989289011750}
+        _localBounds:
+          m_Center: {x: 0, y: 1, z: -0.20000005}
+          m_Extent: {x: 1, y: 1, z: 1}
+        _onVisible:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 8879027165861692604}
+              m_TargetAssemblyTypeName: EnemyHider, Assembly-CSharp
+              m_MethodName: Show
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        _onInvisible:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 8879027165861692604}
+              m_TargetAssemblyTypeName: EnemyHider, Assembly-CSharp
+              m_MethodName: Hide
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        _collider: {fileID: 0}
 --- !u!1 &7789223060418323816 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100080, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
@@ -988,6 +1084,11 @@ MonoBehaviour:
   CreateMeshCollider: 0101
   Physics: 0200000002000000
   Inherit: 0000
+--- !u!1 &7789223060418323830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100078, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}
+  m_PrefabInstance: {fileID: 7789223060418225048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7789223060418361604 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400028, guid: b76bf1c8faa444ce8d02f6db4364d2ac, type: 3}

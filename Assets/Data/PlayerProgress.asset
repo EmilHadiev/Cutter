@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0b41e462c024a4d86385b92f68811a, type: 3}
   m_Name: PlayerProgress
   m_EditorClassIdentifier: 
-  <CurrentLevel>k__BackingField: 2
+  <CurrentLevel>k__BackingField: 4
