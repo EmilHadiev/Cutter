@@ -20,16 +20,16 @@ public class ProjectileCut : MonoBehaviour, ICuttable
 
     public void TryActivateCut()
     {
+        
+    }
+
+    public void DeactivateCut()
+    {
         if (_isCut)
             return;
 
         Cut?.Invoke();
         _isCut = true;
         _sound.Play(SoundsName.ParryImpact);
-    }
-
-    public void DeactivateCut()
-    {
-        return;
     }
 }

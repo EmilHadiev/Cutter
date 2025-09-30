@@ -17,4 +17,5 @@ MonoBehaviour:
   <ViewPosition>k__BackingField: {x: 0, y: -75, z: -5}
   <ViewRotation>k__BackingField: {x: 0, y: 90, z: 0}
   <ViewScale>k__BackingField: 60
+  <IsSpecialReward>k__BackingField: 1
   <Sword>k__BackingField: 6

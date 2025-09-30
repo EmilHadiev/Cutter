@@ -4,6 +4,4 @@
 public class ParticleData : SkinData
 {
     [field: SerializeField] public AssetProvider.Particles Particle { get; private set; }
-
-    public override int CurrenSkin => (int)Particle;
 }

@@ -6,6 +6,7 @@ using Zenject;
 public class EnemySpawnTrigger : MonoBehaviour
 {
     [SerializeField] private SpawnOptions _spawnOptions;
+    [SerializeField] private AssetProvider.Enemy _enemy;
 
     [Inject]
     private readonly IEnemySpawner _spawner;
@@ -15,14 +16,14 @@ public class EnemySpawnTrigger : MonoBehaviour
         _spawnOptions ??= GetComponent<SpawnOptions>();
     }
 
-    private async UniTask Start()
+    private async void Start()
     {
         await Spawn();
     }
 
     private async UniTask Spawn()
     {
-        var prefab = await _spawner.Spawn(transform.position, transform.rotation);
+        var prefab = await _spawner.Spawn(_enemy, transform.position, transform.rotation);
 
         if (prefab.TryGetComponent(out IEnemy enemy))
         {

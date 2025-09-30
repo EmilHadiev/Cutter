@@ -15,4 +15,4 @@ MonoBehaviour:
   <Speed>k__BackingField: 5
   <Damage>k__BackingField: 1
   <Radius>k__BackingField: 3
-  <ShieldHealth>k__BackingField: 3
+  <ShieldHealth>k__BackingField: 0

@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface IEnemySpawner
 {
-    UniTask<GameObject> Spawn(Vector3 position = default, Quaternion rotation = default);
+    UniTask<GameObject> Spawn(AssetProvider.Enemy enemy, Vector3 position = default, Quaternion rotation = default);
 }

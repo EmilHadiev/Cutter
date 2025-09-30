@@ -58,7 +58,9 @@ public class EnemyDefender : MonoBehaviour, IDefensible
         _isWorking = false;
 
         if (_shield != null && _shield.gameObject != null)
+        {
             _shield.gameObject.SetActive(false);
+        }
     }
 
     public void Activate()
