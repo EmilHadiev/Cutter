@@ -14,7 +14,6 @@ public class CharacterCut : MonoBehaviour, ICuttable, ICutSoundable, ICutUpdatab
     private bool _isActivated;
     private bool _isWork;
 
-
     private void OnValidate()
     {
         _target ??= GetComponentInChildren<MeshTarget>();

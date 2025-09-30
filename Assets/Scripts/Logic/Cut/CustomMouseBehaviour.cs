@@ -47,7 +47,7 @@ namespace DynamicMeshCutter
 
             if (_isDragging)
             {
-                _to = _mousePosition.GetMousePosition();
+                _to = GetMousePosition();
             }
 
             if (Input.GetMouseButtonUp(LeftMouseButton) && _isDragging)
@@ -68,7 +68,7 @@ namespace DynamicMeshCutter
 
             _isDragging = true;
             CutStarted?.Invoke();
-            _from = _mousePosition.GetMousePosition();
+            _from = GetMousePosition();
         }
 
         private void EndCut()
@@ -126,5 +126,7 @@ namespace DynamicMeshCutter
         }
 
         public void SetLineColor(Color color) => _lineView.SetColor(color);
+
+        private Vector3 GetMousePosition() => _mousePosition.GetMousePosition();
     }
 }

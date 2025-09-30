@@ -14,6 +14,7 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
     private SwordSkinViewer _skinViewer;
 
     public bool IsLock => _data.IsPurchased;
+    public bool IsSpecialReward => _data.IsSpecialReward;
 
     public void Init(SkinData data, GameObject prefab, SwordSkinViewer swordSkinViewer)
     {

@@ -27,15 +27,23 @@ public class SkinUnlocker
     {
         if (_coinsStorage.TrySpendCoins(GetCurrentPrice()))
         {
-            GetRandomSkin().Unlock();
-            return true;
+            var skin = GetRandomSkin();
+
+            if (skin != null)
+            {
+                skin.Unlock();
+                return true;
+            }
         }
         return false;
     }
 
     private SkinTemplateView GetRandomSkin()
     {
-        SkinTemplateView[] lockSkins = _skins.Where(s => s.IsLock == false).ToArray();
+        SkinTemplateView[] lockSkins = _skins.Where(s => s.IsLock == false && s.IsSpecialReward == false).ToArray();
+
+        if (lockSkins.Length == 0)
+            return null;
 
         int random = Random.Range(0, lockSkins.Length);
         return lockSkins[random];

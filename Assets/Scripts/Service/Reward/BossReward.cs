@@ -6,11 +6,3 @@ public abstract class BossReward : MonoBehaviour
 
     protected abstract void SetReward();
 }
-
-public class SwordBossReward : BossReward
-{
-    protected override void SetReward()
-    {
-        
-    }
-}

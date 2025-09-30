@@ -5,7 +5,7 @@ using Zenject;
 
 public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
 {
-    private readonly int _attackDistance = 15;
+    private readonly float _attackDistance;
     private readonly int _maxTargets;
 
     private readonly ICutMouseBehaviour _mouseBehaviour;
@@ -28,6 +28,7 @@ public abstract class BaseCutLogic : IInitializable, IDisposable, ITickable
         _camera = Camera.main;       
         _counter = cutTargetsCounter;
         _enemyMask = GetLayerMask();
+        _attackDistance = playerData.AttackDistance;
 
         _maxTargets = GetMaxTargets(playerData);
 

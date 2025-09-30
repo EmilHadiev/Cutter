@@ -2,7 +2,7 @@ using Zenject;
 
 public class GoldBossReward : BossReward
 {
-    private const int RewardReducer = 30;
+    private const int RewardReducer = 2;
 
     [Inject]
     private readonly IRewardService _rewardService;
