@@ -21,7 +21,6 @@ public class AdvService : IAdvService
         });
     }
 
-
     public void StickyBannerToggle(bool isOn)
     {
         YG2.StickyAdActivity(isOn);

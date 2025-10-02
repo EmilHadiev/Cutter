@@ -14,19 +14,21 @@ public class AddressablesSceneLoader : IDisposable, ISceneLoader
     private readonly ConcurrentDictionary<string, AsyncOperationHandle<SceneInstance>> _activeSceneHandles;
     private readonly IAdvService _advService;
     private readonly ISavable _saver;
+    private readonly IGameReadyService _gameReadyService;
 
     private CancellationTokenSource _cts;
 
-    public AddressablesSceneLoader(IAdvService adv, ISavable savable)
+    public AddressablesSceneLoader(IAdvService adv, ISavable savable, IGameReadyService gameReadyService)
     {
         _advService = adv;
         _saver = savable;
+        _gameReadyService = gameReadyService;
 
         _scenes = new ConcurrentDictionary<int, string>();
         _activeSceneHandles = new ConcurrentDictionary<string, AsyncOperationHandle<SceneInstance>>();
 
         _scenes.TryAdd(0, AssetProvider.Scenes.MainArena.ToString());
-        _scenes.TryAdd(1, AssetProvider.Scenes.ViewSelector.ToString());
+        _scenes.TryAdd(1, AssetProvider.Scenes.ViewSelector.ToString());       
     }
 
     public void Restart()
@@ -88,7 +90,9 @@ public class AddressablesSceneLoader : IDisposable, ISceneLoader
             if (sceneHandle.Status == AsyncOperationStatus.Succeeded)
             {
                 Debug.Log($"Scene {sceneAddress} loaded successfully!");
+                _gameReadyService.StopGameplay();
                 _advService.ShowInterstitial();
+                _advService.StickyBannerToggle(true);
                 _saver.Save();
             }
             else if (sceneHandle.Status == AsyncOperationStatus.Failed)

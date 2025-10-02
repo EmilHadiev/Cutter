@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 273786392442085338}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.25, y: -0.5, z: 19}
+  m_LocalPosition: {x: 0.25, y: 0, z: 19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -71,7 +71,7 @@ Transform:
   m_GameObject: {fileID: 2088748958591031308}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.5, y: 2, z: 37.25}
+  m_LocalPosition: {x: -6.75, y: 2, z: 37.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnOptions: {fileID: 5086324003408029106}
+  _enemy: 0
 --- !u!114 &5086324003408029106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnOptions: {fileID: 7808470900140537571}
+  _enemy: 0
 --- !u!114 &7808470900140537571
 MonoBehaviour:
   m_ObjectHideFlags: 0

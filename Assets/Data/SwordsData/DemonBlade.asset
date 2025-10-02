@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005c35c52669bd5489456adb4074fd7a, type: 3}
   m_Name: DemonBlade
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: 2
+  <Id>k__BackingField: 1
   <IsPurchased>k__BackingField: 0
   <ViewPosition>k__BackingField: {x: 0, y: -75, z: -5}
   <ViewRotation>k__BackingField: {x: 0, y: 90, z: 0}

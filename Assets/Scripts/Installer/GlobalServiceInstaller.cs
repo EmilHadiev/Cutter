@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,12 @@ public class GlobalServiceInstaller : MonoInstaller
         BindSaveService();
         BindCoinsCalculator();
         BindCoinStorage();
+        BindGameReadyService();
+    }
+
+    private void BindGameReadyService()
+    {
+        Container.BindInterfacesTo<GameReadyService>().AsSingle();
     }
 
     private void BindCoinStorage()

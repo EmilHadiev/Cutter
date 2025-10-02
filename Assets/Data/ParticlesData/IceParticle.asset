@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12863619f82bfe446b49daf5b862bea7, type: 3}
   m_Name: IceParticle
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: 0
+  <Id>k__BackingField: 5
   <IsPurchased>k__BackingField: 0
   <ViewPosition>k__BackingField: {x: 0, y: 0, z: -30}
   <ViewRotation>k__BackingField: {x: 0, y: 0, z: 0}
