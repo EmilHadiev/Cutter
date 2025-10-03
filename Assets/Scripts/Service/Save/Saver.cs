@@ -7,8 +7,8 @@ public class Saver : ISavable
     private readonly PlayerData _playerData;
     private readonly PlayerProgress _playerProgress;
 
-    private readonly IItemSaver _swordSaver;
-    private readonly IItemSaver _particleSaver;
+    private readonly ItemSaver _swordSaver;
+    private readonly ItemSaver _particleSaver;
 
     private SavesYG Saves => YG2.saves;
 
@@ -90,12 +90,14 @@ public class Saver : ISavable
     {
         Saves.completedLevels = _playerProgress.CurrentLevel;
         Saves.completedHardcoreLevels = _playerProgress.CurrentHardcoreLevel;
+        Saves.isHardcoreOpen = _playerProgress.IsHardcoreOpen;
     }
 
     private void LoadPlayerProgress()
     {
         _playerProgress.CurrentLevel = Saves.completedLevels;
         _playerProgress.CurrentHardcoreLevel = Saves.completedHardcoreLevels;
+        _playerProgress.IsHardcoreOpen = Saves.isHardcoreOpen;
     }
     #endregion
 }

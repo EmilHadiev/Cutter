@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] private TriggerObserver _observer;
     [SerializeField] private ProjectileMover _mover;
     [SerializeField] private ProjectileCut _cut;
+    [SerializeField] private AssetProvider.Particles _particle;
+    [SerializeField] private Color _color = Color.red;
 
     private const int Damage = 1;
 
@@ -29,12 +31,12 @@ public class Projectile : MonoBehaviour
     private async void Awake()
     {
         var particle = await GetParticle();
-        _view = new ProjectileView(particle, Color.red, transform);
+        _view = new ProjectileView(particle, _color, transform);
     }
 
     private async UniTask<ParticleView> GetParticle()
     {
-        var prefab = await _factory.CreateAsync(AssetProvider.Particles.FireParticle.ToString());
+        var prefab = await _factory.CreateAsync(_particle.ToString());
         prefab.gameObject.transform.parent = transform;
         prefab.transform.localPosition = Vector3.zero;
         var particle = prefab.GetComponent<ParticleView>();
@@ -76,5 +78,9 @@ public class Projectile : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnCut() => _mover.SetTarget(_sender);
+    private void OnCut()
+    {
+        _mover.SetTarget(_sender);
+        _mover.UpSpeed();
+    }
 }

@@ -26,6 +26,6 @@ public class EnemyHider : MonoBehaviour
     {
         _mesh.enabled = isOn;
         _sword.SetActive(isOn);
-        _shield.SetActive(isOn);
+        _shield?.SetActive(isOn);
     }
 }

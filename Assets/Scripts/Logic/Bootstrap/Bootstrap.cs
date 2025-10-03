@@ -15,10 +15,13 @@ public class Bootstrap : MonoBehaviour
 
     private void Start()
     {
+        ResetAll();
         LoadData();
         SwitchScene();
     }
 
     private void LoadData() => _saver.Load();
     private void SwitchScene() => _sceneLoader.SwitchTo(AssetProvider.Scenes.MainArena.ToString());
+
+    private void ResetAll() => _saver.ResetAllProgress();
 }

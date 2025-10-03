@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class ItemSaver : IItemSaver
+public class ItemSaver
 {
     private readonly List<SaveItem> _saveItems;
     private readonly IPurchasable[] _items;

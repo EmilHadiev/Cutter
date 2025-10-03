@@ -7,6 +7,7 @@ public class ProjectileMover : MonoBehaviour
     private Transform _target;
 
     public void SetTarget(Transform transform) => _target = transform;
+    public void UpSpeed(float multiplier = 2) => _speed *= 2;
 
     private void Update()
     {

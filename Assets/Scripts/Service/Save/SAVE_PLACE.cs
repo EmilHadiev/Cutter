@@ -23,6 +23,7 @@ namespace YG
         #region PlayerProgress
         public int completedLevels = 0;
         public int completedHardcoreLevels = 0;
+        public bool isHardcoreOpen = false;
         #endregion
     }
 }

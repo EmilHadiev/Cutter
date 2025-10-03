@@ -84,6 +84,7 @@ MonoBehaviour:
   _observer: {fileID: 7199126027219712434}
   _mover: {fileID: 6557513287163849708}
   _cut: {fileID: 8384487725955066495}
+  _particle: 1
 --- !u!114 &6557513287163849708
 MonoBehaviour:
   m_ObjectHideFlags: 0

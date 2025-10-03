@@ -11,6 +11,9 @@ public class ParticleColorChanger : MonoBehaviour
 
     public void ChangerColor(Color color)
     {
+        if (_particle == null)
+            _particle = GetComponent<ParticleSystem>();
+
         var main = _particle.main;
         main.startColor = color;
     }

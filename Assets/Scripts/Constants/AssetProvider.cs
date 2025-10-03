@@ -1,12 +1,12 @@
-﻿using UnityEngine;
-
-public static class AssetProvider
+﻿public static class AssetProvider
 {
     #region Particles
     public const string DefenseParticle = "DefenseParticle";
     public const string ParryParticle = "ParryParticle";
     public const string StunParticle = "StunParticle";
     public const string ParryWindowParticle = "ParryWindowParticle";
+
+    public const string DemonExplosionParticle = "DemonExplosionParticle";
 
     /// <summary>
     /// players

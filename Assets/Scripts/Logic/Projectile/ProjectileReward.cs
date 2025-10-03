@@ -11,7 +11,7 @@ public class ProjectileReward : MonoBehaviour
     private IComboSystem _combo;
     private IRewardService _reward;
     private IEnemySoundContainer _soundContainer;
-    private ISlowMotion _slowMotion;
+
     private void OnValidate()
     {
         _health ??= GetComponent<EnemyHealth>();
@@ -28,17 +28,15 @@ public class ProjectileReward : MonoBehaviour
     }
 
     [Inject]
-    private void Constructor(IPlayer player, IRewardService rewardService, IEnemySoundContainer enemySound, ISlowMotion slowMotion)
+    private void Constructor(IPlayer player, IRewardService rewardService, IEnemySoundContainer enemySound)
     {
         _combo = player.ComboSystem;
         _reward = rewardService;
         _soundContainer = enemySound;
-        _slowMotion = slowMotion;
     }
 
     private void OnKilled()
     {
-        _slowMotion.SlowDownTime();
         _soundContainer.Play(SoundsName.SpawnerDeath);
         _combo.AddPoint();
         _reward.AddAdditionalReward(AdditionalReward);
