@@ -85,6 +85,7 @@ MonoBehaviour:
   _mover: {fileID: 6557513287163849708}
   _cut: {fileID: 8384487725955066495}
   _particle: 1
+  _color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &6557513287163849708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 354ee6533e4482e4fa03ac2ecfc5cfc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 7
+  _speed: 5
 --- !u!114 &8384487725955066495
 MonoBehaviour:
   m_ObjectHideFlags: 0
