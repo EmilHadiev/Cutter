@@ -1,6 +1,6 @@
 using UnityEngine;
-using Zenject;
 
+[RequireComponent(typeof(TakeDamageView))]
 public abstract class BossReward : MonoBehaviour
 {
     private IHealth _health;

@@ -9,6 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyGameOverChecker))]
 [RequireComponent(typeof(EnemyParryer))]
 [RequireComponent(typeof(EnemyHider))]
+[RequireComponent(typeof(Armor))]
 public class Enemy : MonoBehaviour, IEnemy
 {
     [SerializeField] private CharacterCut _characterCut;
@@ -19,6 +20,7 @@ public class Enemy : MonoBehaviour, IEnemy
     [SerializeField] private EnemyData _data;
     [SerializeField] private EnemyDefender _defender;
     [SerializeField] private EnemyParryer _parryer;
+    [SerializeField] private Armor _armor;
 
     private EnemyStateMachine _stateMachine;
     private CutValidator _cutValidator;
@@ -31,6 +33,7 @@ public class Enemy : MonoBehaviour, IEnemy
     public IAttackable Attacker => _attacker;
     public IDefensible Defender => _defender;
     public IParryable Parryer => _parryer;
+    public IArmorable Armor => _armor;
     public CutValidator Validator => _cutValidator;
 
 
@@ -43,12 +46,13 @@ public class Enemy : MonoBehaviour, IEnemy
         _attacker ??= GetComponent<EnemyAttacker>();
         _defender ??= GetComponent<EnemyDefender>();
         _parryer ??= GetComponent<EnemyParryer>();
+        _armor ??= GetComponent<Armor>();
     }
 
     private void Awake()
     {
         _stateMachine = new EnemyStateMachine(Mover, Attacker, Animator);
-        _cutValidator = new CutValidator(new ICutCondition[] {Parryer, Defender});
+        _cutValidator = new CutValidator(new ICutCondition[] {Parryer, Defender, _health, Armor});
     }
 
     private void Start()

@@ -28679,12 +28679,12 @@ GameObject:
   - component: {fileID: 534454632170770178}
   - component: {fileID: 260547875843684657}
   m_Layer: 5
-  m_Name: TakeDamageParticle
+  m_Name: PlayerTakeDamageParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3474464524502133574
 Transform:
   m_ObjectHideFlags: 0

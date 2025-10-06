@@ -4,12 +4,13 @@ using UnityEngine;
 public class SpawnOptions : MonoBehaviour
 {
     [SerializeField] private bool _isCanDefending;
+    [SerializeField] private bool _isArmorPresent;
 
     private Action<IEnemy>[] _options;
 
     private void Awake()
     {
-        _options = new Action<IEnemy>[] { TryDeactivateDefending };
+        _options = new Action<IEnemy>[] { TryDeactivateDefending, TryDeactivateArmor };
     }
 
     public void SetupEnemy(IEnemy enemy)
@@ -24,5 +25,13 @@ public class SpawnOptions : MonoBehaviour
             enemy.Defender.Deactivate();
         else
             enemy.Defender.Activate();
+    }
+
+    private void TryDeactivateArmor(IEnemy enemy)
+    {
+        if (_isArmorPresent)
+            enemy.Armor.Activate();
+        else
+            enemy.Armor.Deactivate();
     }
 }

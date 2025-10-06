@@ -7,6 +7,7 @@ public class BossHealthView : MonoBehaviour
 
     private IFactory _factory;
     private ISlowMotion _slowMotion;
+    private IEnemySoundContainer _soundContainer;
 
     private ParticleView _view;
     private IHealth _health;
@@ -41,10 +42,11 @@ public class BossHealthView : MonoBehaviour
     }
 
     [Inject]
-    private void Constructor(IFactory factory, ISlowMotion slowMotion)
+    private void Constructor(IFactory factory, ISlowMotion slowMotion, IEnemySoundContainer enemySoundContainer)
     {
         _factory = factory;
         _slowMotion = slowMotion;
+        _soundContainer = enemySoundContainer;
     }
 
     private void OnHealthChanged(int health)
@@ -54,6 +56,7 @@ public class BossHealthView : MonoBehaviour
 
     private void OnDied()
     {
+        _soundContainer.Play(SoundsName.Explosion);
         gameObject.SetActive(false);
         _view.Play();
         _slowMotion.SlowDownTime();

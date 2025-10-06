@@ -24,5 +24,6 @@
     #region EnemySound
     public const string SpawnerDeath = "SpawnerDeath";
     public const string ShieldImpact = "ShieldImpact";
+    public const string Explosion = "Explosion";
     #endregion
 }

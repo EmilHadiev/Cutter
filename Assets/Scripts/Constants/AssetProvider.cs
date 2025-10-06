@@ -5,6 +5,8 @@
     public const string ParryParticle = "ParryParticle";
     public const string StunParticle = "StunParticle";
     public const string ParryWindowParticle = "ParryWindowParticle";
+    public const string EnemyTakeDamage = "EnemyTakeDamage";
+    public const string PlayerTakeDamageParticle = "PlayerTakeDamageParticle";
 
     public const string DemonExplosionParticle = "DemonExplosionParticle";
 
