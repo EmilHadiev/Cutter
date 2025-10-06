@@ -19,11 +19,9 @@ public class SlowMotion : IDisposable, ISlowMotion
         _cts?.Cancel();
         _cts = new CancellationTokenSource();
 
-        Debug.Log("Замедляю");
         SetTime(SlowTime);
         await UniTask.Delay(Duration, cancellationToken: _cts.Token);
         SetTime(DefaultTime);
-        Debug.Log("Возвращаю!");
     }
 
     public void Dispose()
@@ -36,6 +34,5 @@ public class SlowMotion : IDisposable, ISlowMotion
     private void SetTime(float time)
     {
         Time.timeScale = time;
-        Debug.Log(Time.timeScale);
     }
 }

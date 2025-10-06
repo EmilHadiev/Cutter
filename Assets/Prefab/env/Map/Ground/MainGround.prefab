@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6442632353184563988}
   - component: {fileID: 268267195919839049}
   - component: {fileID: 6448724192987634437}
+  - component: {fileID: 8070040553080211225}
   m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
@@ -97,6 +98,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _render: {fileID: 268267195919839049}
+--- !u!114 &8070040553080211225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5157186772953841137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c875cee7cb37347bb452cbbeb62af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ControllerID>k__BackingField: 0
+  <IsIncompatible>k__BackingField: 0
+  <IncompatibilityReason>k__BackingField: 
+  _sourceType: 0
+  _strategy:
+    rid: 335089510283476997
+  references:
+    version: 2
+    RefIds:
+    - rid: 335089510283476997
+      type: {class: DC_RendererSourceSettingsStrategy, ns: NGS.AdvancedCullingSystem.Dynamic, asm: AdvancedCullingSystem.Runtime}
+      data:
+        <ReadyForCulling>k__BackingField: 0
+        _context: {fileID: 8070040553080211225}
+        _cullingMethod: 0
+        _convexCollider: 0
+        _renderer: {fileID: 268267195919839049}
+        _mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+        _collider: {fileID: 0}
+        _rigibodiesChecked: 1
 --- !u!1 &6080023320902621771
 GameObject:
   m_ObjectHideFlags: 0

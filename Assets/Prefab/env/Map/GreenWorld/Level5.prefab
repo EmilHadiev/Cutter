@@ -69,6 +69,7 @@ Transform:
   - {fileID: 5460912362693857210}
   - {fileID: 1295234093671581777}
   - {fileID: 2172680668035045565}
+  - {fileID: 1261032301560882713}
   - {fileID: 8606687003559440182}
   - {fileID: 398429501000471759}
   - {fileID: 7509117845982907291}
@@ -701,6 +702,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5894426994874273523, guid: 01911d83218ab9140ac255795f0e65e2, type: 3}
   m_PrefabInstance: {fileID: 3220097956988171549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3424766199146191309
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3368898773727064373}
+    m_Modifications:
+    - target: {fileID: 4229172265611830000, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+      propertyPath: m_Name
+      value: TicTacToeSpawnTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469576910557151188, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469576910557151188, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469576910557151188, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469576910557151188, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469576910557151188, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469576910557151188, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469576910557151188, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469576910557151188, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469576910557151188, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469576910557151188, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+--- !u!4 &1261032301560882713 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4469576910557151188, guid: 7d86a6ae91eb06f478af360cc787b836, type: 3}
+  m_PrefabInstance: {fileID: 3424766199146191309}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4177239263683790184
 PrefabInstance:

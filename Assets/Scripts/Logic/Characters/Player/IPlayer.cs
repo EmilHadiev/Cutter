@@ -5,4 +5,5 @@
     IEnergy Energy { get; }
     PlayerData Data { get; }
     IComboSystem ComboSystem { get; }
+    IBlindable Blinder { get; }
 }

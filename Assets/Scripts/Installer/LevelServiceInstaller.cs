@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,8 @@ public class LevelServiceInstaller : MonoInstaller
     [SerializeField] private BonusSpawner _bonusSpawner;
     [SerializeField] private ProjectileSpawnContainer _projectileSpawnContainer;
     [SerializeField] private TrapSpawner _trapSpawner;
+    [SerializeField] private TicTacToeSpawner _ticTacToeSpawner;
+    [SerializeField] private CameraColorChanger _cameraColor;
 
     public override void InstallBindings()
     {
@@ -21,6 +24,12 @@ public class LevelServiceInstaller : MonoInstaller
         BindRewardService();
         BindSlowMotionService();
         BindSpawners();
+        BindCameraColorChanger();
+    }
+
+    private void BindCameraColorChanger()
+    {
+        Container.BindInterfacesTo<CameraColorChanger>().FromInstance(_cameraColor).AsSingle();
     }
 
     private void BindSlowMotionService()
@@ -34,6 +43,7 @@ public class LevelServiceInstaller : MonoInstaller
         Container.BindInterfacesTo<BonusSpawner>().FromInstance(_bonusSpawner).AsSingle();
         Container.BindInterfacesTo<ProjectileSpawnContainer>().FromInstance(_projectileSpawnContainer).AsSingle();
         Container.BindInterfacesTo<TrapSpawner>().FromInstance(_trapSpawner).AsSingle();
+        Container.BindInterfacesTo<TicTacToeSpawner>().FromInstance(_ticTacToeSpawner).AsSingle();
     }
 
     private void BindRewardService()
