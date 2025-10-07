@@ -24,12 +24,21 @@ public class Armor : MonoBehaviour, IArmorable
 
     private void Awake()
     {
-        _armor.CutEnable(false);
-        _armor.EnableToggle(false);
+        _armor?.CutEnable(false);
+        _armor?.EnableToggle(false);
     }
 
-    public void Activate() => _armor.EnableToggle(true);
-    public void Deactivate() => _armor.EnableToggle(false);
+    public void Activate()
+    {
+        if (IsValid)
+            _armor.EnableToggle(true);
+    }
+
+    public void Deactivate()
+    {
+        if (IsValid)
+            _armor.EnableToggle(false);
+    }
 
     public void HandleFailCut()
     {
