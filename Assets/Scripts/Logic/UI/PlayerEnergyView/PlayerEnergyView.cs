@@ -1,15 +1,16 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
+[RequireComponent(typeof(CanvasGroup))]
+[RequireComponent(typeof(Image))]
 public class PlayerEnergyView : MonoBehaviour
 {
-    [SerializeField] private Slider _slider;
     [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private Image _energyImage;
 
     private const float VisibleAlpha = 0.5f;
     private const int DefaultAlpha = 0;
@@ -22,13 +23,12 @@ public class PlayerEnergyView : MonoBehaviour
 
     private void OnValidate()
     {
-        _slider ??= GetComponent<Slider>();
         _canvasGroup ??= GetComponent<CanvasGroup>();
+        _energyImage ??= GetComponent<Image>();
     }
 
     private void Awake()
     {
-        _defaultScale = _slider.transform.localScale;
         HideView();
     }
 
@@ -47,8 +47,6 @@ public class PlayerEnergyView : MonoBehaviour
 
     private void OnEnergyChanged(int currentEnergy, int maxEnergy)
     {
-        _slider.DOValue((float)currentEnergy / maxEnergy, Delay).SetEase(Ease.Linear);
-
         if (currentEnergy == 0)
             ShowView().Forget();
     }
@@ -61,7 +59,7 @@ public class PlayerEnergyView : MonoBehaviour
         try
         {
             _canvasGroup.alpha = VisibleAlpha;
-            ChangeScale();
+            ShowNotEnoughEnergy();
             await UniTask.Delay(1500, cancellationToken: _showCts.Token);
             HideView();
         }
@@ -71,15 +69,15 @@ public class PlayerEnergyView : MonoBehaviour
         }
     }
 
-    private void ChangeScale()
+    private void ShowNotEnoughEnergy()
     {
-        if (DOTween.IsTweening(_slider.transform))
+        if (DOTween.IsTweening(_energyImage.transform))
             return;
 
-        _slider.transform.DOKill();
+        _energyImage.transform.DOKill();
 
         // Yoyo с 1 циклом: увеличить -> вернуть
-        _slider.transform.DOScale(_defaultScale * 1.5f, 0.5f)
+        _energyImage.transform.DOScale(_defaultScale * 1.5f, 0.5f)
             .SetEase(Ease.Linear)
             .SetLoops(2, LoopType.Yoyo); // 2 цикла = 1 полное колебание
     }

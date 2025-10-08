@@ -1,16 +1,26 @@
 ﻿using DynamicMeshCutter;
 using UnityEngine;
-using Zenject;
 
+[RequireComponent(typeof(MeshTarget))]
 public class MeshTargetMaterialChanger : MonoBehaviour
 {
+    [SerializeField] private MeshTarget _target;
     [SerializeField] private MeshRenderer _renderer;
-    [SerializeField] private Material _overrideMaterial;
 
     private void OnValidate()
     {
+        _target ??= GetComponent<MeshTarget>();
         _renderer ??= GetComponent<MeshRenderer>();
     }
 
-    public void ChangeMaterial() => _renderer.sharedMaterial = _overrideMaterial; // Для одного материала
+    public void SetMaterialColor(Color color)
+    {
+        _target.OverrideFaceMaterial.color = color;
+        Debug.Log(_renderer.material);
+    }
+
+    public void ChangeMaterial()
+    {
+        _target.OverrideFaceMaterial = _renderer.material;       
+    }
 }

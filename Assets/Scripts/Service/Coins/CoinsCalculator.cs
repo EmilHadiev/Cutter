@@ -6,7 +6,7 @@ public class CoinsCalculator
 
     public readonly int CoinsReward = 350;
     public readonly int StartPrice = 1000;
-    public readonly int AdditionalPrice = 600;
+    public readonly int AdditionalPrice = 1000;
 
     public int GetNewPrice(int availableSkins, int maxSkins)
     {

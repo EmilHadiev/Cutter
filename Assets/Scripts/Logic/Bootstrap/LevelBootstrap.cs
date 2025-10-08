@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.AI.Navigation;
 using UnityEngine;
 using Zenject;
@@ -9,6 +10,7 @@ public class LevelBootstrap : MonoBehaviour
     [SerializeField] private PlayerMover _playerMover;
     [SerializeField] private NavMeshSurface _surface;
     [SerializeField] private MapsContainer _mapsContainer;
+    [SerializeField] private TMP_Text _currentLevelText;
 
     private PlayerProgress _progress;
 
@@ -16,12 +18,18 @@ public class LevelBootstrap : MonoBehaviour
     {
         CreateMapAndGetSpline();
         BuildNavMesh();
+        SetCurrentLevelText();
     }
 
     [Inject]
     private void Constructor(PlayerProgress playerProgress)
     {
         _progress = playerProgress;
+    }
+
+    private void SetCurrentLevelText()
+    {
+        _currentLevelText.text = _progress.CurrentLevel.ToString();
     }
 
     private void BuildNavMesh()

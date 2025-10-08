@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameobjectRoot: {fileID: 6875803344924264967}
-  OverrideFaceMaterial: {fileID: 2100000, guid: 03ddc7e460b33402eb7640fab3881ac9, type: 2}
+  OverrideFaceMaterial: {fileID: 2100000, guid: 72fbfa2998ee940479cfa1468548f116, type: 2}
   SeparateMeshes: 0
   ApplyTranslation: 1
   DefaultBehaviour: 0000000000000000
@@ -192,8 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0df16539fed564c9b30f1093ea408d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _target: {fileID: 6193391650275092330}
   _renderer: {fileID: 8746292169480043687}
-  _overrideMaterial: {fileID: 2100000, guid: 03ddc7e460b33402eb7640fab3881ac9, type: 2}
 --- !u!114 &5231676376305579632
 MonoBehaviour:
   m_ObjectHideFlags: 0
