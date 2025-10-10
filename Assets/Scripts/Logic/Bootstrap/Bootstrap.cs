@@ -15,7 +15,7 @@ public class Bootstrap : MonoBehaviour
 
     private void Start()
     {
-        ResetAll();
+        //ResetAll();
         LoadData();
         SwitchScene();
     }
