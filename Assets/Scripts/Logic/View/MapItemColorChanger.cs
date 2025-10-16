@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public abstract class MapItemColorChanger : MonoBehaviour
 {
     [SerializeField] protected Color[] Colors;
 
-    public abstract void SetColor();
+    public abstract void ChangeColor();
+
+    public void SetColors(Color[] colors) => Colors = colors;
 }

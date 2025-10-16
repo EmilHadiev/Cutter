@@ -1,5 +1,4 @@
-﻿using DG.Tweening.Core;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ObstacleColorChanger : MapItemColorChanger
 {
@@ -11,7 +10,7 @@ public class ObstacleColorChanger : MapItemColorChanger
             _setter = GetComponentsInChildren<ObstacleColorSetter>();
     }
 
-    public override void SetColor()
+    public override void ChangeColor()
     {
         for (int i = 0; i < _setter.Length; i++)
             _setter[i].SetColors(Colors);

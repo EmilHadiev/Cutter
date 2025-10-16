@@ -10,4 +10,6 @@
     public const string Particle = "Particle";
 
     public const string Map = "Map";
+    public const string MapContainer = Map + "/MapContainer";
+    public const string MapColors = Map + "/MapColors";
 }

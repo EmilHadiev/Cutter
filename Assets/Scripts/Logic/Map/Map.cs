@@ -19,15 +19,18 @@ public class Map : MonoBehaviour
         _obstacleColors ??= GetComponent<ObstacleColorChanger>();
     }
 
-    private void Start()
+    public void SetColor(MapColor mapColor)
     {
+        _groundColors.SetColors(mapColor.GroundColors);
+        _obstacleColors.SetColors(mapColor.ObstacleColors);
+
         ChangeColors();
     }
 
     [ContextMenu(nameof(ChangeColors))]
     private void ChangeColors()
     {
-        _groundColors.SetColor();
-        _obstacleColors.SetColor();
+        _groundColors.ChangeColor();
+        _obstacleColors.ChangeColor();
     }
 }

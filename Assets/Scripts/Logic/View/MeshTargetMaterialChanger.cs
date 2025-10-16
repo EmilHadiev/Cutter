@@ -16,7 +16,6 @@ public class MeshTargetMaterialChanger : MonoBehaviour
     public void SetMaterialColor(Color color)
     {
         _target.OverrideFaceMaterial.color = color;
-        Debug.Log(_renderer.material);
     }
 
     public void ChangeMaterial()

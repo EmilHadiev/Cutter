@@ -10,7 +10,7 @@ public class GroundColorChanger : MapItemColorChanger
             _grounds = GetComponentsInChildren<Ground>();
     }
 
-    public override void SetColor()
+    public override void ChangeColor()
     {
         for (int i = 0; i < _grounds.Length; i++)
             _grounds[i].SetColors(Colors);

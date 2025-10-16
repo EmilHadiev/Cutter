@@ -12,35 +12,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07bd85559c1f77a4aa81621822f8f43a, type: 3}
   m_Name: MapsContainer
   m_EditorClassIdentifier: 
+  _colorsContainer: {fileID: 11400000, guid: eddf6317e6fc91249a78b4a1683265fb, type: 2}
   _maps:
-  - {fileID: 8947153346750512460, guid: 5a8dbdcd0f44a8741aacaa367c4ce3da, type: 3}
+  - {fileID: 0}
   - {fileID: 6933187629553646047, guid: 2258e14db52a77c42badc33a8eb05e21, type: 3}
   - {fileID: 6526389228152244571, guid: 4ea115a1638c2b3478f199062b03834d, type: 3}
   - {fileID: 6488523014696525874, guid: 9b2b68046a23c894e8c8d69168a78a20, type: 3}
   - {fileID: 7609104955605415495, guid: eaec0a870ecd40645842b26a6a35ddea, type: 3}
-  - {fileID: 1056064586420152120, guid: 3e0243939b619db4dab54b958fe7f584, type: 3}
+  - {fileID: 0}
   - {fileID: 300061331980683873, guid: 2b34871432258c643b444522b3f31c12, type: 3}
   - {fileID: 7828932385079302604, guid: d00698a3aaa27194f8668503b1b6c4ef, type: 3}
   - {fileID: 335852377314171720, guid: 778e5502fcdac284580bd1ed73d3a659, type: 3}
-  - {fileID: 1347636813671621579, guid: afc6da36a481d404b879078e11dfd50e, type: 3}
+  - {fileID: 0}
   - {fileID: 2027390812623512973, guid: f2d5874df78b35b44bcc88090fb39f78, type: 3}
   - {fileID: 7104254396447614161, guid: d7c9090fe2c61774daaf92454254d5fc, type: 3}
   - {fileID: 5417171987088056563, guid: 10ad36f8f9493ff49842aff3e89a0435, type: 3}
   - {fileID: 696451946135182472, guid: a1012d60264385c43944e126c0c1289c, type: 3}
   - {fileID: 3877580454502633020, guid: 1ce460e56a6bc3446ad325441b913525, type: 3}
-  - {fileID: 7032364130871498818, guid: d20dbc83d520c634e803772de48a4042, type: 3}
+  - {fileID: 0}
   - {fileID: 1766425312089108408, guid: 06d25c0f96d72a14cb6c640d25f40523, type: 3}
   - {fileID: 8523361490275290474, guid: f2b34de3997db0049bd40e399e2a8aa1, type: 3}
   - {fileID: 3472226390081568285, guid: 1891036708d997140995301e892776e4, type: 3}
-  - {fileID: 1386635235442369376, guid: 4e81d9230ea31334ea0c653eac92f768, type: 3}
-  - {fileID: 2027390812623512973, guid: 36fc782e87d12a34a8144c0c20513b5f, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 803387312124861377, guid: ddba29b0a8378a7448e48306ccdc389e, type: 3}
   - {fileID: 2322021049806548911, guid: 284f3da0ce1a9bf4db720ac140922726, type: 3}
   - {fileID: 5277586400384731367, guid: 52d7792f4e566794ea293e617341f6c5, type: 3}
   - {fileID: 1745540031064104982, guid: 3b123a54a6d9c5c49867e2ea178b9cf3, type: 3}
-  - {fileID: 8566787693176222906, guid: 50f29c7b415963f45b1396798a1d3b1c, type: 3}
+  - {fileID: 0}
   - {fileID: 5894157277772381053, guid: 6d6686c41d87d6749a9dd00989120d0b, type: 3}
   - {fileID: 4210053721603072541, guid: bd7b17d9f0bf08540a55d0d6c7e280df, type: 3}
   - {fileID: 4581596126950827081, guid: ca69b3b02b6134541b2dd07dbb49277b, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  _startLevel: {fileID: 8947153346750512460, guid: 5a8dbdcd0f44a8741aacaa367c4ce3da, type: 3}
+  _bonus: {fileID: 2027390812623512973, guid: f2d5874df78b35b44bcc88090fb39f78, type: 3}
+  _bosses:
+  - {fileID: 1347636813671621579, guid: afc6da36a481d404b879078e11dfd50e, type: 3}
+  - {fileID: 1386635235442369376, guid: 4e81d9230ea31334ea0c653eac92f768, type: 3}
   - {fileID: 7224407587362779649, guid: aec04a3d3e2fb4c47bd111bed040fe4f, type: 3}
-  - {fileID: 6678906045190352990, guid: 81e0b18c8517ec0408a628696cae7f90, type: 3}
+  _blackKnights:
+  - {fileID: 1056064586420152120, guid: 3e0243939b619db4dab54b958fe7f584, type: 3}
+  - {fileID: 7032364130871498818, guid: d20dbc83d520c634e803772de48a4042, type: 3}
+  - {fileID: 8566787693176222906, guid: 50f29c7b415963f45b1396798a1d3b1c, type: 3}

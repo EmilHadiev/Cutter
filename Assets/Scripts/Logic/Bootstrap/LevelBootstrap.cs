@@ -16,7 +16,7 @@ public class LevelBootstrap : MonoBehaviour
 
     private void Awake()
     {
-        CreateMapAndGetSpline();
+        CreateMap();
         BuildNavMesh();
         SetCurrentLevelText();
     }
@@ -37,11 +37,18 @@ public class LevelBootstrap : MonoBehaviour
         _surface.BuildNavMesh();
     }
 
-    private void CreateMapAndGetSpline()
+    private void CreateMap()
     {
-        var map = _mapsContainer.GetMap(_progress.CurrentLevel);
-        _playerMover.SetSpline(_mapSpawner.CreateMapAndGetSpline(map));
-        ChangeBackgroundColor(map.BackgroundColor);
+        int level = _progress.CurrentLevel;
+
+        var template = _mapsContainer.GetMap(level);
+
+        var mapPrefab = _mapSpawner.CreateMapAndGetSpline(template);
+        var color = _mapsContainer.GetMapColor(level);
+
+        mapPrefab.SetColor(color);
+        _playerMover.SetSpline(mapPrefab.Spline);
+        ChangeBackgroundColor(color.BackgroundColor);
     }
 
     private void ChangeBackgroundColor(Color color)
