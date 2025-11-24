@@ -19,14 +19,13 @@ public class SpecialBossReward : BossReward
 
     protected override void SetReward()
     {
-        if (_progress.IsHardcoreOpen)
+        if (_progress.IsHardcoreOpen == false)
+            _progress.IsHardcoreOpen = true;
+
+        if (_progress.IsHardcoreComplete)
         {
             UnLockReward(_swords);
             UnLockReward(_particles);
-        }
-        else
-        {
-            _progress.IsHardcoreOpen = true;
         }
     }
 

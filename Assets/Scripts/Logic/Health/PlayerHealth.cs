@@ -11,7 +11,6 @@ public class PlayerHealth : MonoBehaviour, IHealth
     private IGameplaySoundContainer _soundContainer;
 
     private int _currentHealth;
-    private int _maxHealth;
 
     public event Action Died;
     public event Action<int> HealthChanged;
@@ -24,10 +23,16 @@ public class PlayerHealth : MonoBehaviour, IHealth
     }
 
     [Inject]
-    private void Constructor(PlayerData data, IGameOverService gameOverService, IGameplaySoundContainer gameplaySound)
+    private void Constructor(PlayerData data, IGameOverService gameOverService, IGameplaySoundContainer gameplaySound, PlayerProgress progress)
     {
-        _maxHealth = data.Health;
-        _currentHealth = data.Health;
+        if (progress.IsHardcoreMode)
+            _currentHealth = data.HardcoreHealth;
+        else
+            _currentHealth = data.Health;
+
+        if (_currentHealth == data.MaxHealth)
+            _currentHealth = data.MaxHealth;
+
         _gameOverService = gameOverService;
         _soundContainer = gameplaySound;
     }
@@ -38,9 +43,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
             return;
 
         _currentHealth += health;
-
-        if (_currentHealth >= _maxHealth)
-            _currentHealth = _maxHealth;
+        HealthChanged?.Invoke(_currentHealth);
     }
 
     public void TakeDamage(int damage)

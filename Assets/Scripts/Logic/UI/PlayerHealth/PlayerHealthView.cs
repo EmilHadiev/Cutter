@@ -10,13 +10,12 @@ public class PlayerHealthView : MonoBehaviour
     private List<PlayerHealthPointView> _points;
 
     private int _maxHealth;
+    private int _currentHealth;
 
     private void Awake()
     {
         CreateTemplates();
-
-        if (_maxHealth == 1)
-            gameObject.SetActive(false);
+        OnHealthChanged(_currentHealth);
     }
 
     private void OnEnable()
@@ -30,10 +29,15 @@ public class PlayerHealthView : MonoBehaviour
     }
 
     [Inject]
-    private void Constructor(IPlayer player)
+    private void Constructor(IPlayer player, PlayerProgress progress)
     {
+        if (progress.IsHardcoreMode)
+            _currentHealth = player.Data.HardcoreHealth;
+        else
+            _currentHealth = player.Data.Health;
+
         _playerHealth = player.Health;
-        _maxHealth = player.Data.Health;
+        _maxHealth = player.Data.MaxHealth;
     }
 
     private void CreateTemplates()
@@ -46,13 +50,16 @@ public class PlayerHealthView : MonoBehaviour
             prefab.gameObject.SetActive(false);
             _points.Add(prefab);
         }
-
-        OnHealthChanged(_maxHealth);
     }
 
     private void OnHealthChanged(int currentHealth)
     {
         HidePoints();
+
+        Debug.Log($"CurrentHealth ~ {currentHealth}");
+        if (currentHealth == 1)
+            return;
+
         ShowPoints(currentHealth);
     }
 

@@ -6,7 +6,7 @@ using Zenject;
 
 public class PlayerEnergy : MonoBehaviour, IEnergy
 {
-    private const int EnergyValue = 1;
+    private const int MinEnergyValue = 1;
     private const int RestoreTime = 1000;
 
     private int _maxEnergy;
@@ -25,13 +25,13 @@ public class PlayerEnergy : MonoBehaviour, IEnergy
 
     public bool TrySpendEnergy()
     {
-        if (_currentEnergy < EnergyValue)
+        if (_currentEnergy < MinEnergyValue)
         {
             Debug.Log("Не могу потратить энергию!");
             return false;
         }
 
-        _currentEnergy -= EnergyValue;
+        _currentEnergy -= MinEnergyValue;
         EnergyChanged?.Invoke(_currentEnergy, _maxEnergy);
         return true;
     }
@@ -57,7 +57,7 @@ public class PlayerEnergy : MonoBehaviour, IEnergy
 
                 if (_currentEnergy < _maxEnergy)
                 {
-                    _currentEnergy += EnergyValue;
+                    _currentEnergy += MinEnergyValue;
 
                     if (_currentEnergy >= _maxEnergy)
                         _currentEnergy = _maxEnergy;

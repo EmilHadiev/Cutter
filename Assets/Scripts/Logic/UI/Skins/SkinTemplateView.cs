@@ -6,6 +6,7 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image _hideImage;
     [SerializeField] private Transform _container;
+    [SerializeField] private Image _hardcoreImage;
 
     private const string UI = "UI";
 
@@ -25,6 +26,9 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
 
         if (IsLock)
             _hideImage.gameObject.SetActive(false);
+
+        if (IsSpecialReward)
+            _hardcoreImage.enabled = true;
     }
 
     public void OnPointerClick(PointerEventData eventData)

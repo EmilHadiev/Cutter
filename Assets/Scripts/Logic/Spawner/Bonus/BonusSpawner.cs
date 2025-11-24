@@ -7,6 +7,8 @@ public class BonusSpawner : MonoBehaviour, IBonusSpawner
 
     [Inject]
     private readonly IFactory _factory;
+    [Inject]
+    private readonly PlayerProgress _progress;
 
     public void Spawn(BonusType type, Vector3 position)
     {
@@ -18,6 +20,9 @@ public class BonusSpawner : MonoBehaviour, IBonusSpawner
     {
         for (int i = 0; i < _bonus.Length; i++)
         {
+            if (_progress.IsHardcoreMode)
+                return GetRandomBonus(); 
+
             if (_bonus[i].BonusType == bonusType)
                 return _bonus[i];
         }
@@ -25,4 +30,10 @@ public class BonusSpawner : MonoBehaviour, IBonusSpawner
         Debug.LogError($"{nameof(bonusType)}");
         return null;
     } 
+
+    private Bonus GetRandomBonus()
+    {
+        int randomIndex = Random.Range(0, _bonus.Length);
+        return _bonus[randomIndex];
+    }
 }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BlackKnight
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 5
-  <Damage>k__BackingField: 1
+  <Damage>k__BackingField: 2
   <Radius>k__BackingField: 3
   <ShieldHealth>k__BackingField: 5

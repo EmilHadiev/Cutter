@@ -29,7 +29,7 @@ public class LevelBootstrap : MonoBehaviour
 
     private void SetCurrentLevelText()
     {
-        _currentLevelText.text = _progress.CurrentLevel.ToString();
+        _currentLevelText.text = GetCurrentLevel().ToString();
     }
 
     private void BuildNavMesh()
@@ -39,7 +39,7 @@ public class LevelBootstrap : MonoBehaviour
 
     private void CreateMap()
     {
-        int level = _progress.CurrentLevel;
+        int level = GetCurrentLevel();
 
         var template = _mapsContainer.GetMap(level);
 
@@ -49,6 +49,14 @@ public class LevelBootstrap : MonoBehaviour
         mapPrefab.SetColor(color);
         _playerMover.SetSpline(mapPrefab.Spline);
         ChangeBackgroundColor(color.BackgroundColor);
+    }
+
+    private int GetCurrentLevel()
+    {
+        if (_progress.IsHardcoreMode)
+            return _progress.CurrentHardcoreLevel;
+
+        return _progress.CurrentLevel;
     }
 
     private void ChangeBackgroundColor(Color color)
