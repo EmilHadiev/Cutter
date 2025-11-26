@@ -25,6 +25,7 @@ namespace YG
         public int completedHardcoreLevels = 0;
         public bool isHardcoreOpen = false;
         public int HardcoreHealth = 1;
+        public int HardcoreEnergy = 1;
         #endregion
     }
 }

@@ -92,6 +92,7 @@ public class Saver : ISavable
         Saves.completedHardcoreLevels = _playerProgress.CurrentHardcoreLevel;
         Saves.isHardcoreOpen = _playerProgress.IsHardcoreOpen;
         Saves.HardcoreHealth = _playerData.HardcoreHealth;
+        Saves.HardcoreEnergy = _playerData.HardcoreEnergy;
     }
 
     private void LoadPlayerProgress()
@@ -100,6 +101,7 @@ public class Saver : ISavable
         _playerProgress.CurrentHardcoreLevel = Saves.completedHardcoreLevels;
         _playerProgress.IsHardcoreOpen = Saves.isHardcoreOpen;
         _playerData.HardcoreHealth = Saves.HardcoreHealth;
+        _playerData.HardcoreEnergy = Saves.HardcoreEnergy;
     }
     #endregion
 }

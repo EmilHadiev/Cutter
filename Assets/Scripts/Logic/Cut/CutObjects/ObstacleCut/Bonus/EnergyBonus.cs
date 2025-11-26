@@ -3,6 +3,7 @@
 public class EnergyBonus : Bonus
 {
     private PlayerData _data;
+    private IEnergy _energy;
 
     private const int AdditionalEnergy = 1;
 
@@ -10,10 +11,11 @@ public class EnergyBonus : Bonus
     private void Constructor(IPlayer player)
     {
         _data = player.Data;
+        _energy = player.Energy;
     }
 
     protected override void OnCut()
     {
-        _data.Energy += AdditionalEnergy;
+        _energy.TryAddEnergy(AdditionalEnergy);
     }
 }

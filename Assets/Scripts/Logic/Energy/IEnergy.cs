@@ -9,4 +9,5 @@ public interface IEnergy
     event Action<int, int> EnergyChanged;
 
     bool TrySpendEnergy();
+    void TryAddEnergy(int energy = 1);
 }

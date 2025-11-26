@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
+[RequireComponent(typeof(PlayerHardcoreHealth))]
 public class PlayerHealth : MonoBehaviour, IHealth
 {
     [SerializeField] private ParticleView _healthView;
@@ -25,16 +26,28 @@ public class PlayerHealth : MonoBehaviour, IHealth
     [Inject]
     private void Constructor(PlayerData data, IGameOverService gameOverService, IGameplaySoundContainer gameplaySound, PlayerProgress progress)
     {
-        if (progress.IsHardcoreMode)
-            _currentHealth = data.HardcoreHealth;
-        else
-            _currentHealth = data.Health;
+        SetCurrentHealth(data, progress);
 
         if (_currentHealth == data.MaxHealth)
             _currentHealth = data.MaxHealth;
 
         _gameOverService = gameOverService;
         _soundContainer = gameplaySound;
+    }
+
+    private void SetCurrentHealth(PlayerData data, PlayerProgress progress)
+    {
+        if (progress.IsHardcoreMode)
+        {
+            if (data.MaxHealth <= data.HardcoreHealth)
+                _currentHealth = data.MaxHealth;
+            else 
+                _currentHealth = data.HardcoreHealth;
+        }
+        else
+        {
+            _currentHealth = data.Health;
+        }
     }
 
     public void AddHealth(int health)
@@ -52,13 +65,17 @@ public class PlayerHealth : MonoBehaviour, IHealth
             return;
 
         _soundContainer.Play(SoundsName.TakeDamage);
-
-        _currentHealth -= damage;
+        ApplyDamage(damage);
         _healthView.Play();
         HealthChanged?.Invoke(_currentHealth);
 
         if (_currentHealth <= 0)
             Kill();
+    }
+
+    private void ApplyDamage(int damage)
+    {
+        _currentHealth -= damage;
     }
 
     public void Kill()

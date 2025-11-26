@@ -15,6 +15,7 @@ public class SkinContainer : MonoBehaviour
     [SerializeField] private SwordSkinViewer _skinView;
 
     private PlayerData _playerData;
+    private PlayerProgress _progress;
     private IFactory _factory;
     private ICoinsStorage _coinsStorage;
     private List<SwordTemplateView> _swordsView;
@@ -61,7 +62,7 @@ public class SkinContainer : MonoBehaviour
 
     [Inject]
     private void Constructor(IEnumerable<SwordData> swords, IEnumerable<ParticleData> particles, PlayerData playerData, 
-        Factory factory, ICoinsStorage coinsStorage, CoinsCalculator coinsCalculator)
+        Factory factory, ICoinsStorage coinsStorage, CoinsCalculator coinsCalculator, PlayerProgress progress)
     {
         _swordsData = swords;
         _particlesData = particles;
@@ -69,6 +70,7 @@ public class SkinContainer : MonoBehaviour
         _factory = factory;
         _coinsStorage = coinsStorage;
         _coinsCalculator = coinsCalculator;
+        _progress = progress;
     }
 
     public bool TryUnlockRandomSkin() => _skinUnlocker.TryUnlock();
@@ -83,7 +85,7 @@ public class SkinContainer : MonoBehaviour
             string assetName = data.Sword.ToString();
             var prefab = await _factory.CreateAsync(assetName);
 
-            view.Init(data, prefab, _skinView);
+            view.Init(data, prefab, _skinView, _progress.IsHardcoreComplete);
             _swordsView.Add(view);
             _skins.Add(view);
         }
@@ -97,7 +99,7 @@ public class SkinContainer : MonoBehaviour
             string assetName = data.Particle.ToString();
             var prefab = await _factory.CreateAsync(assetName);
 
-            view.Init(data, prefab, _skinView);
+            view.Init(data, prefab, _skinView, _progress.IsHardcoreComplete);
             _particlesView.Add(view);
             _skins.Add(view);
         }

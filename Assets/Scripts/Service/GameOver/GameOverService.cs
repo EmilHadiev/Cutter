@@ -12,12 +12,14 @@ public class GameOverService : IGameOverService
     public event Action Lost;
     public event Action Continue;
 
-    public GameOverService(IGameplaySoundContainer soundContainer, IAmbientSoundContainer ambientContainer, ISavable saver, PlayerProgress playerProgress)
+    public GameOverService(IGameplaySoundContainer soundContainer, IAmbientSoundContainer ambientContainer, ISavable saver, 
+        PlayerProgress playerProgress, PlayerData data)
     {
         _soundContainer = soundContainer;
         _ambientContainer = ambientContainer;
         _saver = saver;
         _progress = playerProgress;
+        _data = data;
     }
 
     public void Win()
@@ -58,6 +60,7 @@ public class GameOverService : IGameOverService
         {
             _progress.CurrentHardcoreLevel = 0;
             _data.HardcoreHealth = 1;
+            _data.HardcoreEnergy = 1;
         }
     }
 }
