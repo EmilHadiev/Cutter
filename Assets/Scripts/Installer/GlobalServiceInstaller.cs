@@ -18,6 +18,12 @@ public class GlobalServiceInstaller : MonoInstaller
         BindCoinsCalculator();
         BindCoinStorage();
         BindGameReadyService();
+        BindLeaderBoardService();
+    }
+
+    private void BindLeaderBoardService()
+    {
+        Container.BindInterfacesTo<LeaderBoard>().AsSingle();
     }
 
     private void BindGameReadyService()

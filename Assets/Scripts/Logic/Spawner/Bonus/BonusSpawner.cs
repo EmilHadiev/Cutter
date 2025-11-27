@@ -5,6 +5,8 @@ public class BonusSpawner : MonoBehaviour, IBonusSpawner
 {
     [SerializeField] private Bonus[] _bonus;
 
+    private bool _isBonusLevel;
+
     [Inject]
     private readonly IFactory _factory;
     [Inject]
@@ -20,8 +22,8 @@ public class BonusSpawner : MonoBehaviour, IBonusSpawner
     {
         for (int i = 0; i < _bonus.Length; i++)
         {
-            if (_progress.IsHardcoreMode)
-                return GetRandomBonus(); 
+            if (IsRandomSpawn())
+                return GetRandomBonus();
 
             if (_bonus[i].BonusType == bonusType)
                 return _bonus[i];
@@ -29,7 +31,12 @@ public class BonusSpawner : MonoBehaviour, IBonusSpawner
 
         Debug.LogError($"{nameof(bonusType)}");
         return null;
-    } 
+    }
+
+    private bool IsRandomSpawn()
+    {
+        return _progress.IsHardcoreMode;
+    }
 
     private Bonus GetRandomBonus()
     {

@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     private IGameplaySoundContainer _soundContainer;
 
     private int _currentHealth;
+    private int _maxHealth;
 
     public event Action Died;
     public event Action<int> HealthChanged;
@@ -23,6 +24,11 @@ public class PlayerHealth : MonoBehaviour, IHealth
         SetParentToElement(transform);
     }
 
+    private void Start()
+    {
+        HealthChanged?.Invoke(_currentHealth);
+    }
+
     [Inject]
     private void Constructor(PlayerData data, IGameOverService gameOverService, IGameplaySoundContainer gameplaySound, PlayerProgress progress)
     {
@@ -30,6 +36,8 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
         if (_currentHealth == data.MaxHealth)
             _currentHealth = data.MaxHealth;
+
+        _maxHealth = data.MaxHealth;
 
         _gameOverService = gameOverService;
         _soundContainer = gameplaySound;
@@ -53,6 +61,9 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public void AddHealth(int health)
     {
         if (health <= 0)
+            return;
+
+        if (_currentHealth >= _maxHealth)
             return;
 
         _currentHealth += health;

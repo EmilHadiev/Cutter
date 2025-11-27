@@ -10,12 +10,10 @@ public class PlayerHealthView : MonoBehaviour
     private List<PlayerHealthPointView> _points;
 
     private int _maxHealth;
-    private int _currentHealth;
 
     private void Awake()
     {
         CreateTemplates();
-        OnHealthChanged(_currentHealth);
     }
 
     private void OnEnable()
@@ -29,13 +27,8 @@ public class PlayerHealthView : MonoBehaviour
     }
 
     [Inject]
-    private void Constructor(IPlayer player, PlayerProgress progress)
+    private void Constructor(IPlayer player)
     {
-        if (progress.IsHardcoreMode)
-            _currentHealth = player.Data.HardcoreHealth;
-        else
-            _currentHealth = player.Data.Health;
-
         _playerHealth = player.Health;
         _maxHealth = player.Data.MaxHealth;
     }

@@ -5,6 +5,7 @@ public class GameOverService : IGameOverService
     private readonly IGameplaySoundContainer _soundContainer;
     private readonly IAmbientSoundContainer _ambientContainer;
     private readonly ISavable _saver;
+    private readonly ILeaderBoard _leaderBoard;
     private readonly PlayerProgress _progress;
     private readonly PlayerData _data;
 
@@ -13,13 +14,14 @@ public class GameOverService : IGameOverService
     public event Action Continue;
 
     public GameOverService(IGameplaySoundContainer soundContainer, IAmbientSoundContainer ambientContainer, ISavable saver, 
-        PlayerProgress playerProgress, PlayerData data)
+        PlayerProgress playerProgress, PlayerData data, ILeaderBoard leaderBoard)
     {
         _soundContainer = soundContainer;
         _ambientContainer = ambientContainer;
         _saver = saver;
         _progress = playerProgress;
         _data = data;
+        _leaderBoard = leaderBoard;
     }
 
     public void Win()
@@ -27,6 +29,7 @@ public class GameOverService : IGameOverService
         _ambientContainer.Stop();
         _soundContainer.Play(SoundsName.Win);
         AddLevel();
+        SetLeaderBoardScore();
         _saver.Save();
         Won?.Invoke();
     }
@@ -44,6 +47,7 @@ public class GameOverService : IGameOverService
         _ambientContainer.Stop();
         _soundContainer.Play(SoundsName.Lose);
         TryResetHardcore();
+        SetLeaderBoardScore();
         _saver.Save();
         Lost?.Invoke();
     }
@@ -62,5 +66,13 @@ public class GameOverService : IGameOverService
             _data.HardcoreHealth = 1;
             _data.HardcoreEnergy = 1;
         }
+    }
+
+    private void SetLeaderBoardScore()
+    {
+        if (_progress.IsHardcoreMode)
+            _leaderBoard.TrySetHardcoreScore(_progress.CurrentHardcoreLevel);
+        else
+            _leaderBoard.SetCompletedLevels(_progress.CurrentLevel);
     }
 }

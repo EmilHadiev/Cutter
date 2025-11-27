@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 1311937901338653192}
   - component: {fileID: 4265698327223822565}
   - component: {fileID: 2027390812623512973}
+  - component: {fileID: 2156360811834006293}
   m_Layer: 0
   m_Name: Map10
   m_TagString: Untagged
@@ -175,6 +176,18 @@ MonoBehaviour:
   _obstacleColors: {fileID: 4265698327223822565}
   BackgroundColor: {r: 0.45490196, g: 0.8627451, b: 1, a: 1}
   Spline: {fileID: 2401363096881567931}
+--- !u!114 &2156360811834006293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5106656619416098771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2349fbae1aa326e46867756485bf1b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8336027395301156945
 GameObject:
   m_ObjectHideFlags: 0
