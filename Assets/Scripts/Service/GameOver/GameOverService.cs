@@ -71,7 +71,7 @@ public class GameOverService : IGameOverService
     private void SetLeaderBoardScore()
     {
         if (_progress.IsHardcoreMode)
-            _leaderBoard.TrySetHardcoreScore(_progress.CurrentHardcoreLevel);
+            _leaderBoard.SetHardcoreScore(_progress.CurrentHardcoreLevel);
         else
             _leaderBoard.SetCompletedLevels(_progress.CurrentLevel);
     }

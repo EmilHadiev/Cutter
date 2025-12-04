@@ -156,6 +156,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Helmet
       objectReference: {fileID: 0}
+    - target: {fileID: 8113610598721230932, guid: 03ab6166448897347b922741cf168cea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
