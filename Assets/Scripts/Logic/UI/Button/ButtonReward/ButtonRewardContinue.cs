@@ -27,4 +27,9 @@ public class ButtonRewardContinue : ButtonReward
     }
 
     private int GetRewardCoins() => _rewardService.StandartReward / RewardReducer;
+
+    protected override void SendMetric()
+    {
+        MetricService.SendMetric(MetricsName.ButtonReward, nameof(ButtonRewardContinue), nameof(ButtonRewardContinue));
+    }
 }

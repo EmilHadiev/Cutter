@@ -45,7 +45,8 @@ public class Sword : MonoBehaviour
     }
 
     [Inject]
-    private void Constructor(IMousePosition cutView, IFactory factory, ICutMouseBehaviour cutMouseBehaviour, PlayerData data)
+    private void Constructor(IMousePosition cutView, IFactory factory, 
+        ICutMouseBehaviour cutMouseBehaviour, PlayerData data)
     {
         _factory = factory;
         _mousePosition = cutView;

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -19,6 +18,12 @@ public class GlobalServiceInstaller : MonoInstaller
         BindCoinStorage();
         BindGameReadyService();
         BindLeaderBoardService();
+        BindMetricService();
+    }
+
+    private void BindMetricService()
+    {
+        Container.BindInterfacesAndSelfTo<MetricService>().AsSingle();
     }
 
     private void BindLeaderBoardService()

@@ -22,4 +22,9 @@ public class ButtonRewardCoins : ButtonReward
     }
 
     protected override void SetReward() => _coinsStorage.AddCoins(_coinsCalculator.CoinsReward);
+
+    protected override void SendMetric()
+    {
+        MetricService.SendMetric(MetricsName.ButtonReward, nameof(ButtonRewardCoins), nameof(ButtonRewardCoins));
+    }
 }

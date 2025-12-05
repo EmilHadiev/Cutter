@@ -7,7 +7,9 @@ public abstract class ButtonReward : MonoBehaviour
 {
     [SerializeField] private Button _button;
 
-    protected IAdvService AdvService;   
+    protected IAdvService AdvService;
+    protected IMetricService MetricService;
+
     private IUISoundContainer _sound;
 
     private void OnValidate() => _button ??= GetComponent<Button>();
@@ -17,15 +19,18 @@ public abstract class ButtonReward : MonoBehaviour
     private void OnDisable() => _button.onClick.RemoveListener(AddReward);
 
     [Inject]
-    private void Constructor(IAdvService adv, ICoinsStorage coinsStorage, IUISoundContainer sounds)
+    private void Constructor(IAdvService adv, ICoinsStorage coinsStorage, 
+        IUISoundContainer sounds, IMetricService metric)
     {
         AdvService = adv;
+        MetricService = metric;
         _sound = sounds;
     }
 
     private void ProcessReward()
     {
         SetReward();
+        SendMetric();
 
         _sound.Stop();
         _sound.Play(SoundsName.AddRewardCoins);
@@ -37,4 +42,5 @@ public abstract class ButtonReward : MonoBehaviour
     }
 
     protected abstract void SetReward();
+    protected abstract void SendMetric();
 }

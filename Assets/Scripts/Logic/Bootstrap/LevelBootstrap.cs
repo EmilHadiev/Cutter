@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -13,18 +14,23 @@ public class LevelBootstrap : MonoBehaviour
     [SerializeField] private TMP_Text _currentLevelText;
 
     private PlayerProgress _progress;
+    private IMetricService _metric;
+    private PlayerData _data;
 
     private void Awake()
     {
         CreateMap();
         BuildNavMesh();
         SetCurrentLevelText();
+        SendMetric();
     }
 
     [Inject]
-    private void Constructor(PlayerProgress playerProgress)
+    private void Constructor(PlayerProgress playerProgress, IMetricService metricService, PlayerData data)
     {
         _progress = playerProgress;
+        _metric = metricService;
+        _data = data;
     }
 
     private void SetCurrentLevelText()
@@ -62,5 +68,18 @@ public class LevelBootstrap : MonoBehaviour
     private void ChangeBackgroundColor(Color color)
     {
         _camera.backgroundColor = color;
+    }
+
+    private void SendMetric()
+    {
+        _metric.SendMetric(MetricsName.LoadGame);
+
+        Dictionary<string, string> data = new Dictionary<string, string>(2)
+        {
+            { MetricsName.ParticleSelect, _data.Particle.ToString() },
+            { MetricsName.SwordSelect, _data.Sword.ToString() }
+        };
+
+        _metric.SendMetric(MetricsName.Views, data);
     }
 }

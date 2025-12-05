@@ -10,15 +10,16 @@ public class Beginner : MonoBehaviour
     private IUIStateMachine _uiStateMachine;
     private IAdvService _adv;
     private IGameReadyService _gameReadyService;
+    private IMetricService _metricService;
 
     private void OnEnable()
     {
-        _button.onClick.AddListener(Clicked);
+        _button.onClick.AddListener(StartGame);
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(Clicked);
+        _button.onClick.RemoveListener(StartGame);
     }
 
     private void Start()
@@ -27,17 +28,19 @@ public class Beginner : MonoBehaviour
     }
 
     [Inject]
-    private void Constructor(IUIStateMachine uiStateMachine, IAdvService advService, IGameReadyService gameReadyService)
+    private void Constructor(IUIStateMachine uiStateMachine, IAdvService advService, IGameReadyService gameReadyService, IMetricService metricService)
     {
         _uiStateMachine = uiStateMachine;
         _adv = advService;
         _gameReadyService = gameReadyService;
+        _metricService = metricService;
     }
 
-    private void Clicked()
+    private void StartGame()
     {
         _uiStateMachine.Switch<GameplayStateUI>();
         _adv.StickyBannerToggle(false);
         _gameReadyService.StartGameplay();
+        _metricService.SendMetric(MetricsName.StartGame);
     }
 }
