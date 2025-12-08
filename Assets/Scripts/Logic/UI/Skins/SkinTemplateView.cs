@@ -14,10 +14,8 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
     private GameObject _prefab;
     private SwordSkinViewer _skinViewer;
 
-    private bool _isHardcoreComplete;
-
     public bool IsLock => _data.IsPurchased;
-    public bool IsSpecialReward => _data.IsSpecialReward && _isHardcoreComplete;
+    public bool IsSpecialReward { get; private set; }
 
     public void Init(SkinData data, GameObject prefab, SwordSkinViewer swordSkinViewer, bool isHardcoreComplete)
     {
@@ -26,9 +24,12 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
         _skinViewer = swordSkinViewer;
         SetPrefabView();
 
-        _isHardcoreComplete = isHardcoreComplete;
+        if (isHardcoreComplete)
+            IsSpecialReward = false;
+        else
+            IsSpecialReward = _data.IsSpecialReward;
 
-        if (IsSpecialReward && _isHardcoreComplete == false)
+        if (IsSpecialReward)
             _hardcoreImage.enabled = true;
 
         if (IsLock)

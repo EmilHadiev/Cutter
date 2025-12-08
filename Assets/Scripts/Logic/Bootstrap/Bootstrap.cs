@@ -3,6 +3,8 @@ using Zenject;
 
 public class Bootstrap : MonoBehaviour
 {
+    [SerializeField] private bool _isReset;
+
     private ISavable _saver;
     private ISceneLoader _sceneLoader;
 
@@ -15,7 +17,9 @@ public class Bootstrap : MonoBehaviour
 
     private void Start()
     {
-        //ResetAll();
+        if (_isReset)
+            ResetAll();
+
         LoadData();
         SwitchScene();
     }

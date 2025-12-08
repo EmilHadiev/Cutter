@@ -10,7 +10,7 @@ public class PlayerProgress : ScriptableObject
 
     [SerializeField] public int RewardCount = 100;
 
-    public bool IsHardcoreComplete => CurrentHardcoreLevel >= RewardCount;
+    public bool IsHardcoreComplete => CurrentHardcoreLevel > RewardCount;
 
     public bool IsHardcoreMode => IsHardcoreActivate && IsHardcoreOpen;
 }

@@ -15,9 +15,12 @@ MonoBehaviour:
   <NumberEnemiesCut>k__BackingField: 1
   <NumberCutObstacles>k__BackingField: 3
   <Health>k__BackingField: 1
+  <HardcoreHealth>k__BackingField: 1
+  <MaxHealth>k__BackingField: 5
   <Energy>k__BackingField: 2
+  <HardcoreEnergy>k__BackingField: 2
   <Speed>k__BackingField: 0.1
   <RotationSpeed>k__BackingField: 5
   <AttackDistance>k__BackingField: 10
   <Sword>k__BackingField: 0
-  <Particle>k__BackingField: 0
+  <Particle>k__BackingField: 5
