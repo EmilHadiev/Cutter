@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -24,7 +25,8 @@ public class Beginner : MonoBehaviour
 
     private void Start()
     {
-        _gameReadyService.StartGame();
+        ActivateGRA();
+        PlayAnimation();
     }
 
     [Inject]
@@ -43,4 +45,14 @@ public class Beginner : MonoBehaviour
         _gameReadyService.StartGameplay();
         _metricService.SendMetric(MetricsName.StartGame);
     }
+
+    private void ActivateGRA() => _gameReadyService.StartGame();
+    
+    private void PlayAnimation()
+    {
+        float scaleMultiplier = 1.25f;
+        int duration = 1;
+
+        transform.DOScale(transform.localScale * scaleMultiplier, duration).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+    } 
 }

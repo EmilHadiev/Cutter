@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyParryView
 {
-    private const float AttackSpeed = 0.2f;
+    private const float AttackSpeed = 0.15f;
 
     private readonly IGameplaySoundContainer _soundContainer;
     private readonly IEnemyAnimator _animator;
