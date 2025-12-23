@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CurrentLevel>k__BackingField: 0
   <CurrentHardcoreLevel>k__BackingField: 0
-  <IsHardcoreOpen>k__BackingField: 0
+  <IsHardcoreOpen>k__BackingField: 1
   <IsHardcoreActivate>k__BackingField: 0
   RewardCount: 99
