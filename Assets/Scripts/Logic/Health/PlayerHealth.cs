@@ -6,10 +6,11 @@ using Zenject;
 public class PlayerHealth : MonoBehaviour, IHealth
 {
     [SerializeField] private ParticleView _healthView;
+    [SerializeField] private Vector3 _cameraPosition;
 
     private IGameOverService _gameOverService;
-    private Camera _camera;
     private IGameplaySoundContainer _soundContainer;
+    private PlayerView _playerView;
 
     private int _currentHealth;
     private int _maxHealth;
@@ -17,11 +18,16 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public event Action Died;
     public event Action<int> HealthChanged;
 
-    private void OnEnable()
+    private void Awake()
     {
-        _camera = Camera.main;
+        _playerView = new PlayerView(Camera.main, _healthView);
+    }
+
+    private void OnEnable()
+    {        
         _healthView.Stop();
-        SetParentToElement(transform);
+        _playerView.SetParent(transform);
+        _playerView.SetCameraPosition(_cameraPosition);
     }
 
     private void Start()
@@ -92,14 +98,8 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public void Kill()
     {
         Died?.Invoke();
-        SetParentToElement(null);
+        _playerView.SetParent(null);
         _gameOverService.Lose();
         gameObject.SetActive(false);
-    }
-
-    private void SetParentToElement(Transform parent)
-    {
-        _camera.transform.parent = parent;
-        _healthView.transform.parent = parent;
     }
 }
