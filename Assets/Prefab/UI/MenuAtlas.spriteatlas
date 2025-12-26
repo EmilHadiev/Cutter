@@ -52,6 +52,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: c717dbc6dd2a84c4ba6e7816e6501404, type: 3}
     - {fileID: 2800000, guid: 23951eb3d42e1624b85529ccbd616cca, type: 3}
     - {fileID: 2800000, guid: 1b6a94532d9d89f428c5f2b448fd6f57, type: 3}
+    - {fileID: 2800000, guid: 91be63c9ae736424f839891250b071e5, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -62,6 +63,7 @@ SpriteAtlas:
     - 693fa286a3cbeee4bb0c420531e442a2: -5177388603050735206
     - c717dbc6dd2a84c4ba6e7816e6501404: 21300000
     - e2d098991b120a04cb170465b26269fa: 21300000
+    - 91be63c9ae736424f839891250b071e5: 21300000
     - f6583bce989b9534884b1eac33f3f92f: 21300002
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -71,6 +73,7 @@ SpriteAtlas:
   - {fileID: -5177388603050735206, guid: 693fa286a3cbeee4bb0c420531e442a2, type: 3}
   - {fileID: 21300000, guid: c717dbc6dd2a84c4ba6e7816e6501404, type: 3}
   - {fileID: 21300000, guid: e2d098991b120a04cb170465b26269fa, type: 3}
+  - {fileID: 21300000, guid: 91be63c9ae736424f839891250b071e5, type: 3}
   - {fileID: 21300002, guid: f6583bce989b9534884b1eac33f3f92f, type: 3}
   m_PackedSpriteNamesToIndex:
   - swordsButton
@@ -79,6 +82,7 @@ SpriteAtlas:
   - 9-Sliced
   - Eye Off
   - Video
+  - Radial Outline 512px - 4x
   - Close
   m_RenderDataMap: {}
   m_Tag: MenuAtlas

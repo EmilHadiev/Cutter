@@ -6,13 +6,8 @@ using Zenject;
 
 public class RewardAdder : MonoBehaviour
 {
-    [SerializeField] private Slider _slider;
+    [SerializeField] private Image _circle;
     [SerializeField] private Transform _container;
-
-    private void OnValidate()
-    {
-        _slider ??= GetComponentInChildren<Slider>();
-    }
 
     private IFactory _factory;
     private PlayerProgress _progress;

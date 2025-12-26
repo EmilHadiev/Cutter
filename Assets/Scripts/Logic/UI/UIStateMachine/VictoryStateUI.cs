@@ -5,6 +5,7 @@ using Zenject;
 public class VictoryStateUI : UiState
 {
     [SerializeField] private TMP_Text _rewardText;
+    [SerializeField] private RewardAdder _rewardAdder;
 
     [Inject]
     private readonly IRewardService _rewardService;
@@ -14,5 +15,6 @@ public class VictoryStateUI : UiState
         base.Show();
         _rewardService.GiveReward();
         _rewardText.text = $"{_rewardService.StandartReward} + {_rewardService.AdditionalReward}";
+        _rewardAdder.TryShow();
     }
 }
