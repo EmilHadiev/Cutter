@@ -16,6 +16,6 @@ MonoBehaviour:
   <IsPurchased>k__BackingField: 0
   <ViewPosition>k__BackingField: {x: 0, y: 0, z: -30}
   <ViewRotation>k__BackingField: {x: 0, y: 0, z: 0}
-  <ViewScale>k__BackingField: 75
+  <ViewScale>k__BackingField: 93.75
   <IsSpecialReward>k__BackingField: 0
   <Particle>k__BackingField: 1
