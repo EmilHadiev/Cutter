@@ -29,7 +29,6 @@ public class Sword : MonoBehaviour
 
         _cutMouseBehaviour.CutStarted += OnCutStarted;
         _cutMouseBehaviour.CutEnded += OnCutEnded;
-        _gameOver.Lost += HideAfterEndGame;
         _gameOver.Won += HideAfterEndGame;
     }
 
@@ -37,7 +36,6 @@ public class Sword : MonoBehaviour
     {
         _cutMouseBehaviour.CutStarted -= OnCutStarted;
         _cutMouseBehaviour.CutEnded -= OnCutEnded;
-        _gameOver.Lost -= HideAfterEndGame;
         _gameOver.Won -= HideAfterEndGame;
     }
 

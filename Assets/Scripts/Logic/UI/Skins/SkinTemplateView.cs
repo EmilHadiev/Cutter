@@ -38,11 +38,16 @@ public abstract class SkinTemplateView : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        ShowView();
+    }
+
+    public void ShowView()
+    {
         if (_data.IsPurchased)
         {
             ShowPrefab(_skinViewer, _prefab, _data);
             PerformEvent(_data);
-        }    
+        }
     }
 
     public void Unlock()

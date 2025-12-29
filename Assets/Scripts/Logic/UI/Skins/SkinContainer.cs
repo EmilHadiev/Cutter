@@ -88,6 +88,8 @@ public class SkinContainer : MonoBehaviour
             view.Init(data, prefab, _skinView, _progress.IsHardcoreComplete);
             _swordsView.Add(view);
             _skins.Add(view);
+
+            ShowSelectedSword(data, view);
         }
     }
 
@@ -102,6 +104,8 @@ public class SkinContainer : MonoBehaviour
             view.Init(data, prefab, _skinView, _progress.IsHardcoreComplete);
             _particlesView.Add(view);
             _skins.Add(view);
+
+            ShowSelectedParticle(data, view);
         }
     }
 
@@ -113,5 +117,17 @@ public class SkinContainer : MonoBehaviour
     private void SetParticleToPlayer(ParticleData particleData)
     {
         _playerData.Particle = particleData.Particle;
+    }
+
+    private void ShowSelectedSword(SwordData sword, SkinTemplateView swordSkin)
+    {
+        if (_playerData.Sword == sword.Sword)
+            swordSkin.ShowView();
+    }
+
+    private void ShowSelectedParticle(ParticleData particle, SkinTemplateView particleTemplate)
+    {
+        if (_playerData.Particle == particle.Particle)
+            particleTemplate.ShowView();
     }
 }
