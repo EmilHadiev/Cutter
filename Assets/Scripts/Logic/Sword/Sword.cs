@@ -16,6 +16,7 @@ public class Sword : MonoBehaviour
     private SwordAnimation _swordAnimation;
     private IFactory _factory;
     private PlayerData _playerData;
+    private IGameOverService _gameOver;
 
     private Vector3 _startPosition;
     private Vector3 _endPosition;
@@ -28,12 +29,16 @@ public class Sword : MonoBehaviour
 
         _cutMouseBehaviour.CutStarted += OnCutStarted;
         _cutMouseBehaviour.CutEnded += OnCutEnded;
+        _gameOver.Lost += HideAfterEndGame;
+        _gameOver.Won += HideAfterEndGame;
     }
 
     private void OnDestroy()
     {
         _cutMouseBehaviour.CutStarted -= OnCutStarted;
         _cutMouseBehaviour.CutEnded -= OnCutEnded;
+        _gameOver.Lost -= HideAfterEndGame;
+        _gameOver.Won -= HideAfterEndGame;
     }
 
     private void Update()
@@ -45,9 +50,10 @@ public class Sword : MonoBehaviour
     }
 
     [Inject]
-    private void Constructor(IMousePosition cutView, IFactory factory, 
+    private void Constructor(IMousePosition cutView, IFactory factory, IGameOverService gameOverService,
         ICutMouseBehaviour cutMouseBehaviour, PlayerData data)
     {
+        _gameOver = gameOverService;
         _factory = factory;
         _mousePosition = cutView;
         _cutMouseBehaviour = cutMouseBehaviour;
@@ -114,4 +120,6 @@ public class Sword : MonoBehaviour
         _swordAnimation.Stop(_swordView.Deactivate);
         _isCutting = false;
     }
+
+    private void HideAfterEndGame() => gameObject.SetActive(false);
 }

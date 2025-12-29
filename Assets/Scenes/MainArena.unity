@@ -1665,7 +1665,7 @@ GameObject:
   - component: {fileID: 392869621}
   - component: {fileID: 392869624}
   m_Layer: 5
-  m_Name: TakeRewardButton
+  m_Name: OpenRewardButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7661,6 +7661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc60c1e68e0cd74ab5ba6b661b57a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _openReward: {fileID: 392869621}
   _circle: {fileID: 440894569}
   _container: {fileID: 1577268373}
 --- !u!114 &1891459100

@@ -2,7 +2,6 @@
 using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RewardViewCreator
 {
@@ -12,6 +11,8 @@ public class RewardViewCreator
     private readonly Transform _container;
 
     private const string UI = "UI";
+
+    public IPurchasable Skin { get; private set; }
 
     public RewardViewCreator(IFactory factory, Transform container, ParticleData[] particleData, SwordData[] swordData)
     {
@@ -61,10 +62,16 @@ public class RewardViewCreator
         string level = currentLevel.ToString();
         int firstSymb = (int)level[0];
 
+        SkinData skin = null;
+
         if (firstSymb % 2 == 0)
-            return GetSkin(_particles);
+            skin = GetSkin(_particles);
         else
-            return GetSkin(_swords);
+            skin = GetSkin(_swords);
+
+        Skin = skin;
+
+        return skin;
     }
 
     private SkinData GetSkin(SkinData[] skins)

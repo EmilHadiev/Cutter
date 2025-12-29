@@ -16,11 +16,6 @@ public class RewardSpawnPosition : MonoBehaviour
         CreateAndPlayParticleView().Forget();
     }
 
-    public void SetReward(SkinData skin)
-    {
-        
-    }
-
     private async UniTask CreateAndPlayParticleView()
     {
         var prefab = await _factory.CreateAsync(AssetProvider.Particles.LightParticle.ToString());

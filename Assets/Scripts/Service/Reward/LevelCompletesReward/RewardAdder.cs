@@ -6,18 +6,24 @@ using Zenject;
 
 public class RewardAdder : MonoBehaviour
 {
+    [SerializeField] private Button _openReward;
     [SerializeField] private Image _circle;
     [SerializeField] private Transform _container;
 
     private IFactory _factory;
     private PlayerProgress _progress;
     private RewardViewCreator _viewCreator;
+    private RewardUnlocker _rewardUnlocker;
 
     private IEnumerable<ParticleData> _particles;
     private IEnumerable<SwordData> _swords;
 
+    private void OnEnable() => _openReward.onClick.AddListener(OpenReward);
+    private void OnDisable() => _openReward.onClick.RemoveListener(OpenReward);
+
     [Inject]
-    private void Constructor(IFactory factory, PlayerProgress playerProgress, IEnumerable<ParticleData> particles, IEnumerable<SwordData> sowrds)
+    private void Constructor(IFactory factory, PlayerProgress playerProgress, IAdvService advService, 
+        IUISoundContainer uiSound, IEnumerable<ParticleData> particles, IEnumerable<SwordData> sowrds)
     {
         _factory = factory;
         _progress = playerProgress;
@@ -25,18 +31,29 @@ public class RewardAdder : MonoBehaviour
         _swords = sowrds;
 
         _viewCreator = new RewardViewCreator(_factory, _container, _particles.ToArray(), _swords.ToArray());
+        _rewardUnlocker = new RewardUnlocker(advService, uiSound);
     }
 
     public void TryShow()
     {
-        if (_progress.IsHardcoreMode)
-            gameObject.SetActive(false);
-
-        if (_viewCreator.TryShowReward(_progress.CurrentLevel) == false)
-            gameObject.SetActive(false);
+        if (_viewCreator.TryShowReward(_progress.CurrentLevel))
+        {
+            EnableToggle(true);
+            ShowRewardStep();
+            TryShowOpenRewardButton();
+        }
+        else
+        {
+            EnableToggle(false);
+        }
     }
 
     private void ShowRewardStep()
+    {
+
+    }
+
+    private void TryShowOpenRewardButton()
     {
 
     }
@@ -57,5 +74,13 @@ public class RewardAdder : MonoBehaviour
         // Расчет процента
         float percentage = (float)levelsSinceLastReward / levelsPerReward * 100f;
         return percentage;
+    }
+
+    private void EnableToggle(bool isOn) => gameObject.SetActive(isOn); 
+
+    private void OpenReward()
+    {
+        _rewardUnlocker.TryUnlock(_viewCreator.Skin);
+        EnableToggle(false);
     }
 }
