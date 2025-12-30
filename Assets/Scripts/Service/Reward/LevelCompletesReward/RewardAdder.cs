@@ -29,7 +29,7 @@ public class RewardAdder : MonoBehaviour
 
     [Inject]
     private void Constructor(IFactory factory, PlayerProgress playerProgress, IAdvService advService, 
-        IUISoundContainer uiSound, IEnumerable<ParticleData> particles, IEnumerable<SwordData> sowrds)
+        IUISoundContainer uiSound, IEnumerable<ParticleData> particles, IEnumerable<SwordData> sowrds, PlayerData playerData)
     {
         _factory = factory;
         _progress = playerProgress;
@@ -37,7 +37,7 @@ public class RewardAdder : MonoBehaviour
         _swords = sowrds;
 
         _rewardCalculator = new RewardCalculator(playerProgress);
-        _viewCreator = new RewardViewCreator(_factory, _container, _particles.ToArray(), _swords.ToArray(), _spawnPosition);
+        _viewCreator = new RewardViewCreator(_factory, _container, _particles.ToArray(), _swords.ToArray(), _spawnPosition, playerData);
         _rewardUnlocker = new RewardUnlocker(advService, uiSound);
     }
 

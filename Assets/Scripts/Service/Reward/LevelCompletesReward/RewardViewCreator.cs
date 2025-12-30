@@ -11,13 +11,14 @@ public class RewardViewCreator
     private readonly Transform _container;
     private readonly RewardParticleViewChanger _particleViewChanger;
     private readonly ILightOffable _lightOffable;
+    private readonly PlayerData _playerData;
 
     private const string UI = "UI";
 
     public IPurchasable Skin { get; private set; }
 
     public RewardViewCreator(IFactory factory, Transform container, 
-        ParticleData[] particleData, SwordData[] swordData, ILightOffable lightOffable)
+        ParticleData[] particleData, SwordData[] swordData, ILightOffable lightOffable, PlayerData playerData)
     {
         _factory = factory;
         _particles = particleData;
@@ -25,6 +26,7 @@ public class RewardViewCreator
         _container = container;
         _particleViewChanger = new RewardParticleViewChanger();
         _lightOffable = lightOffable;
+        _playerData = playerData;
     }
 
     public bool TryShowReward(int currentLevel)
@@ -41,7 +43,7 @@ public class RewardViewCreator
 
     private async UniTask CreateView(SkinData skinData)
     {
-        string skinName = GetSkinName(skinData);
+        string skinName = GetSkinNameAndSetSkinName(skinData);
         GameObject prefab = await _factory.CreateAsync(skinName);
 
         prefab.transform.parent = _container;
@@ -58,12 +60,18 @@ public class RewardViewCreator
         LayerChanger.SetLayerRecursively(prefab, LayerMask.NameToLayer(UI));
     }
 
-    private string GetSkinName(SkinData skin)
+    private string GetSkinNameAndSetSkinName(SkinData skin)
     {
         if (skin is SwordData sword)
+        {
+            _playerData.Sword = sword.Sword;
             return sword.Sword.ToString();
+        }            
         else if (skin is ParticleData particle)
+        {
+            _playerData.Particle = particle.Particle;
             return particle.Particle.ToString();
+        }
 
         throw new ArgumentException(nameof(skin));
     }

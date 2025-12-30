@@ -29,6 +29,14 @@ public class RewardSpawnPosition : MonoBehaviour, ILightOffable
 
     public void OffLight()
     {
+        TryOffLight().Forget();
+    }
+
+    private async UniTask TryOffLight()
+    {
+        while (_view == null)
+            await UniTask.Delay(10);
+
         _view.Stop();
     }
 }
