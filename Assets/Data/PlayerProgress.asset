@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0b41e462c024a4d86385b92f68811a, type: 3}
   m_Name: PlayerProgress
   m_EditorClassIdentifier: 
-  <CurrentLevel>k__BackingField: 18
+  <CurrentLevel>k__BackingField: 0
   <CurrentHardcoreLevel>k__BackingField: 0
-  <IsHardcoreOpen>k__BackingField: 1
+  <IsHardcoreOpen>k__BackingField: 0
   <IsHardcoreActivate>k__BackingField: 0
   RewardCount: 99

@@ -18,14 +18,11 @@ public class SwordView
         CreateParticle().Forget();        
     }
 
-    public void Show() => _particle.Play();
-    public void Deactivate() => _particle.Stop();
-
     private async UniTaskVoid CreateParticle()
     {
         var prefab = await _factory.CreateAsync(_playerData.Particle.ToString(), default, default, _particlePosition);
         _particle = prefab.GetComponent<ParticleView>();
-        _particle.Stop();
+        _particle.Play();
         _particle.transform.position = _particlePosition.position;
 
         LayerChanger.SetLayerRecursively(_particle.gameObject, LayerMask.NameToLayer(CustomMasks.Player));

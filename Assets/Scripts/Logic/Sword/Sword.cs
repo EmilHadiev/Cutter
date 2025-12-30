@@ -87,7 +87,6 @@ public class Sword : MonoBehaviour
     private void OnCutStarted()
     {
         _startPosition = _mousePosition.GetMousePosition();
-        _swordView.Show();
     }
 
     private void OnCutEnded()
@@ -115,7 +114,7 @@ public class Sword : MonoBehaviour
 
     private void EndCut()
     {
-        _swordAnimation.Stop(_swordView.Deactivate);
+        _swordAnimation.Stop();
         _isCutting = false;
     }
 

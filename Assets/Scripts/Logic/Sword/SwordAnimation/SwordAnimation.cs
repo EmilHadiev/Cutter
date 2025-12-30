@@ -42,10 +42,9 @@ public class SwordAnimation
         cutSequence.OnComplete(() => onComplete?.Invoke());
     }
 
-    public void Stop(Action deactivate)
+    public void Stop()
     {
         _transform.position = SwordPosition;
-        deactivate?.Invoke();
         _transform.rotation = Quaternion.LookRotation(_transform.forward);
     }
 }
