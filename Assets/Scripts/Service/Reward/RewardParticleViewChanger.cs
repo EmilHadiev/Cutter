@@ -1,30 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.Collections.LowLevel.Unsafe;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RewardParticleViewChanger
 {
     public void Change(string skinName, GameObject prefab)
     {
         if (skinName == AssetProvider.Particles.ElectricParticle.ToString())
-            SetElectricParticleOptions(prefab);
+        {
+            ChangeParticleColor(prefab, Color.white);
+            MultiplyScale(prefab, 0.1f);
+        }
+
+        if (skinName == AssetProvider.Particles.FireParticle.ToString())
+            MultiplyScale(prefab, 3);
+
+        if (skinName == AssetProvider.Particles.IceParticle.ToString())
+        {
+            MultiplyScale(prefab, 3);
+            ChangeParticleColor(prefab, Color.white);
+        }
+
+        if (skinName == AssetProvider.Particles.LightParticle.ToString())
+            MultiplyScale(prefab, 10);
+
+        if (skinName == AssetProvider.Particles.SoulsParticle.ToString())
+            MultiplyScale(prefab, 5);
     }
 
-    private void SetElectricParticleOptions(GameObject prefab)
+    private void MultiplyScale(GameObject prefab, float scale)
     {
-        float scale = 0.1f;
-        prefab.transform.localScale = GetNewScale(scale);
+        prefab.transform.localScale *= scale;
+    }
 
+    private void ChangeParticleColor(GameObject prefab, Color color)
+    {
         if (prefab.TryGetComponent(out ParticleSystem system))
         {
             var main = system.main;
-            main.startColor = Color.white;
+            main.startColor = color;
         }
     }
-
-    private Vector3 GetNewScale(float scale) => new Vector3(scale, scale, scale);
 }
