@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -9,11 +10,15 @@ public class RewardAdder : MonoBehaviour
     [SerializeField] private Button _openReward;
     [SerializeField] private Image _circle;
     [SerializeField] private Transform _container;
+    [SerializeField] private TMP_Text _percentText;
+
+    private const int MaxRewardPercent = 1;
 
     private IFactory _factory;
     private PlayerProgress _progress;
     private RewardViewCreator _viewCreator;
     private RewardUnlocker _rewardUnlocker;
+    private RewardCalculator _rewardCalculator;
 
     private IEnumerable<ParticleData> _particles;
     private IEnumerable<SwordData> _swords;
@@ -30,6 +35,7 @@ public class RewardAdder : MonoBehaviour
         _particles = particles;
         _swords = sowrds;
 
+        _rewardCalculator = new RewardCalculator(playerProgress);
         _viewCreator = new RewardViewCreator(_factory, _container, _particles.ToArray(), _swords.ToArray());
         _rewardUnlocker = new RewardUnlocker(advService, uiSound);
     }
@@ -39,8 +45,7 @@ public class RewardAdder : MonoBehaviour
         if (_viewCreator.TryShowReward(_progress.CurrentLevel))
         {
             EnableToggle(true);
-            ShowRewardStep();
-            TryShowOpenRewardButton();
+            ShowRewardView();
         }
         else
         {
@@ -48,35 +53,32 @@ public class RewardAdder : MonoBehaviour
         }
     }
 
-    private void ShowRewardStep()
+    private void ShowRewardStep(float rewardPercnet)
     {
-
+        _circle.fillAmount = rewardPercnet / MaxRewardPercent;
     }
 
-    private void TryShowOpenRewardButton()
+    private void ShowRewardView()
     {
+        float rewardPercent = _rewardCalculator.GetPercent();
 
+        ShowRewardStep(rewardPercent);
+        RewardInfoToggle((int)rewardPercent == MaxRewardPercent);
+        ShowRewardPercentText(rewardPercent);
     }
 
-    public float CalculateProgressPercentage(int levelsPassed, int levelsPerReward)
+    private void EnableToggle(bool isOn) => gameObject.SetActive(isOn);
+    private void RewardInfoToggle(bool isRewardLevel)
     {
-        // ”ровни с момента последней полученной награды
-        int levelsSinceLastReward = levelsPassed % levelsPerReward;
-
-        // ≈сли levelsPassed кратно levelsPerReward, то награда уже получена
-        // и мы показываем прогресс к следующей награде
-        if (levelsSinceLastReward == 0)
-        {
-            // »грок только что получил награду или еще не начал
-            return 0f;
-        }
-
-        // –асчет процента
-        float percentage = (float)levelsSinceLastReward / levelsPerReward * 100f;
-        return percentage;
+        _openReward.gameObject.SetActive(isRewardLevel);
+        _percentText.gameObject.SetActive(!isRewardLevel);
     }
 
-    private void EnableToggle(bool isOn) => gameObject.SetActive(isOn); 
+    private void ShowRewardPercentText(float rewardPecent)
+    {
+        int maxPercent = 100;
+        _percentText.text = $"{rewardPecent * maxPercent}%";
+    }
 
     private void OpenReward()
     {
