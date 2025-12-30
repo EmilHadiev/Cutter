@@ -11,6 +11,7 @@ public class RewardAdder : MonoBehaviour
     [SerializeField] private Image _circle;
     [SerializeField] private Transform _container;
     [SerializeField] private TMP_Text _percentText;
+    [SerializeField] private RewardSpawnPosition _spawnPosition;
 
     private const int MaxRewardPercent = 1;
 
@@ -36,7 +37,7 @@ public class RewardAdder : MonoBehaviour
         _swords = sowrds;
 
         _rewardCalculator = new RewardCalculator(playerProgress);
-        _viewCreator = new RewardViewCreator(_factory, _container, _particles.ToArray(), _swords.ToArray());
+        _viewCreator = new RewardViewCreator(_factory, _container, _particles.ToArray(), _swords.ToArray(), _spawnPosition);
         _rewardUnlocker = new RewardUnlocker(advService, uiSound);
     }
 

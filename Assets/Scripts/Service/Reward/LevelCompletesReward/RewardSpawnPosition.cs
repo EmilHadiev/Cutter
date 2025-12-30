@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
-public class RewardSpawnPosition : MonoBehaviour
+public class RewardSpawnPosition : MonoBehaviour, ILightOffable
 {
     [SerializeField] private Vector3 _particleSpawnPosition;
     [SerializeField] private Vector3 _particleScale;
@@ -25,5 +25,10 @@ public class RewardSpawnPosition : MonoBehaviour
 
         _view = prefab.GetComponent<ParticleView>();
         _view.Play();
+    }
+
+    public void OffLight()
+    {
+        _view.Stop();
     }
 }

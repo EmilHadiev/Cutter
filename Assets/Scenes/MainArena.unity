@@ -7666,6 +7666,7 @@ MonoBehaviour:
   _circle: {fileID: 440894569}
   _container: {fileID: 1577268373}
   _percentText: {fileID: 1941554954}
+  _spawnPosition: {fileID: 1577268374}
 --- !u!114 &1891459100
 MonoBehaviour:
   m_ObjectHideFlags: 0
