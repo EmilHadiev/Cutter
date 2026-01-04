@@ -9,11 +9,12 @@
         _uiSound = uiSound;
     }
 
-    public void TryUnlock(IPurchasable purchasable)
+    public void TryUnlock(IPurchasable purchasable, System.Action SetReward)
     {
         _advService.ShowReward(() =>
         {
             UnlockSkin(purchasable);
+            SetReward?.Invoke();
         });
     }
 

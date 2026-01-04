@@ -15,6 +15,11 @@ public class RewardViewCreator
 
     private const string UI = "UI";
 
+    private AssetProvider.Particles _selectedParticle;
+    private AssetProvider.Swords _selectedSword;
+
+    private bool _isSwordReward;
+
     public IPurchasable Skin { get; private set; }
 
     public RewardViewCreator(IFactory factory, Transform container, 
@@ -41,6 +46,18 @@ public class RewardViewCreator
         return true;
     }
 
+    public void SetSelectedReward()
+    {
+        if (_isSwordReward)
+        {
+            _playerData.Sword = _selectedSword;
+        }
+        else
+        {
+            _playerData.Particle = _selectedParticle;
+        }    
+    }
+
     private async UniTask CreateView(SkinData skinData)
     {
         string skinName = GetSkinNameAndSetSkinName(skinData);
@@ -51,8 +68,11 @@ public class RewardViewCreator
         prefab.transform.localRotation = Quaternion.Euler(skinData.ViewRotation.x, skinData.ViewRotation.y, skinData.ViewRotation.z);
         prefab.transform.localPosition = skinData.ViewPosition;
 
+        _isSwordReward = true;
+
         if (skinData is ParticleData)
         {
+            _isSwordReward = false;
             _particleViewChanger.Change(skinName, prefab);
             _lightOffable.OffLight();
         }
@@ -64,12 +84,12 @@ public class RewardViewCreator
     {
         if (skin is SwordData sword)
         {
-            _playerData.Sword = sword.Sword;
+            _selectedSword = sword.Sword;
             return sword.Sword.ToString();
         }            
         else if (skin is ParticleData particle)
         {
-            _playerData.Particle = particle.Particle;
+            _selectedParticle = particle.Particle;
             return particle.Particle.ToString();
         }
 

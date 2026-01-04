@@ -83,7 +83,8 @@ public class RewardAdder : MonoBehaviour
 
     private void OpenReward()
     {
-        _rewardUnlocker.TryUnlock(_viewCreator.Skin);
+        _rewardUnlocker.TryUnlock(_viewCreator.Skin, _viewCreator.SetSelectedReward);
         EnableToggle(false);
+        
     }
 }
