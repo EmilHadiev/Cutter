@@ -4,8 +4,11 @@ using UnityEngine.UI;
 using Zenject;
 
 [RequireComponent(typeof(Button))]
+[RequireComponent(typeof(ElementResizerYoyo))]
 public class HardcoreActivator : MonoBehaviour
 {
+    [SerializeField] private ElementResizerYoyo _resizer;
+
     [SerializeField] private Button _button;
     [SerializeField] private Image _backgroundImage;
     [SerializeField] private Image _hardcoreImage;
@@ -20,6 +23,7 @@ public class HardcoreActivator : MonoBehaviour
     {
         _button ??= GetComponent<Button>();
         _backgroundImage ??= GetComponent<Image>();
+        _resizer ??= GetComponent<ElementResizerYoyo>();
     }
 
     private void OnEnable()
@@ -45,6 +49,8 @@ public class HardcoreActivator : MonoBehaviour
             ActivateView();
         else
             DeactivateView();
+
+        TryPlayAnimation();
     }
 
     private void TryActivateHardcore()
@@ -73,5 +79,13 @@ public class HardcoreActivator : MonoBehaviour
         _hardcoreImage.gameObject.SetActive(false);
         _hardcoreDescriptionText.gameObject.SetActive(false);
         _backgroundImage.color = _normalColor;
+    }
+
+    private void TryPlayAnimation()
+    {
+        int neededLevel = 10;
+
+        if (_progress.CurrentLevel == neededLevel && _progress.CurrentHardcoreLevel == 0)
+            _resizer.PlayAnimation();
     }
 }

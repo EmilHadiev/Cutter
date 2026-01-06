@@ -1,17 +1,23 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 [RequireComponent(typeof(Button))]
+[RequireComponent(typeof(ElementResizerYoyo))]
 public class Beginner : MonoBehaviour
 {
     [SerializeField] private Button _button;
+    [SerializeField] private ElementResizerYoyo _resizer;
 
     private IUIStateMachine _uiStateMachine;
     private IAdvService _adv;
     private IGameReadyService _gameReadyService;
     private IMetricService _metricService;
+
+    private void OnValidate()
+    {
+        _resizer ??= GetComponent<ElementResizerYoyo>();
+    }
 
     private void OnEnable()
     {
@@ -26,7 +32,7 @@ public class Beginner : MonoBehaviour
     private void Start()
     {
         ActivateGRA();
-        PlayAnimation();
+        _resizer.PlayAnimation();
     }
 
     [Inject]
@@ -47,12 +53,4 @@ public class Beginner : MonoBehaviour
     }
 
     private void ActivateGRA() => _gameReadyService.StartGame();
-    
-    private void PlayAnimation()
-    {
-        float scaleMultiplier = 1.25f;
-        int duration = 1;
-
-        transform.DOScale(transform.localScale * scaleMultiplier, duration).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
-    } 
 }
