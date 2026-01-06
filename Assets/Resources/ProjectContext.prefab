@@ -81,12 +81,12 @@ MonoBehaviour:
   _swords:
   - {fileID: 11400000, guid: 4e0b4b59d8f0d5d40a72e8356a7fa9a4, type: 2}
   - {fileID: 11400000, guid: 5f4491f97d58194478801fdb4734dadf, type: 2}
+  - {fileID: 11400000, guid: 73d1a8df6d592fb45b2ff212e9fe0825, type: 2}
   - {fileID: 11400000, guid: 6b2147825e2275544ac9608fae735e0b, type: 2}
   - {fileID: 11400000, guid: 455ffa3b6d6301a41848edcca0aa16ec, type: 2}
   - {fileID: 11400000, guid: 878538b22ea2e74489112bf0211f10f9, type: 2}
   - {fileID: 11400000, guid: d99d51924e46eae47868a28a02d8fe99, type: 2}
   - {fileID: 11400000, guid: 36a4afb7d275b574ab2e986ab80e7977, type: 2}
-  - {fileID: 11400000, guid: 73d1a8df6d592fb45b2ff212e9fe0825, type: 2}
   _particles:
   - {fileID: 11400000, guid: 7cf851a292993834e9cd8544037ca27f, type: 2}
   - {fileID: 11400000, guid: 170d138f7862bc349b9f2e659a536288, type: 2}
