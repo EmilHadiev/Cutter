@@ -55,6 +55,8 @@ public abstract class SoundContainer : MonoBehaviour
         _source.mute = !_source.mute;
     }
 
+    public bool IsMuted() => _source.mute;
+
     protected void PlayCycle(string soundName)
     {
         if (_clips.TryGetValue(soundName, out AudioClip clip))

@@ -11,6 +11,7 @@ public class SoundToggle : MonoBehaviour
     private IAmbientSoundContainer _ambientSound;
     private IGameplaySoundContainer _gameplaySound;
     private IUISoundContainer _uiSound;
+    private IEnemySoundContainer _enemySound;
 
     private void OnValidate()
     {
@@ -28,13 +29,19 @@ public class SoundToggle : MonoBehaviour
         _button.onClick.RemoveListener(Toggle);
     }
 
+    private void Start()
+    {
+        TryShowMuteImage();
+    }
+
     [Inject]
-    private void Constructor(IAmbientSoundContainer ambientSound, 
+    private void Constructor(IAmbientSoundContainer ambientSound, IEnemySoundContainer enemySound,
         IGameplaySoundContainer gameplaySound, IUISoundContainer uISound)
     {
         _ambientSound = ambientSound;
         _gameplaySound = gameplaySound;
         _uiSound = uISound;
+        _enemySound = enemySound;
     }
 
     private void Toggle()
@@ -42,6 +49,16 @@ public class SoundToggle : MonoBehaviour
         _ambientSound.TryMute();
         _gameplaySound.TryMute();
         _uiSound.TryMute();
-        _muteImage.enabled = !_muteImage.enabled;
+        _enemySound.TryMute();
+
+        TryShowMuteImage();
+    }
+
+    private void TryShowMuteImage()
+    {
+        if (_enemySound.IsMuted())
+            _muteImage.enabled = true;
+        else
+            _muteImage.enabled = false;
     }
 }

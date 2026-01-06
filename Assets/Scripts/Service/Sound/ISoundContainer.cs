@@ -4,4 +4,6 @@ public interface ISoundContainer
     void PlayWhenFree(string soundName);
     void Stop();
     void TryMute();
+
+    bool IsMuted();
 }
